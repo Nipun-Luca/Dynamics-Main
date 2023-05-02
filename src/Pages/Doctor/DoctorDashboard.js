@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 import Header from './DrComponents/DrHeader';
 import DoctorFullName from './DrComponents/DoctorFullName';
-import LogoutButton from './DrComponents/LogoutButton';
+//import LogoutButton from './DrComponents/LogoutButton';
 import Footer from '../../Components/Footer';
 //import Footer from './../Doctor/DrComponents/DrFooter';
 // import Home from './DrComponents/Home';
@@ -22,7 +22,7 @@ function DoctorDashboard() {
       <div>
         <Header/>
         < Main>
-        <LogoutButton />
+        {/* <LogoutButton /> */}
 
         <H1>Doctor Dashboard</H1>
         

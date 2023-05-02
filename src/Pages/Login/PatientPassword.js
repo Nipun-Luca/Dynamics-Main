@@ -32,7 +32,7 @@ const LoginPage = () => {
 
     $.ajax({
       type: "POST",
-      url: "http://localhost:8000/patientPasswordCheck.php",
+      url: "http://localhost:8001/patientPasswordCheck.php",
       data: { 
         password: formValues.password,
         emailAddress: emailAddress,
