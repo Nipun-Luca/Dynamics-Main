@@ -6,6 +6,8 @@ import Footer from '../../../Components/Footer';
 
 function PatientDashboard() {
   //PATIENT NHS NUMBER
+  //pass: hellohello
+  //email: adriaRos@gmail.com
   const location = useLocation();
   const nhsNumber = location.state?.nhsNumber;
 
