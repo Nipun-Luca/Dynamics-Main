@@ -23,20 +23,20 @@ function PatientDashboard() {
         
           <div  className="govuk-grid-row">
           <div className="govuk-grid-column-one-third">
-              <Button as={Link} to='/patient-view-appointment'>View Appointment </Button>
+              <Button as={Link} to='patient-view-appointment'>View Appointment </Button>
             </div>
             <div className="govuk-grid-column-one-third">
-              <Button as={Link} to='/patient-book-appointment'>Book Appointment</Button>
+              <Button as={Link} to='patient-book-appointment'>Book Appointment</Button>
             </div>
            
             <div className="govuk-grid-column-one-third">
-              <Button as={Link} to='/patient-cancel-appointment'>Cancel Appointment</Button>
+              <Button as={Link} to='patient-cancel-appointment'>Cancel Appointment</Button>
             </div>
             <div className="govuk-grid-column-one-third">
-              <Button as={Link} to='/patient-view-patient-record'>View Patient Records</Button>
+              <Button as={Link} to='patient-view-patient-record'>View Patient Records</Button>
             </div>
             <div className="govuk-grid-column-one-third">
-              <Button as={Link} to='/patient-deregister'>Patient deregister</Button>
+              <Button as={Link} to='patient-deregister'>Patient deregister</Button>
             </div>
           </div>
           
