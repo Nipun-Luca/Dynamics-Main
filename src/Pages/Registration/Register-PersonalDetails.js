@@ -6,7 +6,8 @@ import {
   FormGroup,
   BackLink,
   Main,
-  H2
+  H2,
+  ErrorText
 } from "govuk-react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -22,6 +23,8 @@ function RegistrationPage() {
     surname: "",
     postcode: "",
   });
+
+  const [errorMessage, setErrorMessage] = useState("")
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,13 +48,13 @@ function RegistrationPage() {
           navigate("/registerEmail", { state: { nhsNumber: data.nhsNumber } });
         } else {
           // Patient record does not exist in central database
-          alert("Patient record does not exist in central database");
+          setErrorMessage("Not found, make sure to enter the details correctly");
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
         console.error(errorThrown);
         // Handle the error here
-        alert("Wrong details")
+        setErrorMessage("Something went wrong")
       },
     });
   };
@@ -70,6 +73,7 @@ function RegistrationPage() {
           <p>If you prefer registering with the NHS number, select the link below.</p>
 
           <Fieldset>
+            {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
             <b>Name</b>
             <InputField
               label="Enter name"
