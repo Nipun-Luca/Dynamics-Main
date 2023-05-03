@@ -17,18 +17,18 @@ class PatientHeader extends Component {
   <TopNav.NavLink href='/patientdashboard'>
   Home
   </TopNav.NavLink>
-  <TopNav.NavLink href='/patient-view-appointment'>
+  <TopNav.NavLink href='/patientdashboard/patient-view-appointment'>
   View Appointments
   </TopNav.NavLink>
   
-  <TopNav.NavLink href='/patient-book-appointment'>
+  <TopNav.NavLink href='/patientdashboard/patient-book-appointment'>
   Book Appointments
   </TopNav.NavLink>
 
-  <TopNav.NavLink href='/patient-cancel-appointment'>
+  <TopNav.NavLink href='/patientdashboard/patient-cancel-appointment'>
   Cancel Appointments
   </TopNav.NavLink>
-  <TopNav.NavLink href='/patient-view-patient-record'>
+  <TopNav.NavLink href='/patientdashboard/patient-view-patient-record'>
   View Patient Records
   </TopNav.NavLink>
   <TopNav.NavLink href='/logout'>
