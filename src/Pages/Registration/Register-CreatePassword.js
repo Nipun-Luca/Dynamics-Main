@@ -127,7 +127,8 @@ const RegistrationPage = () => {
       dataType: "json",
       success: function (response) {
         if (response.success) {
-        navigate("/patientDashboard", { state: { nhsNumber: nhsNumber } });
+          localStorage.setItem("isAuthenticated", "true");
+          navigate("/patientDashboard", { state: { nhsNumber: nhsNumber } });
         }
       },
       error: function (xhr, status, error) {
