@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 import Header from './DrHeader';
 import DrAppointmentTable from './DrAppointmentTable';
-
+import ViewMedicalRecords from './ViewMedicalRecords';
 import Footer from '../../../Components/Footer';
 //import Footer from './../Doctor/DrComponents/DrFooter';
 
@@ -23,22 +23,19 @@ function MedicalRecords() {
     <div>
         <Header/>
         < Main>
-    
         <BackLink as={Link} to="/doctor-dashboard">
           Back
         </BackLink>
-        
-       
-        
-        <H1>View Patient Medical Record</H1>
 
+        <H1>View Patient Medical Record</H1>
+        
         <DoctorFullName/>
 
         <div  className="govuk-grid-row">
 
 
-          <DrAppointmentTable/>
-
+          {/* <DrAppointmentTable/> */}
+          <ViewMedicalRecords/>
       </div>
       
         </Main>
