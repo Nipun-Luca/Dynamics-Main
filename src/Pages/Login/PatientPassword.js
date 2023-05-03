@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Fieldset,
   InputField,
@@ -10,6 +10,7 @@ import {
 } from "govuk-react";
 import $ from "jquery";
 import { useNavigate, useLocation } from "react-router-dom";
+import PatientContext from '.././PatientComponents/PatientContext.js'; // Import PatientContext
 
 import Header from '../../Components/DefaultHeader';
 import Footer from '../../Components/Footer';
@@ -20,6 +21,7 @@ const LoginPage = () => {
   // Receive NHS number and email from previous page
   const location = useLocation();
   const emailAddress = location.state?.emailAddress;
+  const { setNhsNumber } = useContext(PatientContext); // needs match with nhsNumber
   console.log(emailAddress)
 
   const [formValues, setFormValues] = useState({
