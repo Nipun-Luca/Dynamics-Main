@@ -49,10 +49,11 @@ import MedicalRecords from './Pages/Doctor/DrComponents/MedicalRecords';
 import UpdateMedicalRecords from "./Pages/Doctor/DrComponents/UpdateMedicalRecords";
 
 //Receptionist
-import ReceptionistDashboard from './Pages/Receptionist/Dashboard'
-import ReceptionistViewDoctorList from './Pages/Receptionist/ViewDoctorList'
-import ReceptionistCancelAppointment from './Pages/Receptionist/CancelAppointment'
-import ReceptionistLogout from './Pages/Receptionist/Logout'
+import ReceptionistDashboard from './Pages/Receptionist/ReceptionistDashboard';
+import ViewDoctorList from './Pages/Receptionist/ViewDoctorList';
+import ReceptionistCancelAppointment from './Pages/Receptionist/ReceptionistCancelAppointment';
+import ReceptionistLogout from './Pages/Receptionist/ReceptionistLogout';
+
 export const EmailContext = createContext(null);
 
 
@@ -113,11 +114,14 @@ function App() {
         <Route path='patient-logout' element={<PatientLogout />} />
       </Route>
 
+{/* <Route path="/receptionistdashboard" element={<PrivateRoute />} >
+      <Route index element={<ReceptionistDashboard />} />
+      <Route path="/view-doctor-list" element={<ViewDoctorList />} />
+      <Route path="/receptionist-cancel-appointment" element={<ReceptionistCancelAppointment />} />
+      <Route path="/receptionist-logout" element={<ReceptionistLogout />} />
 
-      <Route path="/receptionistDashboard" element={<ReceptionistDashboard />} />
-      {/* <Route path="/receptionistViewDoctorList" element={<ReceptionistViewDoctorList />} />
-      <Route path="/receptionistCancelAppointment" element={<ReceptionistCancelAppointment />} />
-      <Route path="/receptionistLogout" element={<ReceptionistLogout />} /> */}
+
+  </Route> */}
     </Routes>
   );
 }
