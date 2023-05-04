@@ -1,8 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Select, Radio, Button, Panel } from 'govuk-react';
 import $ from 'jquery';
-import PatientContext from '.././PatientComponents/PatientContext.js'; // Import PatientContext
-
 
 const AppointmentBooking = () => {
   const [year, setYear] = useState('');
@@ -11,9 +9,6 @@ const AppointmentBooking = () => {
   const [time, setTime] = useState('');
   const [dateConfirmed, setDateConfirmed] = useState(false);
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
-
-  const { patientData } = useContext(PatientContext);
-  const NHSNumber = patientData.NHSNumber;  
 
   const isValidDate = () => {
     return year && month && day;
@@ -41,8 +36,7 @@ const AppointmentBooking = () => {
     }
     const appointmentDate = formatDate();
     const appointmentTime = formatTime();
-    const NHSNumber = NHSNumber; // Use nhsNumber from patientData
-    //const NHSNumber = '92233359811';// Replace this with the actual patient NHS Number
+    const NHSNumber = '92233359811'; // Replace this with the actual patient NHS Number
     const DoctorId = '1'; // Replace this with the actual doctor ID
 
     // Send data to the PHP server using AJAX
