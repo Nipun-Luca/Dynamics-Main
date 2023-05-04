@@ -11,6 +11,7 @@ const PatientLogIn = () => {
   const [formValues, setFormValues] = useState({
     emailAddress: "",
   });
+  const [errorMessage, setErrorMessage] = useState("")
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,14 +27,14 @@ const PatientLogIn = () => {
         if (response) {
           navigate("/patientPassword", { state: { emailAddress: formValues.emailAddress } });
         } else {
-          alert("Wrong email");
+          setErrorMessage("Wrong email");
         }
       },
       error: function(xhr, status, error) {
         console.error(xhr);
         console.error(status);
         console.error(error);
-        alert("Error checking email, please try again later");
+        setErrorMessage("Error checking email, please try again later");
       }
     })
   };
@@ -55,6 +56,7 @@ const PatientLogIn = () => {
           <p>Enter your email address</p>
 
           <Fieldset>
+            {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
             <b>Email Address</b>
             <InputField
               label="Enter email address"

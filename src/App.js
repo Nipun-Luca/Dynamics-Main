@@ -62,63 +62,65 @@ export const EmailContext = createContext(null);
 function App() {
   
   return (
-    <Routes>
-      {/* Your routes */}
-      <Route path="/" element={<StartUp />} />
-      <Route path="/termsOFUse" element={<TermsOfUse />} />
-      <Route path="/contactUs" element={<ContactUs />} />
+    <div className='main'>
+        <Routes>
+          {/* Your routes */}
+          <Route path="/" element={<StartUp />} />
+          <Route path="/termsOFUse" element={<TermsOfUse />} />
+          <Route path="/contactUs" element={<ContactUs />} />
 
-      <Route path="/homepage" element={<Homepage />} />
+          <Route path="/homepage" element={<Homepage />} />
 
-      {/* <Route path='/doctor-dashboard'  element={<DoctorDashboard />} />
-      <Route path='/appointments' element={<DrAppointments/>} />
-      <Route path='/medical-records' element={<MedicalRecords/>} />
-      <Route path='/update-medical-records' element={<UpdateMedicalRecords/>} /> */}
-     <Route path='/doctor-dashboard' element={<PrivateRoute />}>
-        <Route index element={<DoctorDashboard />} />
-        <Route path='appointments' element={<DrAppointments />} />
-        <Route path='medical-records' element={<MedicalRecords />} />
-        <Route path='update-medical-records' element={<UpdateMedicalRecords />} />
-      </Route>
-
-
-
-      <Route path="/registerNHSnumber" element={<RegisterNHSNumber />} />
-      <Route path="/registerPersonalDetails" element={<RegisterPersonalDetails />} />
-      <Route path="/registerEmail" element={<RegisterEmail />} />
-      <Route path="/registerCreatePassword" element={<RegisterCreatePassword />} />
-
-      <Route path="/patientLogin" element={<PatientLogInPage />} />
-      <Route path="/staffLogin" element={<StaffLogIn />} />
-      <Route path="/patientPassword" element={<PatientPassword />} />
-      <Route path="/staffPassword" element={<StaffPassword />} />
-
-      {/* <Route path='/patientdashboard'  element={<PatientDashboard />} />
-      <Route path='/patient-view-appointment' element={<PatientViewAppointments/>} />
-      <Route path='/patient-book-appointment' element={<PatientBookAppointment/>} />
-      <Route path='/patient-cancel-appointment' element={<PatientCancelAppointment/>} />
-      <Route path='/patient-view-patient-record' element={<PatientViewPatientRecord/>} />
-      <Route path='/patient-update-patient-recrods' element={<PatientUpdatePatientRecrods/>} />
-      <Route path='/patient-deregister' element={<PatientDeregister/>} />
-      <Route path='/patient-logout' element={<PatientLogout/>} /> */}
-
-<Route path='/patientdashboard' element={<PrivateRoute />}>
-        <Route index element={<PatientDashboard />} />
-        <Route path='patient-view-appointment' element={<PatientViewAppointments />} />
-        <Route path='patient-book-appointment' element={<PatientBookAppointment />} />
-        <Route path='patient-cancel-appointment' element={<PatientCancelAppointment />} />
-        <Route path='patient-view-patient-record' element={<PatientViewPatientRecord />} />
-        <Route path='patient-update-patient-recrods' element={<PatientUpdatePatientRecrods />} />
-        <Route path='patient-deregister' element={<PatientDeregister />} />
-        {/* <Route path='patient-logout' element={<PatientLogout />} /> */}
-      </Route>
+          {/* <Route path='/doctor-dashboard'  element={<DoctorDashboard />} />
+          <Route path='/appointments' element={<DrAppointments/>} />
+          <Route path='/medical-records' element={<MedicalRecords/>} />
+          <Route path='/update-medical-records' element={<UpdateMedicalRecords/>} /> */}
+        <Route path='/doctor-dashboard' element={<PrivateRoute />}>
+            <Route index element={<DoctorDashboard />} />
+            <Route path='appointments' element={<DrAppointments />} />
+            <Route path='medical-records' element={<MedicalRecords />} />
+            <Route path='update-medical-records' element={<UpdateMedicalRecords />} />
+          </Route>
 
 
-      <Route path="/receptionistDashboard" element={<ReceptionistDashboard />} />
-      {/* <Route path="/receptionistViewDoctorList" element={<ReceptionistViewDoctorList />} />
-      <Route path="/receptionistCancelAppointment" element={<ReceptionistCancelAppointment />} />
-      <Route path="/receptionistLogout" element={<ReceptionistLogout />} /> */}
-    </Routes>
+
+          <Route path="/registerNHSnumber" element={<RegisterNHSNumber />} />
+          <Route path="/registerPersonalDetails" element={<RegisterPersonalDetails />} />
+          <Route path="/registerEmail" element={<RegisterEmail />} />
+          <Route path="/registerCreatePassword" element={<RegisterCreatePassword />} />
+
+          <Route path="/patientLogin" element={<PatientLogInPage />} />
+          <Route path="/staffLogin" element={<StaffLogIn />} />
+          <Route path="/patientPassword" element={<PatientPassword />} />
+          <Route path="/staffPassword" element={<StaffPassword />} />
+
+          {/* <Route path='/patientdashboard'  element={<PatientDashboard />} />
+          <Route path='/patient-view-appointment' element={<PatientViewAppointments/>} />
+          <Route path='/patient-book-appointment' element={<PatientBookAppointment/>} />
+          <Route path='/patient-cancel-appointment' element={<PatientCancelAppointment/>} />
+          <Route path='/patient-view-patient-record' element={<PatientViewPatientRecord/>} />
+          <Route path='/patient-update-patient-recrods' element={<PatientUpdatePatientRecrods/>} />
+          <Route path='/patient-deregister' element={<PatientDeregister/>} />
+          <Route path='/patient-logout' element={<PatientLogout/>} /> */}
+
+    <Route path='/patientdashboard' element={<PrivateRoute />}>
+            <Route index element={<PatientDashboard />} />
+            <Route path='patient-view-appointment' element={<PatientViewAppointments />} />
+            <Route path='patient-book-appointment' element={<PatientBookAppointment />} />
+            <Route path='patient-cancel-appointment' element={<PatientCancelAppointment />} />
+            <Route path='patient-view-patient-record' element={<PatientViewPatientRecord />} />
+            <Route path='patient-update-patient-recrods' element={<PatientUpdatePatientRecrods />} />
+            <Route path='patient-deregister' element={<PatientDeregister />} />
+            {/* <Route path='patient-logout' element={<PatientLogout />} /> */}
+          </Route>
+
+
+          <Route path="/receptionistDashboard" element={<ReceptionistDashboard />} />
+          {/* <Route path="/receptionistViewDoctorList" element={<ReceptionistViewDoctorList />} />
+          <Route path="/receptionistCancelAppointment" element={<ReceptionistCancelAppointment />} />
+          <Route path="/receptionistLogout" element={<ReceptionistLogout />} /> */}
+        </Routes>
+    </div>
   );
 }
 
