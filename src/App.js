@@ -3,7 +3,7 @@ import './App.css';
 //import React from 'react';
 import React, { useState, createContext, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, Outlet  } from 'react-router-dom';
-
+import PatientContext from './Pages/Patient/PatientComponents/PatientContext';
 import PrivateRoute from './Components/PrivateRoute';
 
 //import Appointments from './Pages/Doctor/DrComponents/Appointments';
@@ -61,7 +61,10 @@ export const EmailContext = createContext(null);
 
 function App() {
   
+  const [NHSNumber, setNHSNumber] = useState('');
+
   return (
+    <PatientContext.Provider value={{ NHSNumber, setNHSNumber }}>
     <Routes>
       {/* Your routes */}
       <Route path="/" element={<StartUp />} />
@@ -119,6 +122,7 @@ function App() {
       <Route path="/receptionistCancelAppointment" element={<ReceptionistCancelAppointment />} />
       <Route path="/receptionistLogout" element={<ReceptionistLogout />} /> */}
     </Routes>
+    </PatientContext.Provider>
   );
 }
 
