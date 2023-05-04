@@ -4,18 +4,20 @@ import {
   Main,
   BackLink
 } from "govuk-react";
+import { useHistory } from "react-router-dom";
 import Header from "../../Components/DefaultHeader";
 import Footer from "../../Components/Footer";
 import $ from "jquery";
 
 const ViewDoctorList = () => {
   const [doctorNames, setDoctorNames] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     const fetchData = () => {
       $.ajax({
         type: "POST",
-        url: "http://localhost:8000/path/to/your/php/file.php",
+        url: "http://localhost:8000/view_doctor_list.php",
         dataType: "json",
         success: (data) => {
           setDoctorNames(data);
@@ -33,7 +35,7 @@ const ViewDoctorList = () => {
     <div>
       <Header />
       <Main>
-        <BackLink onClick={() => history(-1)}> Back </BackLink>
+        <BackLink onClick={() => history.goBack()}> Back </BackLink>
 
         <H2>View Doctor List</H2>
         <b color='black'>Select the doctor for which you want to view and edit their appointments</b>
@@ -49,4 +51,3 @@ const ViewDoctorList = () => {
 };
 
 export default ViewDoctorList;
-
