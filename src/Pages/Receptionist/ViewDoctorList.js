@@ -1,46 +1,52 @@
-import { useNavigate, useLocation,useHistory } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
-    H2,
-    Main,
-    BackLink
-
+  H2,
+  Main,
+  BackLink
 } from "govuk-react";
 import Header from "../../Components/DefaultHeader";
 import Footer from "../../Components/Footer";
+import $ from "jquery";
 
 const ViewDoctorList = () => {
-    const [open, setOpen] = React.useState(false);
+  const [doctorNames, setDoctorNames] = useState([]);
 
-    const handleOpen = () => {
-        setOpen(!open);
+  useEffect(() => {
+    const fetchData = () => {
+      $.ajax({
+        type: "POST",
+        url: "http://localhost:8000/path/to/your/php/file.php",
+        dataType: "json",
+        success: (data) => {
+          setDoctorNames(data);
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      });
     };
 
-    let history = useNavigate();
-    return (
-        <div>
-            <Header />
-                <Main>
-                    <BackLink onClick={() => history(-1)}> Back </BackLink>
+    fetchData();
+  }, []);
 
-                    <H2>View Doctor List</H2>
-                    <b color='black'>Select the doctor for which you want to view and edit their appointments</b>
-                    <ul>
-                        <li>Dr.Smith</li>
-                        <li>Dr.Brown</li>
-                        <li>Dr.Wilson</li>
-                        <li>Dr.Thomson</li>
-                        <li>Dr.Robertson</li>
-                        <li>Dr.Campbell</li>
-                        <li>Dr.Stewart</li>
-                        <li>Dr.Anderson</li>
-                        <li>Dr.Reid</li>
-                
-                    </ul>
-                </Main>
-            <Footer />
-        </div>
-    );
+  return (
+    <div>
+      <Header />
+      <Main>
+        <BackLink onClick={() => history(-1)}> Back </BackLink>
+
+        <H2>View Doctor List</H2>
+        <b color='black'>Select the doctor for which you want to view and edit their appointments</b>
+        <ul>
+          {doctorNames.map((doctorName, index) => (
+            <li key={index}>{doctorName}</li>
+          ))}
+        </ul>
+      </Main>
+      <Footer />
+    </div>
+  );
 };
 
 export default ViewDoctorList;
+
