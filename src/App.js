@@ -33,7 +33,7 @@ import StaffPassword from './Pages/Login/StaffPassword';
 
 //Patient
 import PatientDashboard from './Pages/Patient/PatientComponents/PatientDashboard';
-import PatientLogout from './Pages/Patient/PatientComponents/PatientLogout';
+// import PatientLogout from './Pages/Patient/PatientComponents/PatientLogout';
 import PatientViewAppointments from './Pages/Patient/PatientComponents/PatientViewAppointments';
 import PatientBookAppointment from './Pages/Patient/PatientComponents/PatientBookAppointment';
 import PatientCancelAppointment from './Pages/Patient/PatientComponents/PatientCancelAppointment';
@@ -110,7 +110,7 @@ function App() {
         <Route path='patient-view-patient-record' element={<PatientViewPatientRecord />} />
         <Route path='patient-update-patient-recrods' element={<PatientUpdatePatientRecrods />} />
         <Route path='patient-deregister' element={<PatientDeregister />} />
-        <Route path='patient-logout' element={<PatientLogout />} />
+        {/* <Route path='patient-logout' element={<PatientLogout />} /> */}
       </Route>
 
 

@@ -6,7 +6,8 @@ import {
   FormGroup,
   BackLink,
   Main,
-  H2
+  H2,
+  ErrorText
 } from "govuk-react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +21,8 @@ function RegistrationPage(){
   const [formValues, setFormValues] = useState({
     nhsNumber: "",
   });
+
+  const [errorMessage, setErrorMessage] = useState("")
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,12 +38,12 @@ function RegistrationPage(){
       processData: false,
       success: function(data) {
         if (data === "This NHS number is already registered to our local database") {
-          alert(data);
+          setErrorMessage(data);
         } else if (data !== "NHSNumber does not exist in central database") {
           console.log(data);
           navigate("/registerEmail", { state: { nhsNumber: data } });
         } else {
-          alert("NHS number not found in central database. Please try again.");
+          setErrorMessage(data);
         }
       }
     })
@@ -64,8 +67,8 @@ function RegistrationPage(){
           <p>If you don’t know your NHS number you can select the link below to alternatively register using personal information</p>
 
             <Fieldset>
+              {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
               <b>Enter NHS number</b>
-            
               <InputField
                 label="Enter NHS number"
                 name="nhsNumber"

@@ -1,15 +1,18 @@
-import React from 'react';
+
 import { Button, Main,H1} from 'govuk-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PatientHeader from './PatientHeader';
 import Footer from '../../../Components/Footer';
+//import PatientContext from '.././PatientComponents/PatientContext.js';
+import PatientFullName from './PatientFullName'; // Add this import statement
+
+
 
 function PatientDashboard() {
   //PATIENT NHS NUMBER
   //pass: hellohello
   //email: adriaRos@gmail.com
-  const location = useLocation();
-  const nhsNumber = location.state?.nhsNumber;
+
 
 
   return (
@@ -18,7 +21,7 @@ function PatientDashboard() {
         <PatientHeader/>
         < Main>
         <H1>Patient Dashboard</H1>
-       {/* commment */}
+       <PatientFullName/>
 
         <div className="govuk-width-container">
           

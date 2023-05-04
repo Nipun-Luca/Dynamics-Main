@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import $ from "jquery";
 import { useNavigate } from "react-router-dom";
-import { Button, FormGroup, H2, InputField, Fieldset, Main, BackLink } from "govuk-react";
+import { Button, FormGroup, H2, InputField, Fieldset, Main, BackLink, ErrorText } from "govuk-react";
 
 import Header from "../../Components/DefaultHeader";
 import Footer from "../../Components/Footer";

@@ -6,7 +6,8 @@ import {
   FormGroup,
   BackLink,
   Main,
-  H2
+  H2,
+  ErrorText
 } from "govuk-react";
 import { Link } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -26,6 +27,7 @@ const RegistrationPage = () => {
   const [formValues, setFormValues] = useState({
     email: "",
   });
+  const [errorMessage, setErrorMessage] = useState("")
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,7 +37,7 @@ const RegistrationPage = () => {
   
     // Check if email is in a valid format
     if (!emailRegex.test(formValues.email)) {
-      alert("Please enter a valid email address");
+      setErrorMessage("Please enter a valid email address");
       return;
     }
   
@@ -50,11 +52,11 @@ const RegistrationPage = () => {
         if (!response.success) {
         navigate('/registerCreatePassword', { state: { nhsNumber: nhsNumber, email: formValues.email } });
         } else {
-          alert("Email is already registered in our system")
+          setErrorMessage("Email is already registered in our system")
         }
       },
       error: function(jqXHR, textStatus, errorThrown) {
-        alert('An error occurred while registering your email. Please try again later.');
+        setErrorMessage('An error occurred while registering your email. Please try again later.');
       }
     });
   };
@@ -76,6 +78,7 @@ const RegistrationPage = () => {
         <p color='grey'>Example format: adrianRos@gmail.com</p>
 
           <Fieldset>
+            {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
             <b>Email Address</b>
               <InputField
                 label="Enter email address"
