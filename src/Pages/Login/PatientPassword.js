@@ -47,8 +47,8 @@ const LoginPage = () => {
         console.log(response);
         console.log(response.NHSNumber);
         if (response.success) {
-          localStorage.setItem("isAuthenticated", "true");
           setNHSNumber(response.NHSNumber); // Set the nhsNumber in the PatientContext
+          localStorage.setItem("isAuthenticated", "true");
           navigate("/patientdashboard", { state: { NHSNumber: response.NHSNumber } });
 
         } else {
