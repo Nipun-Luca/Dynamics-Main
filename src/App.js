@@ -51,7 +51,7 @@ import UpdateMedicalRecords from "./Pages/Doctor/DrComponents/UpdateMedicalRecor
 //Receptionist
 import ReceptionistDashboard from './Pages/Receptionist/ReceptionistDashboard';
 import ViewDoctorList from './Pages/Receptionist/ViewDoctorList';
-import ReceptionistCancelAppointment from './Pages/Receptionist/ReceptionistCancelAppointment';
+import CancelAppointment from './Pages/Receptionist/CancelAppointment';
 import ReceptionistLogout from './Pages/Receptionist/ReceptionistLogout';
 
 export const EmailContext = createContext(null);
@@ -117,9 +117,9 @@ function App() {
 
  <Route path="/receptionistdashboard" element={<PrivateRoute />} >
       <Route index element={<ReceptionistDashboard />} />
-      <Route path="/view-doctor-list" element={<ViewDoctorList />} />
-      <Route path="/receptionist-cancel-appointment" element={<ReceptionistCancelAppointment />} />
-      <Route path="/receptionist-logout" element={<ReceptionistLogout />} />
+      <Route path="view-doctor-list" element={<ViewDoctorList />} />
+      <Route path="receptionist-cancel-appointment" element={<CancelAppointment/>} />
+      <Route path="receptionist-logout" element={<ReceptionistLogout />} />
 
 
   </Route> 
