@@ -2,7 +2,7 @@
 import './App.css';
 //import React from 'react';
 import React, { useState, createContext, useEffect } from 'react';
-import { BrowserRouter, Route, Routes, Outlet  } from 'react-router-dom';
+import { BrowserRouter, Route, Routes  } from 'react-router-dom';
 
 import PrivateRoute from './Components/PrivateRoute';
 

@@ -43,6 +43,9 @@ const LoginPage = () => {
         console.log(response);
         console.log(response.nhsNumber);
         if (response.success) {
+           // Set isAuthenticated flag in localStorage
+           localStorage.setItem("isAuthenticated", "true");
+
           navigate("/patientdashboard", { state: { nhsNumber: response.nhsNumber } });
         } else {
           alert("Wrong password");

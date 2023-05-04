@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Table, ErrorText, H3, FormGroup, InputField, Button } from 'govuk-react';
 import $ from 'jquery';
 
@@ -8,29 +8,25 @@ const ViewMedicalRecords = () => {
   const [patients, setPatientRecords] = useState([]);
   const [error, setError] = useState(null);
   const [nhsNumberInput, setNhsNumberInput] = useState('');
+  const [searched, setSearched] = useState(false);
   const { DoctorId } = useContext(DoctorContext);
 
   const fetchPatientRecords = (NHSNumber) => {
     $.ajax({
-      url: 'http://localhost:8000/fetchPatientMedicalRecords.php',
+      url: 'http://localhost:8000/fetchPatientMedicalRecord.php',
       method: 'POST',
-      data: { NHSNumber, DoctorId },
+      data: { NHSNumber },
       dataType: 'json',
       success: (response) => {
-        console.log(response);
-        try {
-          if (response.patients) {
-            setPatientRecords(response.patients);
-            setError(null);
-          } else {
-            setError(response.message || 'Empty response from the server');
-          }
-        } catch (error) {
-          setError('No patient Record found');
+        if (response.success) {
+          setPatientRecords(response.patients);
+          setError(response.message);
+        } else {
+          setError(response.message || 'Empty response from the server');
         }
       },
       error: (error) => {
-        setError('Fetching patients Records failed: ' + error.statusText);
+        setError('Fetching patient records failed: ' + error.statusText);
       },
     });
   };
@@ -38,6 +34,7 @@ const ViewMedicalRecords = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     fetchPatientRecords(nhsNumberInput);
+    setSearched(true);
   };
 
   return (
@@ -59,7 +56,7 @@ const ViewMedicalRecords = () => {
         <ErrorText>{error}</ErrorText>
       ) : patients.length ? (
         <Table caption="Patient Medical Records">
-          <Table.Row>
+         <Table.Row>
             <Table.CellHeader>NHS Number</Table.CellHeader>
             <Table.CellHeader> Dose No </Table.CellHeader>
             <Table.CellHeader>  Doctor Id </Table.CellHeader>
@@ -84,9 +81,10 @@ const ViewMedicalRecords = () => {
             </Table.Row>
           ))}
         </Table>
-      ) : (
-        <H3>No patient records found</H3>
-      )}
+        
+      ) : searched ? ( 
+      <H3>No patient medical records found</H3>
+    ) : null}
     </>
   );
 };
