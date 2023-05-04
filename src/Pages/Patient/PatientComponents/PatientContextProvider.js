@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
 import PatientContext from './PatientContext';
 
-
 const PatientContextProvider = ({ children }) => {
-  const [nhsNumber, setNhsNumber] = useState(null);
+  const [NHSNumber, setNHSNumber] = useState(null);
 
   const patientLogout = () => {
-          setNhsNumber(null);
-          // Clear any other stored data related to the authenticated doctor
-          // For example, remove items from localStorage or cookies
-        };
-
+    setNHSNumber(null);
+    // Clear any other stored data related to the authenticated Patient
+    // For example, remove items from localStorage or cookies
+  };
 
   return (
-    <PatientContext.Provider value={{ nhsNumber, setNhsNumber,patientLogout }}>
+    <PatientContext.Provider value={{ NHSNumber, setNHSNumber, patientLogout }}>
       {children}
     </PatientContext.Provider>
   );
-};
+  
+}; // Add the missing closing brace here
 
-export default DoctorContextProvider;
+export default PatientContextProvider;

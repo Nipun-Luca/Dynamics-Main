@@ -1,39 +1,35 @@
-
 import { H3, ErrorText } from 'govuk-react';
 import $ from 'jquery';
-import React, { useState, useEffect,useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PatientContext from './PatientContext';
 
-
 const PatientFullName = () => {
+  // Add a new state variable for the patient's full name
+  const [patientFullName, setPatientFullName] = useState('');
 
-  // Add a new state variable for the doctor's full name
-  const [PatientForename, setPatientForename] = useState('');
-  
   const [error, setError] = useState(null);
-  
 
-  const { nhsNumber } = useContext(PatientContext);
+  const { NHSNumber } = useContext(PatientContext);
   // Add a new useEffect hook to fetch the patient forename when the component is mounted or when the nhsnumber changes
 
   useEffect(() => {
-    if (nhsNumber) {
-      fetchPatientForename(nhsNumber);
+    if (NHSNumber) {
+      fetchPatientFullName(NHSNumber);
     }
-  }, [nhsNumber]);
+  }, [NHSNumber]);
 
   // Create a new function to fetch the patient forename
-  const fetchPatientForename = (nhsNumber) => {
+  const fetchPatientFullName = (NHSNumber) => {
     $.ajax({
-      url: 'http://localhost:8000/fetchDoctorName.php',
+      url: 'http://localhost:8000/PatientName.php',
       method: 'GET',
       dataType: 'json',
       data: {
-        'nhsNumber': nhsNumber,
+        'NHSNumber': NHSNumber,
       },
       success: (response) => {
         if (response.Forename) {
-          setPatientForename(response.Forename);
+          setPatientFullName(response.Forename);
           setError(null);
         } else {
           setError(response.message || 'Empty response from the server');
@@ -50,15 +46,10 @@ const PatientFullName = () => {
       {error ? (
         <ErrorText>{error}</ErrorText>
       ) : (
-        <H3>Welcome, {PatientForename}</H3>
+        <H3>Welcome, {patientFullName}</H3>
       )}
     </>
   );
 };
 
 export default PatientFullName;
-
-
-
-
-

@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import PatientHeader from './PatientHeader';
 import Footer from '../../../Components/Footer';
 //import PatientContext from '.././PatientComponents/PatientContext.js';
+import PatientFullName from './PatientFullName'; // Add this import statement
+
 
 
 function PatientDashboard() {
@@ -19,7 +21,7 @@ function PatientDashboard() {
         <PatientHeader/>
         < Main>
         <H1>Patient Dashboard</H1>
-       <p>Hello,</p><PatientFullName/>
+       <PatientFullName/>
 
         <div className="govuk-width-container">
           

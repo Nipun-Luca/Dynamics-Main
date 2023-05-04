@@ -10,7 +10,7 @@ import {
 } from "govuk-react";
 import $ from "jquery";
 import { useNavigate, useLocation } from "react-router-dom";
-import PatientContext from '.././PatientComponents/PatientContext.js'; // Import PatientContext
+import PatientContext from '.././Patient/PatientComponents/PatientContext'; // Import PatientContext
 
 import Header from '../../Components/DefaultHeader';
 import Footer from '../../Components/Footer';
@@ -21,17 +21,16 @@ const LoginPage = () => {
   // Receive NHS number and email from previous page
   const location = useLocation();
   const emailAddress = location.state?.emailAddress;
-  const { setNhsNumber } = useContext(PatientContext); // needs match with nhsNumber
   console.log(emailAddress)
 
   const [formValues, setFormValues] = useState({
     email: "",
     password: ""
   });
-
+  const { setNHSNumber } = useContext(PatientContext); // needs match with nhsNumber
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     $.ajax({
       type: "POST",
       url: "http://localhost:8000/patientPasswordCheck.php",
@@ -43,10 +42,12 @@ const LoginPage = () => {
       
       success: function(response) {
         console.log(response);
-        console.log(response.nhsNumber);
+        console.log(response.NHSNumber);
         if (response.success) {
           localStorage.setItem("isAuthenticated", "true");
-          navigate("/patientdashboard", { state: { nhsNumber: response.nhsNumber } });
+          setNHSNumber(response.NHSNumber); // Set the nhsNumber in the PatientContext
+          navigate("/patientdashboard", { state: { NHSNumber: response.NHSNumber } });
+
         } else {
           alert("Wrong password");
         }
@@ -59,6 +60,7 @@ const LoginPage = () => {
       }
     })
   };
+  
 
 
 

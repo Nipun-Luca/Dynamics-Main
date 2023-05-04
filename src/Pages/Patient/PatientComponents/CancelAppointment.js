@@ -9,7 +9,7 @@ const CancelAppointment = () => {
   const [error, setError] = useState('');
 
   const { patientData } = useContext(PatientContext); // Use patientData from PatientContext
-  const NHSNumber = patientData.nhsNumber; // Use nhsNumber from patientData
+  const NHSNumber = patientData.NHSNumber; // Use nhsNumber from patientData
 
   //const nhsNumber = '92233359811'; // Replace this with the actual patient NHS Number
 

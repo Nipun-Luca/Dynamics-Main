@@ -1,8 +1,8 @@
 import { createContext } from 'react';
 
 const PatientContext = createContext({
-    nhsNumber: null,
-    setNhsNumber: () => {},
+    NHSNumber: null,
+    setNHSNumber: () => {},
 
 });
 
