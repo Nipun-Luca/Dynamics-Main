@@ -18,7 +18,7 @@ function PatientUpdatePatientRecrods() {
       <div  className="govuk-grid-row">
 
       
-      <BackLink as={Link} to="/patient-view-patient-record">
+      <BackLink as={Link} to="/patientdashboard/patient-view-patient-record">
       Back
     </BackLink>
       </div>

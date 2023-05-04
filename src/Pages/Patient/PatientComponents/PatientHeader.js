@@ -1,37 +1,45 @@
 import React, { Component } from 'react';
 import { TopNav } from 'govuk-react';
- 
+import { Link } from 'react-router-dom';
+import PatientContext from './PatientContext';
 class PatientHeader extends Component {
+
+  static contextType = PatientContext;
+
+  handlePatientLogout = () => {
+    // Clear isAuthenticated flag in localStorage
+    localStorage.removeItem("isAuthenticated");
+
+    // Call the original logout function if you need to do anything else
+    const { patientLogout } = this.context;
+    if (typeof patientLogout === "function") {
+      patientLogout();
+    }
+  };
+
+
   render() {
     return (
-        // <TopNav>
-        //     <TopNav.NavLink>Home</TopNav.NavLink>
-        //     <TopNav.NavLink>View Appointments</TopNav.NavLink>
-        //     <TopNav.NavLink>View Medical Records</TopNav.NavLink>
-        //     <TopNav.NavLink>Update Medical Records</TopNav.NavLink>
-        //     <TopNav.NavLink>Logout</TopNav.NavLink>
-        // </TopNav>
-        <TopNav
-
->
-  <TopNav.NavLink href='/patientdashboard'>
+  
+        <TopNav>
+  <TopNav.NavLink as={Link} to='/patientdashboard'>
   Home
   </TopNav.NavLink>
-  <TopNav.NavLink href='/patient-view-appointment'>
+  <TopNav.NavLink as={Link} to='/patientdashboard/patient-view-appointment'>
   View Appointments
   </TopNav.NavLink>
   
-  <TopNav.NavLink href='/patient-book-appointment'>
+  <TopNav.NavLink as={Link} to='/patientdashboard/patient-book-appointment'>
   Book Appointments
   </TopNav.NavLink>
 
-  <TopNav.NavLink href='/patient-cancel-appointment'>
+  <TopNav.NavLink as={Link} to='/patientdashboard/patient-cancel-appointment'>
   Cancel Appointments
   </TopNav.NavLink>
-  <TopNav.NavLink href='/patient-view-patient-record'>
+  <TopNav.NavLink as={Link} to='/patientdashboard/patient-view-patient-record'>
   View Patient Records
   </TopNav.NavLink>
-  <TopNav.NavLink href='/logout'>
+  <TopNav.NavLink as={Link} to='/homepage' onClick={this.handlePatientLogout}>
   Logout
   </TopNav.NavLink>
 

@@ -39,14 +39,10 @@
 
 
 .footer {
-    display: inline;
-    position: relative;
+    position: fixed;
     bottom: 0;
-    left: 0;
     width: 100%;
-    justify-content: space-between;
-    margin-right: 30px;
-}  
+  }
   
 
 .drfoot {
@@ -64,11 +60,17 @@
     justify-content: space-between;
   }
   
-  .box {
+.box {
     flex-basis: calc(33.33% - 10px);
     padding: 50px;
     background-color: #63d3ff;
     color: white;
     text-align: center;
     box-sizing: border-box;
+  }
+
+.main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }

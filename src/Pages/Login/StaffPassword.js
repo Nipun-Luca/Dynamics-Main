@@ -6,7 +6,8 @@ import {
   FormGroup,
   BackLink,
   Main,
-  H2
+  H2,
+  ErrorText
 } from "govuk-react";
 import $ from "jquery";
 import { useNavigate, useLocation,useHistory } from "react-router-dom";
@@ -26,6 +27,8 @@ const StaffLoginPage = ({ userType }) => {
     email: "",
     password: ""
   });
+
+  const [errorMessage, setErrorMessage] = useState("")
   const { setDoctorId } = useContext(DoctorContext);
 
   const handleSubmit = async (e) => {
@@ -55,14 +58,14 @@ const StaffLoginPage = ({ userType }) => {
             navigate("/receptionistDashboard", { state: { id: response.id } });
           }
         } else {
-          alert("Wrong email or password");
+          setErrorMessage("Wrong password");
         }
       },
       error: function(xhr, status, error) {
         console.error(xhr);
         console.error(status);
         console.error(error);
-        alert("Error checking email and password, please try again later");
+        setErrorMessage("Error while checking password, please try again later");
       }
     })
   };
@@ -85,6 +88,7 @@ const StaffLoginPage = ({ userType }) => {
           <p>Enter your password</p>
 
           <Fieldset>
+            {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
             <b>Password</b>
             <InputField
               label="Enter password"

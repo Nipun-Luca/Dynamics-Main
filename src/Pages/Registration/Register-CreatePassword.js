@@ -1,75 +1,3 @@
-// import React, { useState } from "react";
-// import {
-//   Fieldset,
-//   InputField,
-//   Button,
-//   FormGroup,
-//   BackLink,
-//   Main
-// } from "govuk-react";
-// import { Link } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
-
-// import Header from '../../Components/DefaultHeader';
-// import Footer from '../../Components/Footer';
-
-
-// const RegistrationPage = () => {
-//   const [formValues, setFormValues] = useState({
-//     email: "",
-//   });
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     // do something with the form values, e.g. submit to server
-//   };
-  
-//   let history = useNavigate();
-
-//   return (
-//     <div>
-//       <Header />  
-//       <Main>
-//         <BackLink onClick={() => history(-1)}>
-//           Back
-//         </BackLink>
-
-//         <FormGroup onSubmit={handleSubmit}>
-//         <p>Password requires: 8 characters or more</p>
-
-//           <Fieldset>
-//             <b>Password</b>
-//             <InputField
-//                 label="Enter password"
-//                 name="password"
-//                 value={formValues.password}
-//                 // onChange={handleInputChange}
-//                 required/>
-
-//             <b>Confirm Password</b>
-//             <InputField
-//                 label="Confirm password"
-//                 name="password"
-//                 value={formValues.password}
-//                 // onChange={handleInputChange}
-//                 required/>
-
-//               <Link>
-//                 <Button>Enter</Button>
-//               </Link>
-//           </Fieldset>
-//         </FormGroup>
-      
-//       </Main>
-      
-//       <Footer />
-//     </div>
-//   );
-// };
-
-// export default RegistrationPage;
-
-
 import React, { useState } from "react";
 import {
   Fieldset,
@@ -78,6 +6,7 @@ import {
   FormGroup,
   BackLink,
   Main,
+  ErrorText
 } from "govuk-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -98,6 +27,8 @@ const RegistrationPage = () => {
     password: "",
     confirmPassword: "",
   });
+  
+  const [errorMessage, setErrorMessage] = useState("")
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -105,13 +36,13 @@ const RegistrationPage = () => {
     // Check if password and confirm password fields match
     if (formValues.password !== formValues.confirmPassword) {
       console.log("hello")
-      alert("Passwords do not match");
+      setErrorMessage("Passwords do not match");
       return;
     }
 
     // Check if password has at least 8 characters
     if (formValues.password.length < 8) {
-      alert("Password must have at least 8 characters");
+      setErrorMessage("Password must have at least 8 characters");
       return;
     }
 
@@ -127,7 +58,8 @@ const RegistrationPage = () => {
       dataType: "json",
       success: function (response) {
         if (response.success) {
-        navigate("/patientDashboard", { state: { nhsNumber: nhsNumber } });
+          localStorage.setItem("isAuthenticated", "true");
+          navigate("/patientDashboard", { state: { nhsNumber: nhsNumber } });
         }
       },
       error: function (xhr, status, error) {
@@ -135,7 +67,7 @@ const RegistrationPage = () => {
         console.error(status);
         console.error(error);
         // Handle the error here
-        alert("Error registering, please try again later");
+        setErrorMessage("Error registering, please try again later");
       },
     });
   };
@@ -154,6 +86,7 @@ const RegistrationPage = () => {
           <p>Password requires: 8 characters or more</p>
 
           <Fieldset>
+            {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
             <b>Password</b>
             <InputField
               label="Enter password"

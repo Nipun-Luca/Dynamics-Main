@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Fieldset,
   InputField,
@@ -6,10 +6,12 @@ import {
   FormGroup,
   BackLink,
   Main,
-  H2
+  H2,
+  ErrorText
 } from "govuk-react";
 import $ from "jquery";
 import { useNavigate, useLocation } from "react-router-dom";
+import PatientContext from '.././Patient/PatientComponents/PatientContext'; // Import PatientContext
 
 import Header from '../../Components/DefaultHeader';
 import Footer from '../../Components/Footer';
@@ -26,10 +28,12 @@ const LoginPage = () => {
     email: "",
     password: ""
   });
+  const [errorMessage, setErrorMessage] = useState("")
+  const { setNHSNumber } = useContext(PatientContext); // needs match with nhsNumber
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     $.ajax({
       type: "POST",
       url: "http://localhost:8000/patientPasswordCheck.php",
@@ -41,21 +45,25 @@ const LoginPage = () => {
       
       success: function(response) {
         console.log(response);
-        console.log(response.nhsNumber);
+        console.log(response.NHSNumber);
         if (response.success) {
-          navigate("/patientdashboard", { state: { nhsNumber: response.nhsNumber } });
+          setNHSNumber(response.NHSNumber); // Set the nhsNumber in the PatientContext
+          localStorage.setItem("isAuthenticated", "true");
+          navigate("/patientdashboard", { state: { NHSNumber: response.NHSNumber } });
+
         } else {
-          alert("Wrong password");
+          setErrorMessage("Wrong password");
         }
       },
       error: function(xhr, status, error) {
         console.error(xhr);
         console.error(status);
         console.error(error);
-        alert("Error checking password, please try again later");
+        setErrorMessage("Error checking password, please try again later");
       }
     })
   };
+  
 
 
 
@@ -77,6 +85,7 @@ const LoginPage = () => {
           <p>Enter your password</p>
 
           <Fieldset>
+            {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
             <b>Password</b>
             <InputField
               type="password"

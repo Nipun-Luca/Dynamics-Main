@@ -19,7 +19,7 @@ function PatientViewPatientRecord() {
       <div  className="govuk-grid-row">
 
       <ViewPatientRecords />
-      <Button as={Link} to='/patient-update-patient-recrods'>Update Patient Records</Button>
+      <Button as={Link} to='/patientdashboard/patient-update-patient-recrods'>Update Patient Records</Button>
     
       </div>
       <div className="govuk-grid-column-one-third">
