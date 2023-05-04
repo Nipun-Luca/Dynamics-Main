@@ -117,11 +117,9 @@ function App() {
 
  <Route path="/receptionistdashboard" element={<PrivateRoute />} >
       <Route index element={<ReceptionistDashboard />} />
-      <Route path="/view-doctor-list" element={<ViewDoctorList />} />
-      <Route path="/receptionist-cancel-appointment" element={<ReceptionistCancelAppointment />} />
-      <Route path="/receptionist-logout" element={<ReceptionistLogout />} />
-
-
+      <Route path="view-doctor-list" element={<ViewDoctorList />} />
+      <Route path="receptionist-cancel-appointment" element={<ReceptionistCancelAppointment />} />
+      <Route path="receptionist-logout" element={<ReceptionistLogout />} />
   </Route> 
      </Routes>
      </div>
