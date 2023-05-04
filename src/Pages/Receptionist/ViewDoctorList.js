@@ -11,7 +11,7 @@ import $ from "jquery";
 
 const ViewDoctorList = () => {
   const [doctorNames, setDoctorNames] = useState([]);
-  let history = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = () => {
@@ -31,19 +31,21 @@ const ViewDoctorList = () => {
     fetchData();
   }, []);
 
+  const handleDoctorClick = (doctorName) => {
+    navigate("receptionist-cancel-appointment", { state: { doctorName } });
+  };
+
   return (
     <div>
       <Header />
       <Main>
-      <BackLink onClick={() => history(-1)}>
-          Back
-        </BackLink>
+        <BackLink onClick={() => navigate(-1)}> Back </BackLink>
 
         <H2>View Doctor List</H2>
         <b color='black'>Select the doctor for which you want to view and edit their appointments</b>
         <ul>
           {doctorNames.map((doctorName, index) => (
-            <li key={index}>{doctorName}</li>
+            <li key={index} onClick={() => handleDoctorClick(doctorName)}>{doctorName}</li>
           ))}
         </ul>
       </Main>
