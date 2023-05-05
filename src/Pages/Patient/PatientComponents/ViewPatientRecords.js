@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext,useEffect } from 'react';
 import { Table, ErrorText, H3 } from 'govuk-react';
 import $ from 'jquery';
+import PatientContext from '.././PatientComponents/PatientContext'; // Import PatientContext
 
 const ViewPatientRecords = () => {
   const [patients, setPatients] = useState([]);
   const [error, setError] = useState(null);
-
+  const { NHSNumber } = useContext(PatientContext); // Get NHSNumber from PatientContext
   useEffect(() => {
     fetchPatients();
   }, []);
 
   const fetchPatients = () => {
-    const NHSNumber = '92233359811'; // Replace this with  the actual patient NHS Number
+    // const NHSNumber = '92233359811'; // Replace this with  the actual patient NHS Number
+  
 
     $.ajax({
       url: 'http://localhost:8000/view_patient_records.php',
