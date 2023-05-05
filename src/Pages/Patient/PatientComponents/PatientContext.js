@@ -1,9 +1,9 @@
+// Patient/PatientComponents/PatientContext.js
 import { createContext } from 'react';
 
 const PatientContext = createContext({
-    NHSNumber: null,
-    setNHSNumber: () => {},
-
+  NHSNumber: '',
+  setNHSNumber: () => {},
 });
 
 export default PatientContext;

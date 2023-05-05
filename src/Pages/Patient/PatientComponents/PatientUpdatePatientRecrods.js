@@ -10,7 +10,9 @@ function PatientUpdatePatientRecrods() {
     <div><div>  <PatientHeader/>
     < Main>
     <H1>Update Patient Records</H1>
-   
+    <BackLink as={Link} to="/patientdashboard/patient-view-patient-record">
+      Back
+    </BackLink>
 
     <div className="govuk-width-container">
       
@@ -18,9 +20,7 @@ function PatientUpdatePatientRecrods() {
       <div  className="govuk-grid-row">
 
       
-      <BackLink as={Link} to="/patientdashboard/patient-view-patient-record">
-      Back
-    </BackLink>
+
       </div>
       
     </div>

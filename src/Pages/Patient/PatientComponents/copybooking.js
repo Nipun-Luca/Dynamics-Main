@@ -1,5 +1,9 @@
+const DoctorId = parseInt(time.split(':')[0]) < 12 ? (Math.floor(Math.random() * 3) + 1).toString() : (Math.floor(Math.random() * 3) + 4).toString();
+
+
+
 import React, { useState, useContext } from 'react';
-import { Select, Radio, Button, Panel } from 'govuk-react';
+import { Select, Radio, Button, Panel, ErrorText, BackLink } from 'govuk-react'; // Add ErrorText to the imports
 import $ from 'jquery';
 import PatientContext from '.././PatientComponents/PatientContext'; // Import PatientContext
 
@@ -11,6 +15,35 @@ const AppointmentBooking = () => {
   const [dateConfirmed, setDateConfirmed] = useState(false);
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
   const { NHSNumber } = useContext(PatientContext); // Get NHSNumber from PatientContext
+  const [existingAppointment, setExistingAppointment] = useState(null);
+
+// Add this function to check for an existing appointment
+const checkExistingAppointment = () => {
+  // Send data to the PHP server using AJAX
+  $.ajax({
+    url: 'http://localhost:8000/check_appointment.php',
+    method: 'POST',
+    contentType: 'application/json',
+    dataType: 'json',
+    data: JSON.stringify({
+      'NHSNumber': NHSNumber,
+    }),
+    success: (response) => {
+      if (response.message === "Appointment found.") {
+        console.log('Existing appointment:', response);
+        setExistingAppointment(response.data);
+      } else {
+        console.error('No existing appointment:', response.message);
+        setExistingAppointment(null);
+      }
+    },
+  });
+};
+
+// Call this function to check for an existing appointment
+React.useEffect(() => {
+  checkExistingAppointment();
+}, []);
 
   const isValidDate = () => {
     return year && month && day;
@@ -23,7 +56,9 @@ const AppointmentBooking = () => {
   const formatTime = () => {
     return time;
   };
-
+  const handleGoBack = () => {
+    window.history.back();
+  };
   const handleDateConfirmation = (event) => {
     event.preventDefault();
     if (isValidDate()) {
@@ -105,7 +140,20 @@ const AppointmentBooking = () => {
   };
 
   return (
-    <div>
+    <>
+
+{existingAppointment ? (
+        <>
+          <ErrorText>
+            You already have an appointment scheduled on {existingAppointment.AppointmentDate} at {existingAppointment.AppointmentTime}.
+          </ErrorText>
+          <ErrorText>
+            You need to cancel your existing appointment before booking another one.
+          </ErrorText>
+          <BackLink onClick={handleGoBack}>Go back</BackLink>
+        </>
+      ) : (
+        <>
       {!bookingConfirmed && (
         <>
         <Select
@@ -150,17 +198,17 @@ const AppointmentBooking = () => {
               <h3></h3>
               <h3></h3>
               <Button onClick={handleBooking}>Book appointment</Button>
-            </>
+              </>
+          )}
+
+          {bookingConfirmed && (
+            <Panel title="Booking Confirmed">
+              <p>Your appointment has been booked successfully.</p>
+            </Panel>
           )}
         </>
       )}
-
-      {bookingConfirmed && (
-        <Panel title="Booking Confirmed">
-          <p>Your appointment has been booked successfully.</p>
-        </Panel>
-      )}
-    </div>
+    </>
   );
 };
 

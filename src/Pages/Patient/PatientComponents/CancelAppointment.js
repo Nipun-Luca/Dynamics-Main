@@ -1,17 +1,15 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext,useEffect } from 'react';
 import { Radio, Button, Panel, ErrorText, H3 } from 'govuk-react';
 import $ from 'jquery';
-import PatientContext from '.././PatientComponents/PatientContext.js'; // Import PatientContext
+import PatientContext from './PatientContext';
 const CancelAppointment = () => {
   const [appointments, setAppointments] = useState([]);
   const [selectedAppointmentId, setSelectedAppointmentId] = useState(null);
   const [confirmationMessage, setConfirmationMessage] = useState('');
   const [error, setError] = useState('');
 
-  const { patientData } = useContext(PatientContext); // Use patientData from PatientContext
-  const NHSNumber = patientData.NHSNumber; // Use nhsNumber from patientData
-
-  //const nhsNumber = '92233359811'; // Replace this with the actual patient NHS Number
+  const { NHSNumber } = useContext(PatientContext); // Use the useContext hook to get the NHSNumber
+  //const NHSNumber = '92233359811'; // Replace this with the actual patient NHS Number
 
   useEffect(() => {
     fetchAppointments(NHSNumber);
