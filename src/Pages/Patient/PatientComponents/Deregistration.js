@@ -9,7 +9,7 @@ const Deregistration = () => {
   const [deregistrationMessage, setDeregistrationMessage] = useState('');
 
   const { NHSNumber, setNHSNumber } = useContext(PatientContext);
-
+//
   const deregisterPatient = () => {
     $.ajax({
       url: 'http://localhost:8000/deregister_patient.php',
