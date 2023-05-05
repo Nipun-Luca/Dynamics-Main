@@ -6,7 +6,7 @@ import {
 } from "govuk-react";
 import { Link } from 'react-router-dom';
 
-import Header from "../../Components/DefaultHeader";
+import Header from "./ReceptionistHeader";
 import Footer from "../../Components/Footer";
 
 

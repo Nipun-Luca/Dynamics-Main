@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Radio, Button, Panel, ErrorText, H3 } from 'govuk-react';
+import { useLocation } from 'react-router-dom';
+import { Radio, Button, Panel, ErrorText, H3, Main } from 'govuk-react';
 import $ from 'jquery';
 
-const CancelAppointment = ({ doctorName, fetchAppointments }) => {
+import Header from "./ReceptionistHeader";
+import Footer from "../../Components/Footer";
+
+const CancelAppointment = () => {
+  const location = useLocation();
+  const doctorId = location.state?.doctorId;
   const [selectedAppointmentId, setSelectedAppointmentId] = useState(null);
   const [error, setError] = useState('');
   const [confirmationMessage, setConfirmationMessage] = useState('');
   const [appointments, setAppointments] = useState([]);
 
-  useEffect(() => {
-    fetchAppointments(doctorName);
-    retrieveAllAppointments();
-  }, [doctorName, fetchAppointments]);
-
   const retrieveAllAppointments = () => {
     $.ajax({
-      url: 'https://localhost:8000/retrieve_all_appointments.php',
+      url: 'http://localhost:8000/receptionistGetAppointment.php',
       method: 'POST',
+      data: {
+        doctorId: doctorId,
+      },
       dataType: 'json',
       success: (data) => {
         setAppointments(data);
@@ -27,6 +31,10 @@ const CancelAppointment = ({ doctorName, fetchAppointments }) => {
     });
   };
 
+  useEffect(() => {
+    retrieveAllAppointments();
+  }, [doctorId]);
+
   const handleCancelAppointment = (event) => {
     event.preventDefault();
     if (!selectedAppointmentId) {
@@ -34,15 +42,14 @@ const CancelAppointment = ({ doctorName, fetchAppointments }) => {
       return;
     }
     $.ajax({
-      url: 'https://localhost:8000/cancel_recpetionist_appointment.php',
+      url: 'http://localhost:8000/receptionistCancelAppointment.php',
       method: 'POST',
       data: {
         AppointmentNo: selectedAppointmentId,
-        DoctorName: doctorName,
       },
       success: (response) => {
         console.log('Cancellation successful:', response);
-        fetchAppointments(doctorName);
+        retrieveAllAppointments();
         setConfirmationMessage('Appointment has been canceled successfully.');
       },
       error: (error) => {
@@ -54,16 +61,17 @@ const CancelAppointment = ({ doctorName, fetchAppointments }) => {
 
   return (
     <div>
+      <Header />
+      <Main>
+
       {!confirmationMessage && (
         <>
           <H3>Select an appointment to cancel</H3>
-          {fetchAppointments ? (
-            <Button onClick={() => fetchAppointments(doctorName)} type="button">
-              Refresh appointments
-            </Button>
-          ) : null}
+          <Button onClick={retrieveAllAppointments} type="button">
+            Refresh appointments
+          </Button>
           {error && <ErrorText>{error}</ErrorText>}
-          <form onSubmit={handleCancelAppointment}>
+          <form>
             {appointments.length > 0 ? (
               appointments.map((appointment) => (
                 <Radio
@@ -79,7 +87,7 @@ const CancelAppointment = ({ doctorName, fetchAppointments }) => {
             ) : (
               <H3>No appointments available</H3>
             )}
-            <Button type="submit">Cancel appointment</Button>
+            <Button type="submit" onClick={handleCancelAppointment}>Cancel appointment</Button>
           </form>
         </>
       )}
@@ -87,15 +95,11 @@ const CancelAppointment = ({ doctorName, fetchAppointments }) => {
       {confirmationMessage && (
         <Panel title="Cancellation Confirmed">
           <p>{confirmationMessage}</p>
-          <ul>
-            <li>Appointment Successfully: </li>
-            <li>Appointment No: </li>
-            <li>Vaccine Type: </li>
-            <li>Vaccination Date: </li>
-            <li>Patient: </li>
-          </ul>
         </Panel>
       )}
+
+      </Main>
+      <Footer />
     </div>
   );
 };

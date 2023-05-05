@@ -82,11 +82,11 @@ function App() {
       <Route path='/medical-records' element={<MedicalRecords/>} />
       <Route path='/update-medical-records' element={<UpdateMedicalRecords/>} /> */}
       <Route path="/doctor-dashboard" element={<PrivateRoute Component={DoctorDashboard} />}>
-  <Route index element={<DoctorDashboard />} />
-  <Route path="appointments" element={<DrAppointments />} />
-  <Route path="medical-records" element={<MedicalRecords />} />
-  <Route path="update-medical-records" element={<UpdateMedicalRecords />} />
-</Route>
+        <Route index element={<DoctorDashboard />} />
+        <Route path="appointments" element={<DrAppointments />} />
+        <Route path="medical-records" element={<MedicalRecords />} />
+        <Route path="update-medical-records" element={<UpdateMedicalRecords />} />
+      </Route>
 
 
 
@@ -118,17 +118,17 @@ function App() {
   <Route path='patient-update-patient-recrods' element={<PatientUpdatePatientRecrods />} />
   <Route path="patient-deregister" element={<PatientDeregister />} />
   {/* <Route path="patient-logout" element={<PatientLogout />} /> */}
-</Route>
+      </Route>
+
+      <Route path="/receptionistdashboard" element={<PrivateRoute Component={ReceptionistDashboard} />} >
+        <Route index element={<ReceptionistDashboard />} />
+        <Route path="view-doctor-list" element={<ViewDoctorList />} />
+          <Route path="receptionist-cancel-appointment" element={<CancelAppointment />} />
+        
+        <Route path="receptionist-logout" element={<ReceptionistLogout />} />
+      </Route>
 
 
-      <Route path="/receptionistdashboard" element={<PrivateRoute />} >
-      <Route index element={<ReceptionistDashboard />} />
-      <Route path="view-doctor-list" element={<ViewDoctorList />} />
-      <Route path="receptionist-cancel-appointment" element={<CancelAppointment/>} />
-      <Route path="receptionist-logout" element={<ReceptionistLogout />} />
-
-
-  </Route> 
     </Routes>
     </PatientContext.Provider>
     </div>

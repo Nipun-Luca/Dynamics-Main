@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import {
   Fieldset,
   InputField,
@@ -22,64 +22,71 @@ const LoginPage = () => {
   // Receive NHS number and email from previous page
   const location = useLocation();
   const emailAddress = location.state?.emailAddress;
-  console.log(emailAddress)
+  console.log(emailAddress);
 
   const [formValues, setFormValues] = useState({
     email: "",
     password: ""
   });
-  const [errorMessage, setErrorMessage] = useState("")
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loginAttempts, setLoginAttempts] = useState(0);
   const { setNHSNumber } = useContext(PatientContext); // needs match with nhsNumber
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     $.ajax({
       type: "POST",
       url: "http://localhost:8000/patientPasswordCheck.php",
-      data: { 
+      data: {
         password: formValues.password,
-        emailAddress: emailAddress,
-      } ,
+        emailAddress: emailAddress
+      },
       dataType: "json",
-      
-      success: function(response) {
+
+      success: function (response) {
         console.log(response);
         console.log(response.NHSNumber);
         if (response.success) {
           setNHSNumber(response.NHSNumber); // Set the nhsNumber in the PatientContext
           localStorage.setItem("isAuthenticated", "true");
-          navigate("/patientdashboard", { state: { NHSNumber: response.NHSNumber } });
-
+          navigate("/patientdashboard", {
+            state: { NHSNumber: response.NHSNumber }
+          });
         } else {
           setErrorMessage("Wrong password");
+          setLoginAttempts(loginAttempts + 1);
         }
       },
-      error: function(xhr, status, error) {
+      error: function (xhr, status, error) {
         console.error(xhr);
         console.error(status);
         console.error(error);
         setErrorMessage("Error checking password, please try again later");
       }
-    })
+    });
   };
-  
 
+  useEffect(() => {
+    if (loginAttempts >= 5) {
+      navigate("/passworderror");
+    }
+  }, [loginAttempts, navigate]);
 
-
-  let history = useNavigate();
+  useEffect(() => {
+    window.history.pushState(null, "", window.location.href);
+    window.onpopstate = function () {
+      window.history.pushState(null, "", window.location.href);
+    };
+  }, []);
 
   return (
     <div>
-      <Header />  
+      <Header />
       <Main>
-        <BackLink onClick={() => history(-1)}>
-          Back
-        </BackLink>
-
-        <FormGroup >
-          <div className='login-heading'>
-            <H2>PATIENT</H2>
+        <FormGroup>
+          <div className="login-heading">
+            <h2>PATIENT</h2>
           </div>
 
           <p>Enter your password</p>
@@ -90,8 +97,6 @@ const LoginPage = () => {
             <InputField
               label="Enter password"
               name="password"
-              autoComplete="off"
-              autoCorrect="off"
               value={formValues.password}
               onChange={(e) =>
                 setFormValues({ ...formValues, password: e.target.value })
@@ -99,7 +104,9 @@ const LoginPage = () => {
               required
             />
 
-            <Button type="submit" onClick={handleSubmit}>Enter</Button>
+            <Button type="submit" onClick={handleSubmit}>
+              Enter
+            </Button>
           </Fieldset>
         </FormGroup>
       </Main>

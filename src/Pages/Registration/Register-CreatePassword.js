@@ -90,8 +90,6 @@ const RegistrationPage = () => {
             <InputField
               label="Enter password"
               name="password"
-              autoComplete="off"
-              autoCorrect="off"
               value={formValues.password}
               onChange={(e) =>
                 setFormValues({ ...formValues, password: e.target.value })
@@ -103,8 +101,6 @@ const RegistrationPage = () => {
             <InputField
               label="Confirm password"
               name="confirmPassword"
-              autoComplete="off"
-              autoCorrect="off"
               value={formValues.confirmPassword}
               onChange={(e) =>
                 setFormValues({...formValues, confirmPassword: e.target.value,

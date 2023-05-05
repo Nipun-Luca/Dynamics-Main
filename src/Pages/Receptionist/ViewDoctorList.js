@@ -5,12 +5,12 @@ import {
   BackLink
 } from "govuk-react";
 import { useNavigate } from "react-router-dom";
-import Header from "../../Components/DefaultHeader";
+import Header from "./ReceptionistHeader";
 import Footer from "../../Components/Footer";
 import $ from "jquery";
 
 const ViewDoctorList = () => {
-  const [doctorNames, setDoctorNames] = useState([]);
+  const [doctors, setDoctors] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const ViewDoctorList = () => {
         url: "http://localhost:8000/view_doctor_list.php",
         dataType: "json",
         success: (data) => {
-          setDoctorNames(data);
+          setDoctors(data);
         },
         error: (error) => {
           console.error(error);
@@ -31,8 +31,8 @@ const ViewDoctorList = () => {
     fetchData();
   }, []);
 
-  const handleDoctorClick = (doctorName) => {
-    navigate("receptionist-cancel-appointment", { state: { doctorName } });
+  const handleDoctorClick = (doctorId) => {
+    navigate("/receptionistdashboard/receptionist-cancel-appointment", { state: { doctorId } });
   };
 
   return (
@@ -44,8 +44,8 @@ const ViewDoctorList = () => {
         <H2>View Doctor List</H2>
         <b color='black'>Select the doctor for which you want to view and edit their appointments</b>
         <ul>
-          {doctorNames.map((doctorName, index) => (
-            <li key={index} onClick={() => handleDoctorClick(doctorName)}>{doctorName}</li>
+          {doctors.map((doctor, index) => (
+            <li key={index} onClick={() => handleDoctorClick(doctor.doctorId)}>{doctor.doctorName}</li>
           ))}
         </ul>
       </Main>
