@@ -1,4 +1,5 @@
 
+import React, { useEffect } from 'react';
 import { Button, Main,H1} from 'govuk-react';
 import { Link } from 'react-router-dom';
 import PatientHeader from './PatientHeader';
@@ -12,7 +13,12 @@ function PatientDashboard() {
   //PATIENT NHS NUMBER
   //pass: hellohello
   //email: adriaRos@gmail.com
-
+  useEffect(() => {
+    window.history.pushState(null, "", window.location.href);
+    window.onpopstate = function () {
+      window.history.pushState(null, "", window.location.href);
+    };
+  }, []);
 
 
   return (

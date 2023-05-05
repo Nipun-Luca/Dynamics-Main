@@ -32,6 +32,7 @@ import PatientLogInPage from './Pages/Login/PatientLogIn';
 import StaffLogIn from './Pages/Login/StaffLogIn';
 import PatientPassword from './Pages/Login/PatientPassword';
 import StaffPassword from './Pages/Login/StaffPassword';
+import LoginDenied from './Pages/Login/LoginDenied';
 
 //Patient
 import PatientDashboard from './Pages/Patient/PatientComponents/PatientDashboard';
@@ -99,6 +100,7 @@ function App() {
       <Route path="/staffLogin" element={<StaffLogIn />} />
       <Route path="/patientPassword" element={<PatientPassword />} />
       <Route path="/staffPassword" element={<StaffPassword />} />
+      <Route path="/loginDenied" element={<LoginDenied />} />
 
       {/* <Route path='/patientdashboard'  element={<PatientDashboard />} />
       <Route path='/patient-view-appointment' element={<PatientViewAppointments/>} />

@@ -1,4 +1,4 @@
-import React, { useState,useContext  } from "react";
+import React, { useState, useContext, useEffect  } from "react";
 import {
   Fieldset,
   InputField,
@@ -28,6 +28,7 @@ const StaffLoginPage = ({ userType }) => {
     password: ""
   });
 
+  const [loginAttempts, setLoginAttempts] = useState(0);
   const [errorMessage, setErrorMessage] = useState("")
   const { setDoctorId } = useContext(DoctorContext);
 
@@ -59,6 +60,7 @@ const StaffLoginPage = ({ userType }) => {
           }
         } else {
           setErrorMessage("Wrong password");
+          setLoginAttempts(loginAttempts + 1);
         }
       },
       error: function(xhr, status, error) {
@@ -69,6 +71,12 @@ const StaffLoginPage = ({ userType }) => {
       }
     })
   };
+
+  useEffect(() => {
+    if (loginAttempts >= 5) {
+      navigate("/loginDenied");
+    }
+  }, [loginAttempts, navigate]);
 
   let history = useNavigate();
 

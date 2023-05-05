@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from 'react';
 import {
     Button,
     Main,
@@ -11,6 +11,13 @@ import Footer from "../../Components/Footer";
 
 
 function Dashboard() {
+    useEffect(() => {
+        window.history.pushState(null, "", window.location.href);
+        window.onpopstate = function () {
+          window.history.pushState(null, "", window.location.href);
+        };
+      }, []);
+
     return (
         <div>
             <Header />

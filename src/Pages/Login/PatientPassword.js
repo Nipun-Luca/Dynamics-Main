@@ -69,16 +69,9 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (loginAttempts >= 5) {
-      navigate("/passworderror");
+      navigate("/loginDenied");
     }
   }, [loginAttempts, navigate]);
-
-  useEffect(() => {
-    window.history.pushState(null, "", window.location.href);
-    window.onpopstate = function () {
-      window.history.pushState(null, "", window.location.href);
-    };
-  }, []);
 
   return (
     <div>
