@@ -93,6 +93,8 @@ const StaffLoginPage = ({ userType }) => {
             <InputField
               label="Enter password"
               name="password"
+              autoComplete="off"
+              autoCorrect="off"
               value={formValues.password}
               onChange={(e) =>
                 setFormValues({ ...formValues, password: e.target.value })

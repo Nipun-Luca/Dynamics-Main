@@ -35,7 +35,6 @@ const RegistrationPage = () => {
 
     // Check if password and confirm password fields match
     if (formValues.password !== formValues.confirmPassword) {
-      console.log("hello")
       setErrorMessage("Passwords do not match");
       return;
     }
@@ -91,7 +90,8 @@ const RegistrationPage = () => {
             <InputField
               label="Enter password"
               name="password"
-              type="password"
+              autoComplete="off"
+              autoCorrect="off"
               value={formValues.password}
               onChange={(e) =>
                 setFormValues({ ...formValues, password: e.target.value })
@@ -103,12 +103,11 @@ const RegistrationPage = () => {
             <InputField
               label="Confirm password"
               name="confirmPassword"
-              type="password"
+              autoComplete="off"
+              autoCorrect="off"
               value={formValues.confirmPassword}
               onChange={(e) =>
-                setFormValues({
-                  ...formValues,
-                  confirmPassword: e.target.value,
+                setFormValues({...formValues, confirmPassword: e.target.value,
                 })
               }
               required

@@ -88,9 +88,10 @@ const LoginPage = () => {
             {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
             <b>Password</b>
             <InputField
-              type="password"
               label="Enter password"
               name="password"
+              autoComplete="off"
+              autoCorrect="off"
               value={formValues.password}
               onChange={(e) =>
                 setFormValues({ ...formValues, password: e.target.value })
