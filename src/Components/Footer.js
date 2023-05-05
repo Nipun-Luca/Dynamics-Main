@@ -6,14 +6,13 @@ class Footer extends Component {
     return (
        
         <div className="footer">
-          
             <FooterLink>
             <div className = "drfoot">
                 <Link  href='/termsOFUse'>Terms and conditions</Link>
               </div>
               <div className = "drfoot">
                 <Link  href='/contactUs'>Contact us</Link>
-              </div> 
+              </div>
             </FooterLink> 
         </div>
     )

@@ -1,7 +1,9 @@
 
 import './App.css';
+
 //import React from 'react';
 import React, { useState, createContext, useEffect, Navigate } from 'react';
+
 import { BrowserRouter, Route, Routes, Outlet  } from 'react-router-dom';
 import PatientContext from './Pages/Patient/PatientComponents/PatientContext';
 import PrivateRoute from './Components/PrivateRoute';
@@ -48,10 +50,11 @@ import MedicalRecords from './Pages/Doctor/DrComponents/MedicalRecords';
 import UpdateMedicalRecords from "./Pages/Doctor/DrComponents/UpdateMedicalRecords";
 
 //Receptionist
-import ReceptionistDashboard from './Pages/Receptionist/Dashboard'
-import ReceptionistViewDoctorList from './Pages/Receptionist/ViewDoctorList'
-import ReceptionistCancelAppointment from './Pages/Receptionist/CancelAppointment'
-import ReceptionistLogout from './Pages/Receptionist/Logout'
+import ReceptionistDashboard from './Pages/Receptionist/ReceptionistDashboard';
+import ViewDoctorList from './Pages/Receptionist/ViewDoctorList';
+import CancelAppointment from './Pages/Receptionist/CancelAppointment';
+import ReceptionistLogout from './Pages/Receptionist/ReceptionistLogout';
+
 export const EmailContext = createContext(null);
 
 
@@ -63,6 +66,8 @@ function App() {
   const [NHSNumber, setNHSNumber] = useState('');
 
   return (
+
+<div className='main'>
     <PatientContext.Provider value={{ NHSNumber, setNHSNumber }}>
     <Routes>
       {/* Your routes */}
@@ -116,13 +121,20 @@ function App() {
 </Route>
 
 
-      <Route path="/receptionistDashboard" element={<ReceptionistDashboard />} />
-      {/* <Route path="/receptionistViewDoctorList" element={<ReceptionistViewDoctorList />} />
-      <Route path="/receptionistCancelAppointment" element={<ReceptionistCancelAppointment />} />
-      <Route path="/receptionistLogout" element={<ReceptionistLogout />} /> */}
+      <Route path="/receptionistdashboard" element={<PrivateRoute />} >
+      <Route index element={<ReceptionistDashboard />} />
+      <Route path="view-doctor-list" element={<ViewDoctorList />} />
+      <Route path="receptionist-cancel-appointment" element={<CancelAppointment/>} />
+      <Route path="receptionist-logout" element={<ReceptionistLogout />} />
+
+
+  </Route> 
     </Routes>
     </PatientContext.Provider>
+    </div>
+
   );
+
 }
 
 export default App;
