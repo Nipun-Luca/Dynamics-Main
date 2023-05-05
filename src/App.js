@@ -1,9 +1,11 @@
 
 import './App.css';
-//import React from 'react';
-import React, { useState, createContext, useEffect } from 'react';
-import { BrowserRouter, Route, Routes  } from 'react-router-dom';
 
+//import React from 'react';
+import React, { useState, createContext, useEffect, Navigate } from 'react';
+
+import { BrowserRouter, Route, Routes, Outlet  } from 'react-router-dom';
+import PatientContext from './Pages/Patient/PatientComponents/PatientContext';
 import PrivateRoute from './Components/PrivateRoute';
 
 //import Appointments from './Pages/Doctor/DrComponents/Appointments';
@@ -40,7 +42,6 @@ import PatientCancelAppointment from './Pages/Patient/PatientComponents/PatientC
 import PatientViewPatientRecord from './Pages/Patient/PatientComponents/PatientViewPatientRecord';
 import PatientDeregister from './Pages/Patient/PatientComponents/PatientDeregister';
 import PatientUpdatePatientRecrods from './Pages/Patient/PatientComponents/PatientUpdatePatientRecrods';
-
 //Doctor
 import DoctorDashboard from  './Pages/Doctor/DoctorDashboard';
 //import LogoutButton from './Pages/Doctor/DrComponents/ LogoutButton';
@@ -49,10 +50,11 @@ import MedicalRecords from './Pages/Doctor/DrComponents/MedicalRecords';
 import UpdateMedicalRecords from "./Pages/Doctor/DrComponents/UpdateMedicalRecords";
 
 //Receptionist
-import ReceptionistDashboard from './Pages/Receptionist/Dashboard'
-import ReceptionistViewDoctorList from './Pages/Receptionist/ViewDoctorList'
-import ReceptionistCancelAppointment from './Pages/Receptionist/CancelAppointment'
-import ReceptionistLogout from './Pages/Receptionist/Logout'
+import ReceptionistDashboard from './Pages/Receptionist/ReceptionistDashboard';
+import ViewDoctorList from './Pages/Receptionist/ViewDoctorList';
+import CancelAppointment from './Pages/Receptionist/CancelAppointment';
+import ReceptionistLogout from './Pages/Receptionist/ReceptionistLogout';
+
 export const EmailContext = createContext(null);
 
 
@@ -61,7 +63,12 @@ export const EmailContext = createContext(null);
 
 function App() {
   
+  const [NHSNumber, setNHSNumber] = useState('');
+
   return (
+
+<div className='main'>
+    <PatientContext.Provider value={{ NHSNumber, setNHSNumber }}>
     <Routes>
       {/* Your routes */}
       <Route path="/" element={<StartUp />} />
@@ -74,12 +81,12 @@ function App() {
       <Route path='/appointments' element={<DrAppointments/>} />
       <Route path='/medical-records' element={<MedicalRecords/>} />
       <Route path='/update-medical-records' element={<UpdateMedicalRecords/>} /> */}
-     <Route path='/doctor-dashboard' element={<PrivateRoute />}>
-        <Route index element={<DoctorDashboard />} />
-        <Route path='appointments' element={<DrAppointments />} />
-        <Route path='medical-records' element={<MedicalRecords />} />
-        <Route path='update-medical-records' element={<UpdateMedicalRecords />} />
-      </Route>
+      <Route path="/doctor-dashboard" element={<PrivateRoute Component={DoctorDashboard} />}>
+  <Route index element={<DoctorDashboard />} />
+  <Route path="appointments" element={<DrAppointments />} />
+  <Route path="medical-records" element={<MedicalRecords />} />
+  <Route path="update-medical-records" element={<UpdateMedicalRecords />} />
+</Route>
 
 
 
@@ -102,24 +109,34 @@ function App() {
       <Route path='/patient-deregister' element={<PatientDeregister/>} />
       <Route path='/patient-logout' element={<PatientLogout/>} /> */}
 
-<Route path='/patientdashboard' element={<PrivateRoute />}>
-        <Route index element={<PatientDashboard />} />
-        <Route path='patient-view-appointment' element={<PatientViewAppointments />} />
-        <Route path='patient-book-appointment' element={<PatientBookAppointment />} />
-        <Route path='patient-cancel-appointment' element={<PatientCancelAppointment />} />
-        <Route path='patient-view-patient-record' element={<PatientViewPatientRecord />} />
-        <Route path='patient-update-patient-recrods' element={<PatientUpdatePatientRecrods />} />
-        <Route path='patient-deregister' element={<PatientDeregister />} />
-        {/* <Route path='patient-logout' element={<PatientLogout />} /> */}
-      </Route>
+      <Route path="/patientdashboard" element={<PrivateRoute Component={PatientDashboard} />}>
+  <Route index element={<PatientDashboard />} />
+  <Route path="patient-view-appointment" element={<PatientViewAppointments />} />
+  <Route path="patient-book-appointment" element={<PatientBookAppointment />} />
+  <Route path="patient-cancel-appointment" element={<PatientCancelAppointment />} />
+  <Route path="patient-view-patient-record" element={<PatientViewPatientRecord />} />
+  <Route path='patient-update-patient-recrods' element={<PatientUpdatePatientRecrods />} />
+  <Route path="patient-deregister" element={<PatientDeregister />} />
+  {/* <Route path="patient-logout" element={<PatientLogout />} /> */}
+</Route>
 
 
-      <Route path="/receptionistDashboard" element={<ReceptionistDashboard />} />
-      {/* <Route path="/receptionistViewDoctorList" element={<ReceptionistViewDoctorList />} />
-      <Route path="/receptionistCancelAppointment" element={<ReceptionistCancelAppointment />} />
-      <Route path="/receptionistLogout" element={<ReceptionistLogout />} /> */}
+      <Route path="/receptionistdashboard" element={<PrivateRoute />} >
+      <Route index element={<ReceptionistDashboard />} />
+      <Route path="view-doctor-list" element={<ViewDoctorList />} />
+      <Route path="receptionist-cancel-appointment" element={<CancelAppointment/>} />
+      <Route path="receptionist-logout" element={<ReceptionistLogout />} />
+
+
+  </Route> 
     </Routes>
+    </PatientContext.Provider>
+    </div>
+
   );
+
 }
 
 export default App;
+
+

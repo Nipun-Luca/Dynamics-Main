@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { FormGroup, Select, InputField, Button, H3, ErrorText } from 'govuk-react';
 import $ from 'jquery';
+import PatientContext from '.././PatientComponents/PatientContext'; // Import PatientContext
 
 const UpdatePatientRecords = () => {
   const [updateField, setUpdateField] = useState('');
@@ -8,7 +9,8 @@ const UpdatePatientRecords = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
 
-  const NHSNumber = '92233359811';
+  // const NHSNumber = '92233359811';
+  const { NHSNumber } = useContext(PatientContext); // Get NHSNumber from PatientContext
 
   const updatePatientRecords = () => {
     if (updateField.trim() === '' || updateValue.trim() === '') {

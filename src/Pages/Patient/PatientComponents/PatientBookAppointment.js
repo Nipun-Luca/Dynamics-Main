@@ -16,17 +16,17 @@ function PatientBookAppointment() {
     <PatientHeader/>
     < Main>
     <H1>Book Appointment</H1>
-   
+    <BackLink as={Link} to="/patientdashboard">
+      Back
+    </BackLink>
 
     <div className="govuk-width-container">
       
     
       <div  className="govuk-grid-row">
-    
+    <H1></H1>
       <AppointmentBooking />
-      <BackLink as={Link} to="/patientdashboard">
-      Back
-    </BackLink>
+
       </div>
       
     </div>

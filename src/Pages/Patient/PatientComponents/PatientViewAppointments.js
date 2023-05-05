@@ -12,7 +12,9 @@ function PatientViewAppointments() {
     <PatientHeader/>
     < Main>
     <H1>View Appointments</H1>
-   
+    <BackLink as={Link} to="/patientdashboard">
+      Back
+    </BackLink>
 
     <div className="govuk-width-container">
       
@@ -23,9 +25,7 @@ function PatientViewAppointments() {
       <AppointmentsList patientId="1" />
 
       </div>
-      <BackLink as={Link} to="/patientdashboard">
-      Back
-    </BackLink>
+
     </div>
     </Main>
    

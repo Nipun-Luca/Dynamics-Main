@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext,useEffect } from 'react';
 import { Table, ErrorText, H3 } from 'govuk-react';
 import $ from 'jquery';
-
+import PatientContext from './PatientContext';
 const AppointmentList = () => {
   const [appointments, setAppointments] = useState([]);
   const [error, setError] = useState(null);
-
-  const NHSNumber = '92233359811'; // Replace this with the actual patient NHS Number
+  const { NHSNumber } = useContext(PatientContext); // Use the useContext hook to get the NHSNumber
+  console.log(NHSNumber);
 
   useEffect(() => {
     fetchAppointments(NHSNumber);
@@ -16,10 +16,11 @@ const AppointmentList = () => {
     $.ajax({
       url: 'http://localhost:8000/get_appointments.php',
       method: 'POST',
-      dataType: 'json', // Add this line
-      data: {
+      dataType: 'json',
+      contentType: 'application/json', // Add this line
+      data: JSON.stringify({ // Convert the data object to a JSON string
         'NHSNumber': NHSNumber,
-      },
+      }),
       success: (response) => {
         try {
           if (response.appointments) {

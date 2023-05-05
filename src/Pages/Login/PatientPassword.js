@@ -6,7 +6,8 @@ import {
   FormGroup,
   BackLink,
   Main,
-  H2
+  H2,
+  ErrorText
 } from "govuk-react";
 import $ from "jquery";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -27,7 +28,9 @@ const LoginPage = () => {
     email: "",
     password: ""
   });
+  const [errorMessage, setErrorMessage] = useState("")
   const { setNHSNumber } = useContext(PatientContext); // needs match with nhsNumber
+
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -44,19 +47,20 @@ const LoginPage = () => {
         console.log(response);
         console.log(response.NHSNumber);
         if (response.success) {
-           // Set isAuthenticated flag in localStorage
-           localStorage.setItem("isAuthenticated", "true");
+          setNHSNumber(response.NHSNumber); // Set the nhsNumber in the PatientContext
+          localStorage.setItem("isAuthenticated", "true");
+          navigate("/patientdashboard", { state: { NHSNumber: response.NHSNumber } });
 
           navigate("/patientdashboard", { state: { nhsNumber: response.nhsNumber } });
         } else {
-          alert("Wrong password");
+          setErrorMessage("Wrong password");
         }
       },
       error: function(xhr, status, error) {
         console.error(xhr);
         console.error(status);
         console.error(error);
-        alert("Error checking password, please try again later");
+        setErrorMessage("Error checking password, please try again later");
       }
     })
   };
@@ -82,11 +86,13 @@ const LoginPage = () => {
           <p>Enter your password</p>
 
           <Fieldset>
+            {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
             <b>Password</b>
             <InputField
-              type="password"
               label="Enter password"
               name="password"
+              autoComplete="off"
+              autoCorrect="off"
               value={formValues.password}
               onChange={(e) =>
                 setFormValues({ ...formValues, password: e.target.value })

@@ -11,7 +11,9 @@ function PatientViewPatientRecord() {
     <div>  <PatientHeader/>
     < Main>
     <H1>View Patient Records</H1>
-   
+    <BackLink as={Link} to="/patientdashboard">
+      Back
+    </BackLink>
 
     <div className="govuk-width-container">
       
@@ -23,9 +25,7 @@ function PatientViewPatientRecord() {
     
       </div>
       <div className="govuk-grid-column-one-third">
-      <BackLink as={Link} to="/patientdashboard">
-      Back
-    </BackLink>
+  
              
             </div>
     </div>
