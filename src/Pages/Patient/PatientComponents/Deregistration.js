@@ -2,14 +2,16 @@ import React, { useContext, useState } from 'react';
 import { Button, Panel, ErrorText, H3, H2, H1 } from 'govuk-react';
 import $ from 'jquery';
 import PatientContext from './PatientContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Deregistration = () => {
   const [error, setError] = useState('');
   const [deregistrationMessage, setDeregistrationMessage] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   const { NHSNumber, setNHSNumber } = useContext(PatientContext);
-////
+  const navigate = useNavigate();
+
   const deregisterPatient = () => {
     $.ajax({
       url: 'http://localhost:8000/deregister_patient.php',
@@ -34,6 +36,8 @@ const Deregistration = () => {
 
   const logoutAfterDeregistration = () => {
     setNHSNumber(null);
+    setIsAuthenticated(false);
+    navigate('/homepage');
   };
 
   return (
@@ -51,7 +55,7 @@ const Deregistration = () => {
         </>
       )}
 
-      {deregistrationMessage && (
+      {deregistrationMessage && isAuthenticated && (
         <>
           <Panel title="Deregistration Confirmed">
             <p>{deregistrationMessage}</p>

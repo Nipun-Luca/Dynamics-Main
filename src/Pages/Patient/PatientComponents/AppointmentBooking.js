@@ -1,7 +1,8 @@
-import React, { useState, useContext } from 'react';
-import { Select, Radio, Button, Panel } from 'govuk-react';
+import React, { useState, useContext, useEffect } from 'react';
+import { Select, Radio, Button, ErrorText, Panel,Label, H3, H2, H1 } from 'govuk-react';
 import $ from 'jquery';
 import PatientContext from '.././PatientComponents/PatientContext'; // Import PatientContext
+import { Link } from 'react-router-dom';
 
 const AppointmentBooking = () => {
   const [year, setYear] = useState('');
@@ -11,6 +12,35 @@ const AppointmentBooking = () => {
   const [dateConfirmed, setDateConfirmed] = useState(false);
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
   const { NHSNumber } = useContext(PatientContext); // Get NHSNumber from PatientContext
+  const [hasAppointment, setHasAppointment] = useState(false);
+
+
+useEffect(() => {
+  checkForExistingAppointments(NHSNumber);
+}, [NHSNumber]);
+// Function to fetch appointments
+// Function to check for existing appointments
+const checkForExistingAppointments = (NHSNumber) => {
+  $.ajax({
+    url: 'http://localhost:8000/get_appointments.php',
+    method: 'POST',
+    dataType: 'json',
+    data: {
+      'NHSNumber': NHSNumber,
+    },
+    success: (jsonResponse) => {
+      if (jsonResponse.appointments && jsonResponse.appointments.length > 0) {
+        setHasAppointment(true);
+      } else {
+        setHasAppointment(false);
+      }
+    },
+    error: (error) => {
+      console.error('API Error:', error);
+    },
+  });
+};
+
 
   const isValidDate = () => {
     return year && month && day;
@@ -103,65 +133,88 @@ const AppointmentBooking = () => {
 
     return timeSlots;
   };
-
   return (
     <div>
-      {!bookingConfirmed && (
+      {hasAppointment ? (
         <>
-        <Select
-            hint="Please select the year of your booking"
-            input={{ name: 'year', onChange: (e) => setYear(e.target.value) }}
-            label="Year"
-          >
-            <option value="">Select year</option>
-            <option value="2023">2023</option>
-            <option value="2024">2024</option>
-            <option value="2025">2025</option>
-          </Select>
-          <h3></h3>
-          <Select
-            hint="Please select the month of your booking"
-            input={{ name: 'month', onChange: (e) => setMonth(e.target.value) }}
-            label="Month"
-          >
-            <option value="">Select month</option>
-            {[...Array(12).keys()].map((i) => (
-              <option key={i + 1} value={i + 1}>
-                {i + 1 < 10 ? `0${i + 1}` : i + 1}
-              </option>
-            ))}
-          </Select>
-          <h3></h3>
-          <Select
-            hint="Please select the day of your booking"
-            input={{ name: 'day', onChange: (e) => setDay(e.target.value) }}
-            label="Day"
-          >
-            <option value="">Select day</option>
-            {renderDays()}
-          </Select>
-          <h6></h6>
-<h3></h3>
-          <Button onClick={handleDateConfirmation}>Confirm date</Button>
-          {dateConfirmed && (
+          <Label><H3>Existing Appointment</H3></Label>
+          <ErrorText>
+            You already have an appointment. Please cancel your existing appointment before booking a new one.
+          </ErrorText>
+           <ErrorText>
+           <H1></H1>
+          </ErrorText>
+          <ErrorText>
+           <H2></H2>
+          </ErrorText>
+         
+          <Button as={Link} to='/patientdashboard/patient-cancel-appointment'>
+            Cancel Appointment
+          </Button>
+        
+        </>
+      ) : (
+        <>
+          {!bookingConfirmed && (
             <>
-              <h3>Select a time slot</h3>
-              {renderTimeSlots()}
+              <Select
+                hint="Please select the year of your booking"
+                input={{ name: 'year', onChange: (e) => setYear(e.target.value) }}
+                label="Year"
+              >
+                <option value="">Select year</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+              </Select>
               <h3></h3>
+              <Select
+                hint="Please select the month of your booking"
+                input={{ name: 'month', onChange: (e) => setMonth(e.target.value) }}
+                label="Month"
+              >
+                <option value="">Select month</option>
+                {[...Array(12).keys()].map((i) => (
+                  <option key={i + 1} value={i + 1}>
+                    {i + 1 < 10 ? `0${i + 1}` : i + 1}
+                  </option>
+                ))}
+              </Select>
               <h3></h3>
-              <Button onClick={handleBooking}>Book appointment</Button>
+              <Select
+                hint="Please select the day of your booking"
+                input={{ name: 'day', onChange: (e) => setDay(e.target.value) }}
+                label="Day"
+              >
+                <option value="">Select day</option>
+                {renderDays()}
+              </Select>
+              <h6></h6>
+              <h3></h3>
+              <Button onClick={handleDateConfirmation}>Confirm date</Button>
+              {dateConfirmed && (
+                <>
+                  <h3>Select a time slot</h3>
+                  {renderTimeSlots()}
+                  <h3></h3>
+                  <h3></h3>
+                  <Button onClick={handleBooking}>Book appointment</Button>
+                </>
+              )}
             </>
+          )}
+  
+          {bookingConfirmed && (
+            <Panel title="Booking Confirmed">
+              <p>Your appointment has been booked successfully.</p>
+            </Panel>
           )}
         </>
       )}
-
-      {bookingConfirmed && (
-        <Panel title="Booking Confirmed">
-          <p>Your appointment has been booked successfully.</p>
-        </Panel>
-      )}
     </div>
   );
+  
+  
 };
 
 export default AppointmentBooking;

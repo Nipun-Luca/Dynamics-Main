@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Main,H1} from 'govuk-react';
 //import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { Outlet } from 'react-router-dom';
@@ -17,8 +17,14 @@ import Footer from '../../Components/Footer';
 // import UpdateMedicalRecords from "./DrComponents/UpdateMedicalRecords";
 
 function DoctorDashboard() {
+  useEffect(() => {
+    window.history.pushState(null, "", window.location.href);
+    window.onpopstate = function () {
+      window.history.pushState(null, "", window.location.href);
+    };
+  }, []);
+
   return (
- 
       <div>
         <Header/>
         < Main>

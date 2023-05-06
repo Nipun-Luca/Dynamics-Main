@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from 'react';
 import {
     Button,
     Main,
@@ -6,11 +6,18 @@ import {
 } from "govuk-react";
 import { Link } from 'react-router-dom';
 
-import Header from "../../Components/DefaultHeader";
+import Header from "./ReceptionistHeader";
 import Footer from "../../Components/Footer";
 
 
 function Dashboard() {
+    useEffect(() => {
+        window.history.pushState(null, "", window.location.href);
+        window.onpopstate = function () {
+          window.history.pushState(null, "", window.location.href);
+        };
+      }, []);
+
     return (
         <div>
             <Header />

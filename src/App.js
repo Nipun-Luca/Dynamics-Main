@@ -32,6 +32,7 @@ import PatientLogInPage from './Pages/Login/PatientLogIn';
 import StaffLogIn from './Pages/Login/StaffLogIn';
 import PatientPassword from './Pages/Login/PatientPassword';
 import StaffPassword from './Pages/Login/StaffPassword';
+import LoginDenied from './Pages/Login/LoginDenied';
 
 //Patient
 import PatientDashboard from './Pages/Patient/PatientComponents/PatientDashboard';
@@ -100,6 +101,7 @@ function App() {
       <Route path="/staffLogin" element={<StaffLogIn />} />
       <Route path="/patientPassword" element={<PatientPassword />} />
       <Route path="/staffPassword" element={<StaffPassword />} />
+      <Route path="/loginDenied" element={<LoginDenied />} />
 
       {/* <Route path='/patientdashboard'  element={<PatientDashboard />} />
       <Route path='/patient-view-appointment' element={<PatientViewAppointments/>} />
@@ -119,17 +121,17 @@ function App() {
   <Route path='patient-update-patient-recrods' element={<PatientUpdatePatientRecrods />} />
   <Route path="patient-deregister" element={<PatientDeregister />} />
   {/* <Route path="patient-logout" element={<PatientLogout />} /> */}
-</Route>
+      </Route>
+
+      <Route path="/receptionistdashboard" element={<PrivateRoute Component={ReceptionistDashboard} />} >
+        <Route index element={<ReceptionistDashboard />} />
+        <Route path="view-doctor-list" element={<ViewDoctorList />} />
+          <Route path="receptionist-cancel-appointment" element={<CancelAppointment />} />
+        
+        <Route path="receptionist-logout" element={<ReceptionistLogout />} />
+      </Route>
 
 
-      <Route path="/receptionistdashboard" element={<PrivateRoute />} >
-      <Route index element={<ReceptionistDashboard />} />
-      <Route path="view-doctor-list" element={<ViewDoctorList />} />
-      <Route path="receptionist-cancel-appointment" element={<CancelAppointment/>} />
-      <Route path="receptionist-logout" element={<ReceptionistLogout />} />
-
-
-  </Route> 
     </Routes>
     </PatientContext.Provider>
     </div>
