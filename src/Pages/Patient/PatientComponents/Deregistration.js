@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Button, Panel, ErrorText, H3, H2, H1 } from 'govuk-react';
+import { Button, Panel, ErrorText, H3, H2, H1, BackLink } from 'govuk-react';
 import $ from 'jquery';
 import PatientContext from './PatientContext';
 import { Link, useNavigate } from 'react-router-dom';
@@ -44,6 +44,11 @@ const Deregistration = () => {
     <div>
       {!deregistrationMessage && (
         <>
+        <BackLink as={Link} to="/patientdashboard">
+          Back
+        </BackLink>
+        <H2></H2>
+          <H1></H1>
           <H3>Are you sure you want to remove your patient details from this GP Surgery?</H3>
           <H2></H2>
           <H1></H1>
