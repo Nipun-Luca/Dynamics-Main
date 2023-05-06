@@ -215,10 +215,13 @@ const checkForExistingAppointments = (NHSNumber) => {
           )}
   
           {bookingConfirmed && (
+            <>
             <Panel title="Booking Confirmed">
               <p>Your appointment has been booked successfully.</p>
             </Panel>
-            
+            <H1></H1>
+            <Button as={Link} to='/patientdashboard/patient-view-appointment'>View Appointments</Button> {/* Move the button outside the Panel */}
+        </>
           )}
           <H1></H1>
               <H2></H2></>
