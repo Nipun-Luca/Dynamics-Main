@@ -1,6 +1,6 @@
 
 import React, { useEffect } from 'react';
-import { Button, Main,H1} from 'govuk-react';
+import { Button, Main,H1,H2} from 'govuk-react';
 import { Link } from 'react-router-dom';
 import PatientHeader from './PatientHeader';
 import Footer from '../../../Components/Footer';
@@ -28,7 +28,8 @@ function PatientDashboard() {
         < Main>
         <H1>Patient Dashboard</H1>
        <PatientFullName/>
-
+       <H1></H1>
+              <H2></H2>
         <div className="govuk-width-container">
           
         
@@ -48,6 +49,8 @@ function PatientDashboard() {
             </div>
             <div className="govuk-grid-column-one-third">
               <Button as={Link} to='patient-deregister'>Patient deregister</Button>
+              <H1></H1>
+              <H2></H2>
             </div>
           </div>
           
