@@ -60,8 +60,10 @@ const RegistrationPage = () => {
       dataType: "json",
       success: function (response) {
         if (response.success) {
-          localStorage.setItem("isAuthenticated", "true");
-          navigate("/patientDashboard", { state: { nhsNumber: nhsNumber } });
+           // Set isAuthenticated flag in localStorage
+           localStorage.setItem("isAuthenticated", "true");
+
+        navigate("/patientDashboard", { state: { nhsNumber: nhsNumber } });
         }
       },
       error: function (xhr, status, error) {

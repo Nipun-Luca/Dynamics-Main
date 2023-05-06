@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Button, Main,H1} from 'govuk-react';
 //import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-
+import { Outlet } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import Header from './DrComponents/DrHeader';
@@ -45,10 +45,10 @@ function DoctorDashboard() {
               <Button as={Link} to='medical-records'>View Medical Records </Button>
             </div>
             <div className="govuk-grid-column-one-third">
-              <Button as={Link} to='update-medical-records'>Update Medical Records</Button>
+              <Button as={Link} to='medical-records'>Update Medical Records</Button>
             </div>
           </div>
-          
+          <Outlet />
           {/* <Routes>
             <Route path='/'  element={<Home/>} />
             <Route path='/appointments' element={<Appointments/>} />

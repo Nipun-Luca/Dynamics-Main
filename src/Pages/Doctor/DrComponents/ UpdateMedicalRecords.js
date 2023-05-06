@@ -14,20 +14,16 @@ import Footer from '../../../Components/Footer';
 
 //import Logout from "./Pages/Doctor/components/Logout";
 
-
-
-
-function MedicalRecords() {
-  
+function UpdateMedicalRecords() {
   return (
     <div>
         <Header/>
         < Main>
-        <BackLink as={Link} to="/doctor-dashboard/appointments">
+        <BackLink as={Link} to="/doctor-dashboard/medical-records">
           Back
         </BackLink>
 
-        <H1>View Patient Medical Record</H1>
+        <H1>Update Patient Medical Record</H1>
         
         <DoctorFullName/>
 
@@ -42,5 +38,4 @@ function MedicalRecords() {
 
   );
 }
-
-export default MedicalRecords;
+export default UpdateMedicalRecords;
