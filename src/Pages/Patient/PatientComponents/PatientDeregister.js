@@ -1,14 +1,14 @@
 import React from 'react'
 import { Button, Main,H1} from 'govuk-react';
 import { Link } from 'react-router-dom';
-import PatientHeader from './PatientHeader';
+import PatientHeaderDeregistration from './PatientHeaderDeregistration';
 import Footer from '../../../Components/Footer';
 import Deregistration from './Deregistration';
 function PatientDeregister() {
   return (
     <div>
 
-    <PatientHeader/>
+    <PatientHeaderDeregistration/>
     < Main>
     <H1>De-Register</H1>
     <H1></H1>

@@ -67,7 +67,7 @@ const RegistrationPage = () => {
           // Set isAuthenticated flag in localStorage
           localStorage.setItem("isAuthenticated", "true");
 
-        navigate("/patientDashboard", { state: { nhsNumber: nhsNumber } });
+        navigate("/patientDashboard", { state: { NHSNumber: nhsNumber } });
         }
       },
       error: function (xhr, status, error) {
