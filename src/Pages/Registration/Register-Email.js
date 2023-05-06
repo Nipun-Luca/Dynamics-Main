@@ -66,9 +66,7 @@ const RegistrationPage = () => {
     <div>
       <Header />  
       <Main>
-        <BackLink onClick={() => navigate(-1)}>
-          Back
-        </BackLink>
+        <BackLink onClick={() => navigate(-1)}> Back </BackLink>
 
         <FormGroup onSubmit={handleSubmit}>
         <H2>What is your email address?</H2>

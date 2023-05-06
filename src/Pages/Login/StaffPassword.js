@@ -85,9 +85,7 @@ const StaffLoginPage = ({ userType }) => {
     <div>
       <Header />  
       <Main>
-        <BackLink onClick={() => navigate(-1)}>
-          Back
-        </BackLink>
+        <BackLink onClick={() => navigate(-1)}> Back </BackLink>
 
         <FormGroup>
           <div className='login-heading'>

@@ -58,8 +58,7 @@ function RegistrationPage(){
     <div>
       <Header />  
       <Main>
-        <BackLink onClick={() => navigate(-1)}> Back
-        </BackLink>
+        <BackLink onClick={() => navigate(-1)}> Back </BackLink>
 
         <FormGroup>
           <H2>Register with your NHS number</H2>

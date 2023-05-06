@@ -79,9 +79,7 @@ const RegistrationPage = () => {
     <div>
       <Header />
       <Main>
-        <BackLink onClick={() => navigate(-1)}>
-          Back
-        </BackLink>
+        <BackLink onClick={() => navigate(-1)}> Back </BackLink>
 
         <FormGroup>
           <p>Password requires: 8 characters or more</p>
