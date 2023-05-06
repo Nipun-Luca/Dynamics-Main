@@ -47,7 +47,7 @@ import DoctorDashboard from  './Pages/Doctor/DoctorDashboard';
 //import LogoutButton from './Pages/Doctor/DrComponents/ LogoutButton';
 import DrAppointments from './Pages/Doctor/DrComponents/DrAppointments';
 import MedicalRecords from './Pages/Doctor/DrComponents/MedicalRecords';
-import UpdateMedicalRecords from "./Pages/Doctor/DrComponents/UpdateMedicalRecords";
+import UpdateMedicalRecords  from "./Pages/Doctor/DrComponents/ UpdateMedicalRecords";
 
 //Receptionist
 import ReceptionistDashboard from './Pages/Receptionist/ReceptionistDashboard';
@@ -84,7 +84,8 @@ function App() {
       <Route path="/doctor-dashboard" element={<PrivateRoute Component={DoctorDashboard} />}>
   <Route index element={<DoctorDashboard />} />
   <Route path="appointments" element={<DrAppointments />} />
-  <Route path="medical-records" element={<MedicalRecords />} />
+  {/* <Route path="medical-records" element={<MedicalRecords />} /> */}
+  <Route path="view-medical-records/:nhsNumber" element={<MedicalRecords />} />
   <Route path="update-medical-records" element={<UpdateMedicalRecords />} />
 </Route>
 
