@@ -11,7 +11,7 @@ import {
 } from "govuk-react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import $ from "jquery"; // import jQuery
+import $ from "jquery";
 
 import Header from '../../Components/DefaultHeader';
 import Footer from '../../Components/Footer';
@@ -26,6 +26,12 @@ function RegistrationPage(){
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formValues.nhsNumber.trim()) {
+      setErrorMessage("Please fill the required information");
+      return;
+    }
+
     const formData = new FormData();
     formData.append('nhsNumber', formValues.nhsNumber);
   
@@ -39,8 +45,7 @@ function RegistrationPage(){
       success: function(data) {
         if (data === "This NHS number is already registered to our local database") {
           setErrorMessage(data);
-        } else if (data !== "NHSNumber does not exist in central database") {
-          console.log(data);
+        } else if (data !== "NHSNumber does not exist or invalid format") {
           navigate("/registerEmail", { state: { nhsNumber: data } });
         } else {
           setErrorMessage(data);
@@ -48,17 +53,12 @@ function RegistrationPage(){
       }
     })
   };
-  
-    
-
-  let history = useNavigate();
 
   return (
     <div>
       <Header />  
       <Main>
-        <BackLink onClick={() => history(-1)}>
-          Back
+        <BackLink onClick={() => navigate(-1)}> Back
         </BackLink>
 
         <FormGroup>
@@ -70,18 +70,17 @@ function RegistrationPage(){
               {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
               <b>Enter NHS number</b>
               <InputField
-                label="Enter NHS number"
                 name="nhsNumber"
                 value={formValues.nhsNumber}
                 required
                 onChange={(e) => setFormValues({ ...formValues, nhsNumber: e.target.value })}
               />
               
-              <Button type="submit" onClick={handleSubmit}>Enter</Button> 
+              <Button onClick={handleSubmit}>Enter</Button> 
             </Fieldset>
         </FormGroup>
           <Link to="/registerPersonalDetails" style={{ position: "relative"}}>
-          Register with personal info
+            Register with personal info
           </Link>
       </Main>
 

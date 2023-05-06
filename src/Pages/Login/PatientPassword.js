@@ -11,7 +11,7 @@ import {
 } from "govuk-react";
 import $ from "jquery";
 import { useNavigate, useLocation } from "react-router-dom";
-import PatientContext from '.././Patient/PatientComponents/PatientContext'; // Import PatientContext
+import PatientContext from '.././Patient/PatientComponents/PatientContext'; //Import PatientContext
 
 import Header from '../../Components/DefaultHeader';
 import Footer from '../../Components/Footer';
@@ -19,10 +19,9 @@ import Footer from '../../Components/Footer';
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  // Receive NHS number and email from previous page
+  //Receive NHS number and email from previous page
   const location = useLocation();
   const emailAddress = location.state?.emailAddress;
-  console.log(emailAddress);
 
   const [formValues, setFormValues] = useState({
     email: "",
@@ -30,10 +29,15 @@ const LoginPage = () => {
   });
   const [errorMessage, setErrorMessage] = useState("");
   const [loginAttempts, setLoginAttempts] = useState(0);
-  const { setNHSNumber } = useContext(PatientContext); // needs match with nhsNumber
+  const { setNHSNumber } = useContext(PatientContext); //needs match with nhsNumber
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formValues.password.trim()) {
+      setErrorMessage("Please fill the required information");
+      return;
+    }
 
     $.ajax({
       type: "POST",
@@ -45,14 +49,10 @@ const LoginPage = () => {
       dataType: "json",
 
       success: function (response) {
-        console.log(response);
-        console.log(response.NHSNumber);
         if (response.success) {
-          setNHSNumber(response.NHSNumber); // Set the nhsNumber in the PatientContext
+          setNHSNumber(response.NHSNumber); //Set the nhsNumber in the PatientContext
           localStorage.setItem("isAuthenticated", "true");
-          navigate("/patientdashboard", {
-            state: { NHSNumber: response.NHSNumber }
-          });
+          navigate("/patientdashboard", { state: { NHSNumber: response.NHSNumber } });
         } else {
           setErrorMessage("Wrong password");
           setLoginAttempts(loginAttempts + 1);
@@ -77,9 +77,10 @@ const LoginPage = () => {
     <div>
       <Header />
       <Main>
+        <BackLink onClick={() => navigate(-1)}> Back </BackLink>
         <FormGroup>
           <div className="login-heading">
-            <h2>PATIENT</h2>
+            <H2>PATIENT</H2>
           </div>
 
           <p>Enter your password</p>
@@ -88,7 +89,6 @@ const LoginPage = () => {
             {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
             <b>Password</b>
             <InputField
-              label="Enter password"
               name="password"
               value={formValues.password}
               onChange={(e) =>
@@ -97,9 +97,7 @@ const LoginPage = () => {
               required
             />
 
-            <Button type="submit" onClick={handleSubmit}>
-              Enter
-            </Button>
+            <Button onClick={handleSubmit}> Enter </Button>
           </Fieldset>
         </FormGroup>
       </Main>

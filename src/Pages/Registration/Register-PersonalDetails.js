@@ -29,6 +29,11 @@ function RegistrationPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!formValues.name.trim() && !formValues.surname.trim() && !formValues.postcode.trim()) {
+      setErrorMessage("Please fill the required information");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("name", formValues.name);
     formData.append("surname", formValues.surname);
@@ -42,31 +47,25 @@ function RegistrationPage() {
       processData: false,
       contentType: false,
       success: function (data) {
-        console.log(data.success)
         if (data.success) {
-          // Patient record exists in central database
+          //Patient record exists in central database
           navigate("/registerEmail", { state: { nhsNumber: data.nhsNumber } });
         } else {
-          // Patient record does not exist in central database
+          //Patient record does not exist in central database
           setErrorMessage("Not found, make sure to enter the details correctly");
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        console.error(errorThrown);
-        // Handle the error here
         setErrorMessage("Something went wrong")
       },
     });
   };
 
-
-  const history = useNavigate();
-
   return (
     <div>
       <Header />
       <Main>
-        <BackLink onClick={() => history(-1)}>Back</BackLink>
+        <BackLink onClick={() => navigate(-1)}>Back</BackLink>
 
         <FormGroup>
           <H2>Register with your name, surname and postcode</H2>
@@ -76,7 +75,6 @@ function RegistrationPage() {
             {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
             <b>Name</b>
             <InputField
-              label="Enter name"
               name="name"
               value={formValues.name}
               onChange={(e) =>
@@ -87,7 +85,6 @@ function RegistrationPage() {
 
             <b>Surname</b>
             <InputField
-              label="Enter Surname"
               name="surname"
               value={formValues.surname}
               onChange={(e) =>
@@ -98,7 +95,6 @@ function RegistrationPage() {
 
             <b>Postcode</b>
             <InputField
-              label="Enter Postcode"
               name="postcode"
               value={formValues.postcode}
               onChange={(e) =>
@@ -107,7 +103,7 @@ function RegistrationPage() {
               required
             />
 
-            <Button type="submit" onClick={handleSubmit}>Enter</Button>
+            <Button onClick={handleSubmit}>Enter</Button>
           </Fieldset>
         </FormGroup>
 
