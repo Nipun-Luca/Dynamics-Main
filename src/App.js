@@ -78,16 +78,13 @@ function App() {
 
       <Route path="/homepage" element={<Homepage />} />
 
-      {/* <Route path='/doctor-dashboard'  element={<DoctorDashboard />} />
-      <Route path='/appointments' element={<DrAppointments/>} />
-      <Route path='/medical-records' element={<MedicalRecords/>} />
-      <Route path='/update-medical-records' element={<UpdateMedicalRecords/>} /> */}
+     
       <Route path="/doctor-dashboard" element={<PrivateRoute Component={DoctorDashboard} />}>
-  <Route index element={<DoctorDashboard />} />
-  <Route path="appointments" element={<DrAppointments />} />
-  {/* <Route path="medical-records" element={<MedicalRecords />} /> */}
-  <Route path="view-medical-records/:nhsNumber" element={<MedicalRecords />} />
-  <Route path="update-medical-records" element={<UpdateMedicalRecords />} />
+      <Route index element={<DoctorDashboard />} />
+      <Route path="appointments" element={<DrAppointments />} />
+      <Route path="medical-records" element={<MedicalRecords />} />
+      {/* <Route path="view-medical-records/:nhsNumber" element={<MedicalRecords />} /> */}
+      <Route path="update-medical-records" element={<UpdateMedicalRecords />} />
 </Route>
 
 

@@ -1,17 +1,21 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, ErrorText, H3, FormGroup, InputField, Fieldset, Button } from 'govuk-react';
 import { Link } from 'react-router-dom';
 import $ from 'jquery';
 
-import DoctorContext from './DoctorContext';
+import { useParams } from 'react-router-dom';
 
 const ViewMedicalRecords = () => {
+  
+  const { nhsNumber } = useParams();
   const [patients, setPatientRecords] = useState([]);
-  const [error, setError] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("")
-  const [nhsNumberInput, setNhsNumberInput] = useState('');
-  const [searched, setSearched] = useState(false);
-  const { DoctorId } = useContext(DoctorContext);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  useEffect(() => {
+    if (nhsNumber) {
+      fetchPatientRecords(nhsNumber);
+    }
+  }, [nhsNumber]);
 
   const fetchPatientRecords = (NHSNumber) => {
     $.ajax({
@@ -22,57 +26,24 @@ const ViewMedicalRecords = () => {
       success: (response) => {
         if (response.success) {
           setPatientRecords(response.patients);
-          setErrorMessage(response.message);
+          setErrorMessage(null);
         } else {
-          //setErrorMessage("Wrong password");
           setErrorMessage(response.message || 'Empty response from the server');
-          //setError(response.message || 'Empty response from the server');
         }
       },
       error: (error) => {
-        //setError('Fetching patient records failed: ' + error.statusText);
         setErrorMessage('Fetching patient records failed: ' + error.statusText);
       },
     });
   };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    fetchPatientRecords(nhsNumberInput);
-    setSearched(true);
-  };
-
   return (
     <>
-      <FormGroup>
-      <Fieldset>
       {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
-      {errorMessage === "New patient, please update the patient medical record." && (
-            <div className="govuk-grid-column-one-third">
-              <Button as={Link} to="/doctor-dashboard/update-medical-records">
-                Update Medical Records
-              </Button>
-            </div>
-          )}
-        
-        <form onSubmit={handleSearch}>
-        <b>Enter Patient NHS number</b>
-          <InputField
-            name="nhsNumber"
-            value={nhsNumberInput}
-            required
-            onChange={(e) => setNhsNumberInput(e.target.value)}
-          />
-          <Button type="submit">Search</Button>
-        </form>
-      </Fieldset>
-      </FormGroup>
-    
-
-      { patients.length ? (
-          <>
-        <Table caption="Patient Medical Records">
-         <Table.Row>
+      {patients.length ? (
+        <>
+          <Table caption="Patient Medical Records">
+          <Table.Row>
             <Table.CellHeader>NHS Number</Table.CellHeader>
             <Table.CellHeader> Dose No </Table.CellHeader>
             <Table.CellHeader>  Doctor Id </Table.CellHeader>
@@ -96,19 +67,22 @@ const ViewMedicalRecords = () => {
               <Table.Cell>{patient.Booster}</Table.Cell>
             </Table.Row>
           ))}
-        </Table>
-        <div className="govuk-grid-column-one-third">
-            <Button as={Link} to='/doctor-dashboard/update-medical-records'>Update Medical Records</Button>
+          </Table>
+          <div className="govuk-grid-column-one-third">
+            <Button as={Link} to="/doctor-dashboard/update-medical-records">
+              Update Medical Records
+            </Button>
           </div>
         </>
-        // : searched ? ( 
-        //   <H3>No patient medical records found</H3>
-        // )
-
-      ): null}
+      ) : (
+        <H3>No patient medical records found</H3>
+      )}
+      <div className="govuk-grid-column-one-third">
+        <Button as={Link} to="/doctor-dashboard/update-medical-records">
+          Update Medical Records
+        </Button>
+      </div>
     </>
-   
-          
   );
 };
 
