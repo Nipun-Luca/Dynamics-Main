@@ -20,7 +20,7 @@ const RegistrationPage = () => {
   // Receive NHS number and email from previous page
   const location = useLocation();
   const nhsNumber = location.state?.nhsNumber;
-  const email = location.state?.email;
+  const emailAddress = location.state?.emailAddress;
 
   const [formValues, setFormValues] = useState({
     password: "",
@@ -56,7 +56,7 @@ const RegistrationPage = () => {
       data: {
         password: formValues.password,
         nhsNumber: nhsNumber,
-        email: email,
+        emailAddress: emailAddress,
       },
       dataType: "json",
       success: function (response) {
