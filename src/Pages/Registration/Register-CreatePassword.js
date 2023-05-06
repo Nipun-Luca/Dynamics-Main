@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, } from "react";
 import {
   Fieldset,
   InputField,
@@ -11,6 +11,7 @@ import {
 } from "govuk-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
+import PatientContext from '.././Patient/PatientComponents/PatientContext'; //Import PatientContext
 import Header from "../../Components/DefaultHeader";
 import Footer from "../../Components/Footer";
 import $ from "jquery";
@@ -21,6 +22,7 @@ const RegistrationPage = () => {
   const location = useLocation();
   const nhsNumber = location.state?.nhsNumber;
   const emailAddress = location.state?.emailAddress;
+  const { setNHSNumber } = useContext(PatientContext); //needs match with nhsNumber
 
   const [formValues, setFormValues] = useState({
     password: "",
@@ -61,8 +63,9 @@ const RegistrationPage = () => {
       dataType: "json",
       success: function (response) {
         if (response.success) {
-           // Set isAuthenticated flag in localStorage
-           localStorage.setItem("isAuthenticated", "true");
+          setNHSNumber(response.NHSNumber); //Set the nhsNumber in the PatientContext
+          // Set isAuthenticated flag in localStorage
+          localStorage.setItem("isAuthenticated", "true");
 
         navigate("/patientDashboard", { state: { nhsNumber: nhsNumber } });
         }
