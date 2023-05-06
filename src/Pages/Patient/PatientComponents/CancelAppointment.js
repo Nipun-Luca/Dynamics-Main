@@ -102,6 +102,9 @@ const CancelAppointment = () => {
           <p>{confirmationMessage}</p>
         </Panel>
       )}
+      <H1></H1>
+              <H2></H2>
+              
     </div>
   );
 };
