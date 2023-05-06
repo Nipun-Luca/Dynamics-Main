@@ -1,21 +1,41 @@
 import React, { useState, useContext } from 'react';
-import { FormGroup, Select, InputField, Button, H3, ErrorText } from 'govuk-react';
+import { FormGroup, Select, InputField, Button, H3, H2, H1, ErrorText } from 'govuk-react';
 import $ from 'jquery';
-import PatientContext from '.././PatientComponents/PatientContext'; // Import PatientContext
+import PatientContext from '.././PatientComponents/PatientContext';
 
 const UpdatePatientRecords = () => {
   const [updateField, setUpdateField] = useState('');
   const [updateValue, setUpdateValue] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
 
-  // const NHSNumber = '92233359811';
-  const { NHSNumber } = useContext(PatientContext); // Get NHSNumber from PatientContext
+  const { NHSNumber } = useContext(PatientContext);
 
   const updatePatientRecords = () => {
     if (updateField.trim() === '' || updateValue.trim() === '') {
       setError('Please choose a field and provide a new value');
       return;
+    }
+
+    // Check for email format
+    if (updateField === 'Email') {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(updateValue)) {
+        setError('Please enter a valid email address');
+        return;
+      }
+    }
+
+    if (updateField === 'Password') {
+      if (updateValue.length < 8) {
+        setError('Password must have at least 8 characters');
+        return;
+      }
+      if (updateValue !== confirmPassword) {
+        setError('Passwords do not match');
+        return;
+      }
     }
 
     $.ajax({
@@ -63,15 +83,26 @@ const UpdatePatientRecords = () => {
         );
       case 'Password':
         return (
-          <InputField
-            label="Password"
-            hint="Enter the new password"
-            name="Password"
-            type="password"
-            value={updateValue}
-            onChange={(e) => setUpdateValue(e.target.value)}
-            required
-          />
+          <>
+            <InputField
+              label="Password"
+              hint="Enter the new password"
+              name="Password"
+              type="password"
+              value={updateValue}
+              onChange={(e) => setUpdateValue(e.target.value)}
+              required
+            />
+            <InputField
+              label="Confirm Password"
+              hint="Confirm the new password"
+              name="ConfirmPassword"
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+          </>
         );
       default:
         return null;
@@ -81,7 +112,7 @@ const UpdatePatientRecords = () => {
   return (
     <>
       {success ? (
-        <H3>Patient records updated successfully</H3>
+        <H2>Patient records updated successfully</H2>
       ) : (
         <>
           <FormGroup>
@@ -111,3 +142,4 @@ const UpdatePatientRecords = () => {
 };
 
 export default UpdatePatientRecords;
+

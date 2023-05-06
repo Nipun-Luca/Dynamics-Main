@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Main,H1, BackLink} from 'govuk-react';
+import { Button, Main, H1,H2,  BackLink} from 'govuk-react';
 import { Link } from 'react-router-dom';
 import PatientHeader from './PatientHeader';
 import Footer from '../../../Components/Footer';
@@ -14,7 +14,8 @@ function PatientViewPatientRecord() {
     <BackLink as={Link} to="/patientdashboard">
       Back
     </BackLink>
-
+    <H1></H1>
+                <H2></H2>
     <div className="govuk-width-container">
       
     
