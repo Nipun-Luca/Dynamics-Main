@@ -26,6 +26,7 @@ import RegisterNHSNumber from './Pages/Registration/Register-NHSnumber';
 import RegisterPersonalDetails from './Pages/Registration/Register-PersonalDetails';
 import RegisterEmail from './Pages/Registration/Register-Email';
 import RegisterCreatePassword from './Pages/Registration/Register-CreatePassword';
+import RegisterConfirmation from './Pages/Registration/Register-Confirmation';
 
 //Login
 import PatientLogInPage from './Pages/Login/PatientLogIn';
@@ -93,6 +94,7 @@ function App() {
       <Route path="/registerPersonalDetails" element={<RegisterPersonalDetails />} />
       <Route path="/registerEmail" element={<RegisterEmail />} />
       <Route path="/registerCreatePassword" element={<RegisterCreatePassword />} />
+      <Route path="/registerConfirmation" element={<RegisterConfirmation />} />
 
       <Route path="/patientLogin" element={<PatientLogInPage />} />
       <Route path="/staffLogin" element={<StaffLogIn />} />

@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import {
     ErrorSummary,
     Main
   } from "govuk-react";
-
 import Header from "../../Components/DefaultHeader";
 import Footer from "../../Components/Footer";
 
 function LoginDenied() {
+  const navigate = useNavigate();
+
     useEffect(() => {
         window.history.pushState(null, "", window.location.href);
         window.onpopstate = function () {
@@ -24,7 +26,8 @@ function LoginDenied() {
             description="Wrong password has been inserted too many times."
             errors={[
                 {
-                  text: 'Click the "Home" button on the navigation bar to back to the homepage'
+                  targetName: 'error',
+                  text: 'Click here to go back to the homepage',
                 }
               ]}
             />
