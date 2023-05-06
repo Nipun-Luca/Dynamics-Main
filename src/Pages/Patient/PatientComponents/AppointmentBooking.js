@@ -141,6 +141,8 @@ const checkForExistingAppointments = (NHSNumber) => {
           <ErrorText>
             You already have an appointment. Please cancel your existing appointment before booking a new one.
           </ErrorText>
+          <H1></H1>
+              <H2></H2>
            <ErrorText>
            <H1></H1>
           </ErrorText>
@@ -151,6 +153,8 @@ const checkForExistingAppointments = (NHSNumber) => {
           <Button as={Link} to='/patientdashboard/patient-cancel-appointment'>
             Cancel Appointment
           </Button>
+          <H1></H1>
+              <H2></H2>
         
         </>
       ) : (
@@ -158,6 +162,7 @@ const checkForExistingAppointments = (NHSNumber) => {
           {!bookingConfirmed && (
             <>
             <H3>Please select date and time</H3>
+            <H1></H1>
               <Select
                 hint="Please select the year of your booking"
                 input={{ name: 'year', onChange: (e) => setYear(e.target.value) }}
@@ -181,7 +186,7 @@ const checkForExistingAppointments = (NHSNumber) => {
                   </option>
                 ))}
               </Select>
-              <h3></h3>
+              <H3></H3>
               <Select
                 hint="Please select the day of your booking"
                 input={{ name: 'day', onChange: (e) => setDay(e.target.value) }}
@@ -190,27 +195,36 @@ const checkForExistingAppointments = (NHSNumber) => {
                 <option value="">Select day</option>
                 {renderDays()}
               </Select>
-              <h6></h6>
-              <h3></h3>
+              <H1></H1>
+              <H2></H2>
               <Button onClick={handleDateConfirmation}>Confirm date</Button>
+              <H1></H1>
+              <H2></H2>
               {dateConfirmed && (
                 <>
                   <h3>Select a time slot</h3>
                   {renderTimeSlots()}
-                  <h3></h3>
-                  <h3></h3>
+                  <H1></H1>
+              <H2></H2>
                   <Button onClick={handleBooking}>Book appointment</Button>
+                  <H1></H1>
+              <H2></H2>
                 </>
               )}
             </>
           )}
   
           {bookingConfirmed && (
+            <>
             <Panel title="Booking Confirmed">
               <p>Your appointment has been booked successfully.</p>
             </Panel>
-          )}
+            <H1></H1>
+            <Button as={Link} to='/patientdashboard/patient-view-appointment'>View Appointments</Button> {/* Move the button outside the Panel */}
         </>
+          )}
+          <H1></H1>
+              <H2></H2></>
       )}
     </div>
   );

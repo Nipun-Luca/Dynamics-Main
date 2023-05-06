@@ -1,15 +1,17 @@
 import React, { useState, useContext,useEffect } from 'react';
-import { Radio, Button, Panel, ErrorText, H3, H1, H2 } from 'govuk-react';
+import { Radio, Button, Panel, ErrorText, H3, H1, H2, BackLink } from 'govuk-react';
 import $ from 'jquery';
 import PatientContext from './PatientContext';
+import { Link } from 'react-router-dom';
+
 const CancelAppointment = () => {
   const [appointments, setAppointments] = useState([]);
   const [selectedAppointmentId, setSelectedAppointmentId] = useState(null);
   const [confirmationMessage, setConfirmationMessage] = useState('');
   const [error, setError] = useState('');
 
-  const { NHSNumber } = useContext(PatientContext); // Use the useContext hook to get the NHSNumber
-  //const NHSNumber = '92233359811'; // Replace this with the actual patient NHS Number
+  const { NHSNumber } = useContext(PatientContext); 
+  //const NHSNumber = '92233359811'; // 
 
   useEffect(() => {
     fetchAppointments(NHSNumber);
@@ -98,10 +100,17 @@ const CancelAppointment = () => {
       )}
 
       {confirmationMessage && (
-        <Panel title="Cancellation Confirmed">
-          <p>{confirmationMessage}</p>
-        </Panel>
+        <>
+          <Panel title="Cancellation Confirmed">
+            <p>{confirmationMessage}</p>
+          </Panel>
+          <H1></H1>
+          <Button as={Link} to='/patientdashboard/patient-book-appointment'>Book appointment</Button> {/* Move the button outside the Panel */}
+        </>
       )}
+      <H1></H1>
+              <H2></H2>
+              
     </div>
   );
 };
