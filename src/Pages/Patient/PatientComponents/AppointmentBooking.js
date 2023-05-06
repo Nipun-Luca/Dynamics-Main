@@ -157,6 +157,7 @@ const checkForExistingAppointments = (NHSNumber) => {
         <>
           {!bookingConfirmed && (
             <>
+            <H3>Please select date and time</H3>
               <Select
                 hint="Please select the year of your booking"
                 input={{ name: 'year', onChange: (e) => setYear(e.target.value) }}

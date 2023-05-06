@@ -1,5 +1,5 @@
 import React, { useState, useContext,useEffect } from 'react';
-import { Table, ErrorText, H3 } from 'govuk-react';
+import { Table, ErrorText, H3, H2, H1 } from 'govuk-react';
 import $ from 'jquery';
 import PatientContext from '.././PatientComponents/PatientContext'; // Import PatientContext
 
@@ -47,7 +47,7 @@ const ViewPatientRecords = () => {
       {error ? (
         <ErrorText>{error}</ErrorText>
       ) : patients.length ? (
-        <Table caption="Local Patient Records">
+        <Table caption="Your Patient Records">
           <Table.Row>
             <Table.CellHeader>NHS Number</Table.CellHeader>
             <Table.CellHeader>Forename</Table.CellHeader>
@@ -72,6 +72,9 @@ const ViewPatientRecords = () => {
       ) : (
         <H3>No patients found</H3>
       )}
+      <H1></H1>
+      <H2></H2>
+      <H3></H3>
     </>
   );
 };

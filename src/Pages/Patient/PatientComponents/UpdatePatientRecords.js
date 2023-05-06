@@ -128,12 +128,21 @@ const UpdatePatientRecords = () => {
               <option value="Password">Password</option>
             </Select>
           </FormGroup>
-          <h3></h3>
+          <H1></H1>
+      <H2></H2>
+      <H3></H3>
+          <H1></H1>
           {renderUpdateField()}
-          <h3></h3>
+          <H1></H1>
+          <H1></H1>
+      <H2></H2>
+      <H3></H3>
           {updateField && (
             <Button onClick={updatePatientRecords}>Submit</Button>
           )}
+          <H1></H1>
+      <H2></H2>
+      <H3></H3>
         </>
       )}
       {error && <ErrorText>{error}</ErrorText>}

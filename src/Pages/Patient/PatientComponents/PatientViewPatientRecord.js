@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Main, H1,H2,  BackLink} from 'govuk-react';
+import { Button, Main, H1,H2,H3,  BackLink} from 'govuk-react';
 import { Link } from 'react-router-dom';
 import PatientHeader from './PatientHeader';
 import Footer from '../../../Components/Footer';
@@ -23,7 +23,9 @@ function PatientViewPatientRecord() {
 
       <ViewPatientRecords />
       <Button as={Link} to='/patientdashboard/patient-update-patient-recrods'>Update Patient Records</Button>
-    
+      <H1></H1>
+      <H2></H2>
+      <H3></H3>
       </div>
       <div className="govuk-grid-column-one-third">
   
