@@ -1,12 +1,12 @@
-import React, { useState, useContext,useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Table, ErrorText, H3 } from 'govuk-react';
-import $ from 'jquery';
 import PatientContext from './PatientContext';
+import $ from 'jquery'; // Add this line to import jQuery 
+
 const AppointmentList = () => {
   const [appointments, setAppointments] = useState([]);
   const [error, setError] = useState(null);
-  const { NHSNumber } = useContext(PatientContext); // Use the useContext hook to get the NHSNumber
-  console.log(NHSNumber);
+  const { NHSNumber } = useContext(PatientContext);
 
   useEffect(() => {
     fetchAppointments(NHSNumber);
@@ -17,23 +17,20 @@ const AppointmentList = () => {
       url: 'http://localhost:8000/get_appointments.php',
       method: 'POST',
       dataType: 'json',
-      contentType: 'application/json', // Add this line
-      data: JSON.stringify({ // Convert the data object to a JSON string
+      data: {
         'NHSNumber': NHSNumber,
-      }),
-      success: (response) => {
-        try {
-          if (response.appointments) {
-            setAppointments(response.appointments);
-            setError(null);
-          } else {
-            setError(response.message || 'Empty response from the server');
-          }
-        } catch (error) {
-          setError('No booked appointments ');
+      },
+      success: (jsonResponse) => {
+        console.log('API Data:', jsonResponse); // Add this line
+        if (jsonResponse.appointments) {
+          setAppointments(jsonResponse.appointments);
+          setError(null);
+        } else {
+          setError(jsonResponse.message || 'Empty response from the server');
         }
       },
       error: (error) => {
+        console.error('API Error:', error); // Add this line
         setError('Fetching appointments failed: ' + error.statusText);
       },
     });
@@ -46,6 +43,7 @@ const AppointmentList = () => {
         <ErrorText>{error}</ErrorText>
       ) : appointments.length ? (
         <Table caption="Your coming appointments">
+        <Table.Row> </Table.Row>
           <Table.Row>
             <Table.CellHeader>Date</Table.CellHeader>
             <Table.CellHeader>Time</Table.CellHeader>
