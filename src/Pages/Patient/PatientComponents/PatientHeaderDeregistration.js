@@ -20,9 +20,7 @@ class PatientHeaderDeregistration extends Component {
     return (
   
         <TopNav>
-  <TopNav.NavLink as={Link} to='/patientdashboard'>
-  Home
-  </TopNav.NavLink>
+  
 </TopNav>
 
 
