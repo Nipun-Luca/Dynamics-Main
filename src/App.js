@@ -103,14 +103,6 @@ function App() {
       <Route path="/staffPassword" element={<StaffPassword />} />
       <Route path="/loginDenied" element={<LoginDenied />} />
 
-      {/* <Route path='/patientdashboard'  element={<PatientDashboard />} />
-      <Route path='/patient-view-appointment' element={<PatientViewAppointments/>} />
-      <Route path='/patient-book-appointment' element={<PatientBookAppointment/>} />
-      <Route path='/patient-cancel-appointment' element={<PatientCancelAppointment/>} />
-      <Route path='/patient-view-patient-record' element={<PatientViewPatientRecord/>} />
-      <Route path='/patient-update-patient-recrods' element={<PatientUpdatePatientRecrods/>} />
-      <Route path='/patient-deregister' element={<PatientDeregister/>} />
-      <Route path='/patient-logout' element={<PatientLogout/>} /> */}
 
       <Route path="/patientdashboard" element={<PrivateRoute Component={PatientDashboard} />}>
   <Route index element={<PatientDashboard />} />
