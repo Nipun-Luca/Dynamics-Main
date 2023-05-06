@@ -6,7 +6,8 @@ import {
   FormGroup,
   BackLink,
   Main,
-  ErrorText
+  ErrorText,
+  H2
 } from "govuk-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -82,6 +83,7 @@ const RegistrationPage = () => {
         <BackLink onClick={() => navigate(-1)}> Back </BackLink>
 
         <FormGroup>
+          <H2>Create Password</H2>
           <p>Password requires: 8 characters or more</p>
 
           <Fieldset>
