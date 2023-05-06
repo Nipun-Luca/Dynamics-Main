@@ -1,5 +1,5 @@
 import React, { useState, useContext,useEffect } from 'react';
-import { Radio, Button, Panel, ErrorText, H3 } from 'govuk-react';
+import { Radio, Button, Panel, ErrorText, H3, H1, H2 } from 'govuk-react';
 import $ from 'jquery';
 import PatientContext from './PatientContext';
 const CancelAppointment = () => {
@@ -69,6 +69,8 @@ const CancelAppointment = () => {
           {appointments.length > 0 ? (
             <>
               <H3>Select an appointment to cancel</H3>
+              <H1></H1>
+                <H2></H2>
               <form onSubmit={cancelAppointment}>
                 {appointments.map((appointment) => (
                   <Radio
@@ -80,6 +82,8 @@ const CancelAppointment = () => {
                     {`${appointment.AppointmentDate} ${appointment.AppointmentTime}`}
                   </Radio>
                 ))}
+                <H1></H1>
+                <H2></H2>
                 {error && <ErrorText>{error}</ErrorText>}
                 <Button type="submit">Cancel appointment</Button>
               </form>

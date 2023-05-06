@@ -42,8 +42,9 @@ const AppointmentList = () => {
       {error ? (
         <ErrorText>{error}</ErrorText>
       ) : appointments.length ? (
-        <Table caption="Your coming appointments">
-        <Table.Row> </Table.Row>
+        <Table caption="Your coming appointments" >
+        <Table.Row>   </Table.Row>
+        <Table.Row>   </Table.Row>
           <Table.Row>
             <Table.CellHeader>Date</Table.CellHeader>
             <Table.CellHeader>Time</Table.CellHeader>
