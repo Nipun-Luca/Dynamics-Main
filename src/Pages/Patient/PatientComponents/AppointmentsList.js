@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Table, ErrorText, H3 } from 'govuk-react';
+import { Table, ErrorText, H3, H2,H1 } from 'govuk-react';
 import PatientContext from './PatientContext';
 import $ from 'jquery'; // Add this line to import jQuery 
 
@@ -58,7 +58,12 @@ const AppointmentList = () => {
         </Table>
       ) : (
         <H3>No appointments booked</H3>
+        
+       
       )}
+      <H1></H1>
+      <H2></H2>
+      <H3></H3>
     </>
   );
 };

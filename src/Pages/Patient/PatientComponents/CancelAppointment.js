@@ -91,6 +91,9 @@ const CancelAppointment = () => {
           ) : (
             <H3>No appointments to cancel</H3>
           )}
+          <H1></H1>
+      <H2></H2>
+      <H3></H3>
         </>
       )}
 
