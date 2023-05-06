@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import $ from "jquery";
 import { useNavigate } from "react-router-dom";
-import { Button, FormGroup, H2, InputField, Fieldset, Main, BackLink, ErrorText } from "govuk-react";
+import { 
+  Button, 
+  FormGroup, 
+  H2, 
+  InputField, 
+  Fieldset, 
+  Main, 
+  BackLink, 
+  ErrorText 
+} from "govuk-react";
 
 import Header from "../../Components/DefaultHeader";
 import Footer from "../../Components/Footer";
@@ -16,6 +25,19 @@ const PatientLogIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!formValues.emailAddress.trim()) {
+      setErrorMessage("Please fill the required information");
+      return;
+    }
+
+    //Regular expression to check if email is in a valid format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    //Check if email is in a valid format
+    if (!emailRegex.test(formValues.emailAddress)) {
+      setErrorMessage("Please enter a valid email address");
+      return;
+    }
+
     $.ajax({
       type: "POST",
       url: "http://localhost:8000/patientLoginEmail.php",
@@ -23,7 +45,6 @@ const PatientLogIn = () => {
       dataType: "json",
       
       success: function(response) {
-        console.log(response);
         if (response) {
           navigate("/patientPassword", { state: { emailAddress: formValues.emailAddress } });
         } else {
@@ -59,21 +80,17 @@ const PatientLogIn = () => {
             {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
             <b>Email Address</b>
             <InputField
-              label="Enter email address"
-              name="emailAddress"
               value={formValues.emailAddress}
               onChange={(e) =>
                 setFormValues({ ...formValues, emailAddress: e.target.value })
               }
               required
             />
-            <Button type="submit"  onClick={handleSubmit}>Enter</Button>
+            <Button onClick={handleSubmit}>Enter</Button>
           </Fieldset>
         </FormGroup>
       </Main>
-      <div className="footer-wrapper">
         <Footer />
-      </div>
     </div>
   );
 };

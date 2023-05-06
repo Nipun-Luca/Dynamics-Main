@@ -9,12 +9,11 @@ import {
   H2,
   ErrorText
 } from "govuk-react";
-import { Link } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import Header from '../../Components/DefaultHeader';
 import Footer from '../../Components/Footer';
-import $ from "jquery"; // import jQuery
+import $ from "jquery";
 
 
 const RegistrationPage = () => {
@@ -22,35 +21,37 @@ const RegistrationPage = () => {
   //Receive NHS number from previous page
   const location = useLocation();
   const nhsNumber = location.state?.nhsNumber;
-  console.log(nhsNumber)
 
   const [formValues, setFormValues] = useState({
-    email: "",
+    emailAddress: "",
   });
   const [errorMessage, setErrorMessage] = useState("")
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!formValues.emailAddress.trim()) {
+      setErrorMessage("Please fill the required information");
+      return;
+    }
   
-    // Regular expression to check if email is in a valid format
+    //Regular expression to check if email is in a valid format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  
-    // Check if email is in a valid format
-    if (!emailRegex.test(formValues.email)) {
+    //Check if email is in a valid format
+    if (!emailRegex.test(formValues.emailAddress)) {
       setErrorMessage("Please enter a valid email address");
       return;
     }
   
-    // Send AJAX request to register email
+    //Send AJAX request to register email
     $.ajax({
       url: 'http://localhost:8000/patientRegisterEmail.php',
       method: 'POST',
-      data: { email: formValues.email },
+      data: { emailAddress: formValues.emailAddress },
       dataType: "json",
       success: function(response) {
-        console.log(response.success)
         if (!response.success) {
-        navigate('/registerCreatePassword', { state: { nhsNumber: nhsNumber, email: formValues.email } });
+        navigate('/registerCreatePassword', { state: { nhsNumber: nhsNumber, emailAddress: formValues.emailAddress } });
         } else {
           setErrorMessage("Email is already registered in our system")
         }
@@ -60,18 +61,12 @@ const RegistrationPage = () => {
       }
     });
   };
-  
-  
-  
-  let history = useNavigate();
 
   return (
     <div>
       <Header />  
       <Main>
-        <BackLink onClick={() => history(-1)}>
-          Back
-        </BackLink>
+        <BackLink onClick={() => navigate(-1)}> Back </BackLink>
 
         <FormGroup onSubmit={handleSubmit}>
         <H2>What is your email address?</H2>
@@ -81,18 +76,15 @@ const RegistrationPage = () => {
             {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
             <b>Email Address</b>
               <InputField
-                label="Enter email address"
                 name="email"
-                value={formValues.email}
-                onChange={(e) => setFormValues({ ...formValues, email: e.target.value })}
+                value={formValues.emailAddress}
+                onChange={(e) => setFormValues({ ...formValues, emailAddress: e.target.value })}
                 required/>
         
-              <Button type="submit" onClick={handleSubmit}>Enter</Button> 
+              <Button onClick={handleSubmit}>Enter</Button> 
           </Fieldset>
         </FormGroup>
-      
       </Main>
-      
       <Footer />
     </div>
   );

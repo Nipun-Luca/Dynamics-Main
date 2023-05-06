@@ -25,6 +25,19 @@ const StaffLoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!formValues.emailAddress.trim()) {
+      setErrorMessage("Please fill the required information");
+      return;
+    }
+
+    //Regular expression to check if email is in a valid format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    //Check if email is in a valid format
+    if (!emailRegex.test(formValues.emailAddress)) {
+      setErrorMessage("Please enter a valid email address");
+      return;
+    }
+
     $.ajax({
       type: "POST",
       url: "http://localhost:8000/staffLogin.php",
@@ -32,7 +45,6 @@ const StaffLoginPage = () => {
       dataType: "json",
       
       success: function(response) {
-        console.log(response);
         if (response.success && response.role === "doctor") {
           navigate("/staffPassword", { state: { 
             emailAddress: formValues.emailAddress,
@@ -56,15 +68,11 @@ const StaffLoginPage = () => {
     })
   };
 
-  let history = useNavigate();
-
   return (
     <div>
       <Header />
       <Main>
-        <BackLink onClick={() => history(-1)}>
-          Back
-        </BackLink>
+        <BackLink onClick={() => navigate(-1)}> Back </BackLink>
         <FormGroup>
           <div className="login-heading">
             <H2>STAFF</H2>
@@ -75,7 +83,6 @@ const StaffLoginPage = () => {
             {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
             <b>Email Address</b>
             <InputField
-              label="Enter email address"
               name="emailAddress"
               value={formValues.emailAddress}
               onChange={(e) =>
@@ -83,13 +90,11 @@ const StaffLoginPage = () => {
               }
               required
             />
-            <Button type="submit"  onClick={handleSubmit}>Enter</Button>
+            <Button onClick={handleSubmit}>Enter</Button>
           </Fieldset>
         </FormGroup>
       </Main>
-      <div className="footer-wrapper">
         <Footer />
-      </div>
     </div>
   );
 };

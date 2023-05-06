@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, } from "react";
 import {
   Fieldset,
   InputField,
@@ -6,22 +6,23 @@ import {
   FormGroup,
   BackLink,
   Main,
-  ErrorText
+  ErrorText,
+  H2
 } from "govuk-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
+import PatientContext from '.././Patient/PatientComponents/PatientContext'; //Import PatientContext
 import Header from "../../Components/DefaultHeader";
 import Footer from "../../Components/Footer";
-import $ from "jquery"; // import jQuery
+import $ from "jquery";
 
 const RegistrationPage = () => {
   const navigate = useNavigate();
   // Receive NHS number and email from previous page
   const location = useLocation();
   const nhsNumber = location.state?.nhsNumber;
-  const email = location.state?.email;
-  console.log(nhsNumber)
-  console.log(email)
+  const emailAddress = location.state?.emailAddress;
+  const { setNHSNumber } = useContext(PatientContext); //needs match with nhsNumber
 
   const [formValues, setFormValues] = useState({
     password: "",
@@ -33,32 +34,38 @@ const RegistrationPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Check if password and confirm password fields match
-    if (formValues.password !== formValues.confirmPassword) {
-      setErrorMessage("Passwords do not match");
+    if (!formValues.password.trim() || !formValues.confirmPassword.trim()) {
+      setErrorMessage("Please fill the required information");
       return;
     }
 
-    // Check if password has at least 8 characters
+    //Check if password has at least 8 characters
     if (formValues.password.length < 8) {
       setErrorMessage("Password must have at least 8 characters");
       return;
     }
 
-    // Send email to database using AJAX
+    //Check if password and confirm password fields match
+    if (formValues.password !== formValues.confirmPassword) {
+      setErrorMessage("Passwords do not match");
+      return;
+    }
+
+    //Send email to database using AJAX
     $.ajax({
       url: "http://localhost:8000/registration.php",
       method: "POST",
       data: {
         password: formValues.password,
         nhsNumber: nhsNumber,
-        email: email,
+        emailAddress: emailAddress,
       },
       dataType: "json",
       success: function (response) {
         if (response.success) {
-           // Set isAuthenticated flag in localStorage
-           localStorage.setItem("isAuthenticated", "true");
+          setNHSNumber(response.NHSNumber); //Set the nhsNumber in the PatientContext
+          // Set isAuthenticated flag in localStorage
+          localStorage.setItem("isAuthenticated", "true");
 
         navigate("/patientDashboard", { state: { nhsNumber: nhsNumber } });
         }
@@ -67,30 +74,25 @@ const RegistrationPage = () => {
         console.error(xhr);
         console.error(status);
         console.error(error);
-        // Handle the error here
         setErrorMessage("Error registering, please try again later");
       },
     });
   };
 
-  let history = useNavigate();
-
   return (
     <div>
       <Header />
       <Main>
-        <BackLink onClick={() => history(-1)}>
-          Back
-        </BackLink>
+        <BackLink onClick={() => navigate(-1)}> Back </BackLink>
 
         <FormGroup>
+          <H2>Create Password</H2>
           <p>Password requires: 8 characters or more</p>
 
           <Fieldset>
             {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
             <b>Password</b>
             <InputField
-              label="Enter password"
               name="password"
               value={formValues.password}
               onChange={(e) =>
@@ -101,7 +103,6 @@ const RegistrationPage = () => {
 
             <b>Confirm Password</b>
             <InputField
-              label="Confirm password"
               name="confirmPassword"
               value={formValues.confirmPassword}
               onChange={(e) =>
