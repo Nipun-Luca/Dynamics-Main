@@ -66,7 +66,7 @@ const RegistrationPage = () => {
           setNHSNumber(response.NHSNumber); //Set the nhsNumber in the PatientContext
           // Set isAuthenticated flag in localStorage
           localStorage.setItem("isAuthenticated", "true");
-          navigate("/registerConfirmation", { state: { emailAddress: emailAddress, password: formValues.password } });
+          navigate("/registerConfirmation");
         }
       },
       error: function (xhr, status, error) {

@@ -77,8 +77,6 @@ function App() {
       <Route path="/termsOFUse" element={<TermsOfUse />} />
       <Route path="/contactUs" element={<ContactUs />} />
 
-      <Route path="/homepage" element={<Homepage />} />
-
      
       <Route path="/doctor-dashboard" element={<PrivateRoute Component={DoctorDashboard} />}>
       <Route index element={<DoctorDashboard />} />
@@ -86,10 +84,10 @@ function App() {
       <Route path="medical-records" element={<MedicalRecords />} />
       {/* <Route path="view-medical-records/:nhsNumber" element={<MedicalRecords />} /> */}
       <Route path="update-medical-records" element={<UpdateMedicalRecords />} />
-</Route>
+      </Route>
 
 
-
+      <Route path="/homepage" element={<Homepage />} />
       <Route path="/registerNHSnumber" element={<RegisterNHSNumber />} />
       <Route path="/registerPersonalDetails" element={<RegisterPersonalDetails />} />
       <Route path="/registerEmail" element={<RegisterEmail />} />
@@ -118,7 +116,6 @@ function App() {
         <Route index element={<ReceptionistDashboard />} />
         <Route path="view-doctor-list" element={<ViewDoctorList />} />
           <Route path="receptionist-cancel-appointment" element={<CancelAppointment />} />
-        
         <Route path="receptionist-logout" element={<ReceptionistLogout />} />
       </Route>
 

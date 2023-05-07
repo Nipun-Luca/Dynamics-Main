@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import {
     ErrorSummary,
-    Main
+    Main,
   } from "govuk-react";
 import Header from "../../Components/DefaultHeader";
 import Footer from "../../Components/Footer";
@@ -10,12 +10,16 @@ import Footer from "../../Components/Footer";
 function LoginDenied() {
   const navigate = useNavigate();
 
-    useEffect(() => {
-        window.history.pushState(null, "", window.location.href);
-        window.onpopstate = function () {
-          window.history.pushState(null, "", window.location.href);
-        };
-      }, []);
+  useEffect(() => {
+    window.history.pushState(null, "", window.location.href);
+    window.onpopstate = function () {
+      window.history.pushState(null, "", window.location.href);
+    };
+  }, []);
+
+  const handleOnClickError = () => {
+    navigate('/homepage');
+  };
 
   return (
     <div>
@@ -27,7 +31,9 @@ function LoginDenied() {
             errors={[
                 {
                   targetName: 'error',
-                  text: 'Click here to go back to the homepage',
+                  text: (
+                    <span onClick={handleOnClickError}>Click here to go back to the homepage</span>
+                  ),
                 }
               ]}
             />

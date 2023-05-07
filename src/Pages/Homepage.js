@@ -13,16 +13,14 @@ import Header from '../Components/DefaultHeader';
 import Footer from '../Components/Footer';
 
 function Homepage() {
-    let history = useNavigate();
+    let navigate = useNavigate();
 
     return (
         <div>
         <Header />
 
         <Main>
-            <BackLink onClick={() => history(-1)}>
-                Back
-            </BackLink>
+            <BackLink onClick={() => navigate(-1)}> Back </BackLink>
 
             <div className="container">
                 <div className="box">

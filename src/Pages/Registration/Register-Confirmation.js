@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
     Panel,
     Main,
@@ -10,10 +10,6 @@ import Header from "../../Components/DefaultHeader";
 import Footer from "../../Components/Footer";
 
 function RegistrationConfirmation() {
-    const location = useLocation();
-    const emailAddress = location.state?.emailAddress;
-    const password = location.state?.password;
-
     useEffect(() => {
         window.history.pushState(null, "", window.location.href);
         window.onpopstate = function () {
@@ -25,11 +21,7 @@ function RegistrationConfirmation() {
     <div>
         <Header />
             <Main>
-                <Panel title="Registration complete">
-                    Email: {emailAddress} <br/>
-                    Password: {password}
-                </Panel>
-
+                <Panel title="Registration complete"></Panel>
                 <p>Click the button to go to Homepage</p>
                 <Button as={Link} to="/homepage">Home</Button>
             </Main>
