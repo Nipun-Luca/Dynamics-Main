@@ -49,9 +49,18 @@ const ViewMedicalRecords = () => {
       {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
       {errorMessage === "New patient, please update the patient medical record." && (
             <div className="govuk-grid-column-one-third">
-              <Button as={Link} to="/doctor-dashboard/update-medical-records">
+              {/* <Button as={Link} to="/doctor-dashboard/update-medical-records">
                 Update Medical Records
-              </Button>
+              </Button> */}
+              <Button
+              as={Link}
+              to={{
+              pathname: '/doctor-dashboard/update-medical-records',
+              state: { nhsNumber: nhsNumberInput },
+              }}
+              >
+              Update Medical Records
+            </Button>
             </div>
           )}
         
@@ -75,7 +84,6 @@ const ViewMedicalRecords = () => {
          <Table.Row>
             <Table.CellHeader>NHS Number</Table.CellHeader>
             <Table.CellHeader> Dose No </Table.CellHeader>
-            <Table.CellHeader>  Doctor Id </Table.CellHeader>
             <Table.CellHeader>Vaccination Date</Table.CellHeader>
             <Table.CellHeader> Disease Targeted</Table.CellHeader>
             <Table.CellHeader> Vaccine Type </Table.CellHeader>
@@ -87,7 +95,6 @@ const ViewMedicalRecords = () => {
             <Table.Row key={index}>
               <Table.Cell>{patient.NHSNumber}</Table.Cell>
               <Table.Cell>{patient.DoseNo}</Table.Cell>
-              <Table.Cell>{patient.DoctorId}</Table.Cell>
               <Table.Cell>{patient.VaccinationDate}</Table.Cell>
               <Table.Cell>{patient.DiseaseTargeted}</Table.Cell>
               <Table.Cell>{patient.VaccineType}</Table.Cell>
@@ -98,7 +105,17 @@ const ViewMedicalRecords = () => {
           ))}
         </Table>
         <div className="govuk-grid-column-one-third">
-            <Button as={Link} to='/doctor-dashboard/update-medical-records'>Update Medical Records</Button>
+            {/* <Button as={Link} to='/doctor-dashboard/update-medical-records'>Update Medical Records</Button> */}
+            <Button
+              as={Link}
+              to={{
+              pathname: '/doctor-dashboard/update-medical-records',
+              state: { nhsNumber: nhsNumberInput },
+              }}
+              >
+              Update Medical Records
+            </Button>
+
           </div>
         </>
         // : searched ? ( 

@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 import Header from './DrHeader';
 
-import ViewMedicalRecords from './ViewMedicalRecords';
+import UpdateMedicalRecordComponent from './UpdateMedicalRecordComponents';
 import Footer from '../../../Components/Footer';
 //import Footer from './../Doctor/DrComponents/DrFooter';
 
@@ -28,7 +28,7 @@ function UpdateMedicalRecords() {
         <DoctorFullName/>
 
         <div  className="govuk-grid-row">
-          <ViewMedicalRecords/>
+          <UpdateMedicalRecordComponent/>
           
       </div>
       

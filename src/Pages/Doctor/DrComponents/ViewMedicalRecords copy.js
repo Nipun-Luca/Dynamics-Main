@@ -75,7 +75,6 @@ const ViewMedicalRecords = () => {
          <Table.Row>
             <Table.CellHeader>NHS Number</Table.CellHeader>
             <Table.CellHeader> Dose No </Table.CellHeader>
-            <Table.CellHeader>  Doctor Id </Table.CellHeader>
             <Table.CellHeader>Vaccination Date</Table.CellHeader>
             <Table.CellHeader> Disease Targeted</Table.CellHeader>
             <Table.CellHeader> Vaccine Type </Table.CellHeader>
@@ -87,7 +86,6 @@ const ViewMedicalRecords = () => {
             <Table.Row key={index}>
               <Table.Cell>{patient.NHSNumber}</Table.Cell>
               <Table.Cell>{patient.DoseNo}</Table.Cell>
-              <Table.Cell>{patient.DoctorId}</Table.Cell>
               <Table.Cell>{patient.VaccinationDate}</Table.Cell>
               <Table.Cell>{patient.DiseaseTargeted}</Table.Cell>
               <Table.Cell>{patient.VaccineType}</Table.Cell>
