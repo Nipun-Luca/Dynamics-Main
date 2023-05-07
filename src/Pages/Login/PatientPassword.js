@@ -68,10 +68,15 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
+    //prevent from accessing this page through url
+    if (!emailAddress) {
+      navigate("/homepage");
+    }
+    //after five wrong password enters, deny login for user
     if (loginAttempts >= 5) {
       navigate("/loginDenied");
     }
-  }, [loginAttempts, navigate]);
+  }, [loginAttempts, emailAddress, navigate]);
 
   return (
     <div>

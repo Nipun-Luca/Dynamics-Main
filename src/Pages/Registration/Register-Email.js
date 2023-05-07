@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Fieldset,
   InputField,
@@ -61,6 +61,13 @@ const RegistrationPage = () => {
       }
     });
   };
+
+  useEffect(() => {
+    //prevent from accessing this page through url
+    if (!nhsNumber) {
+      navigate("/homepage");
+    }
+  }, [nhsNumber, navigate]);
 
   return (
     <div>

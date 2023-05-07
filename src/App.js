@@ -2,9 +2,9 @@
 import './App.css';
 
 //import React from 'react';
-import React, { useState, createContext, useEffect, Navigate } from 'react';
+import React, { useState, createContext } from 'react';
 
-import { BrowserRouter, Route, Routes, Outlet  } from 'react-router-dom';
+import { Route, Routes}  from 'react-router-dom';
 import PatientContext from './Pages/Patient/PatientComponents/PatientContext';
 import PrivateRoute from './Components/PrivateRoute';
 

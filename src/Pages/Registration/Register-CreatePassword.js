@@ -1,4 +1,4 @@
-import React, { useState, useContext, } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Fieldset,
   InputField,
@@ -77,6 +77,13 @@ const RegistrationPage = () => {
       },
     });
   };
+
+  useEffect(() => {
+    //prevent from accessing this page through url
+    if (!emailAddress) {
+      navigate("/homepage");
+    }
+  }, [emailAddress, navigate]);
 
   return (
     <div>

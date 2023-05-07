@@ -6,8 +6,7 @@ import {
   H2,
   BackLink
 } from "govuk-react";
-import { Link } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import Header from '../Components/DefaultHeader';
 import Footer from '../Components/Footer';
