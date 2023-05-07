@@ -60,7 +60,7 @@ const UpdateMedicalRecordComponent = () => {
     const dateEntered = `${formValues.DateEnteredYear}-${formValues.DateEnteredMonth}-${formValues.DateEnteredDay}`;
 
     $.ajax({
-      url: 'http://localhost:8000/update_patient_medical_record.php',
+      url: 'http://localhost:8000/UpdatePatientMedicalRecord.php',
       method: 'POST',
       data: { ...formValues, NHSNumber: nhsNumber, DoctorId, dateEntered },
       dataType: 'json',

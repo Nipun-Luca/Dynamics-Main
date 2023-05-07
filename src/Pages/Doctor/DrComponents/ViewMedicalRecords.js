@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Table, ErrorText, H3, FormGroup, InputField, Fieldset, Button } from 'govuk-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import $ from 'jquery';
 
 import DoctorContext from './DoctorContext';
@@ -14,6 +14,7 @@ const ViewMedicalRecords = () => {
   const { DoctorId } = useContext(DoctorContext);
 
   const fetchPatientRecords = (NHSNumber) => {
+    console.log(nhsNumberInput)
     $.ajax({
       url: 'http://localhost:8000/fetchPatientMedicalRecord.php',
       method: 'POST',
@@ -41,6 +42,13 @@ const ViewMedicalRecords = () => {
     fetchPatientRecords(nhsNumberInput);
     setSearched(true);
   };
+
+  const navigate = useNavigate();
+  const handleClick = async (e) => {
+    e.preventDefault();
+    navigate('/doctor-dashboard/update-medical-records', { state: { nhsNumberInput: nhsNumberInput } });
+  }
+
 
   return (
     <>
@@ -106,13 +114,7 @@ const ViewMedicalRecords = () => {
         </Table>
         <div className="govuk-grid-column-one-third">
             {/* <Button as={Link} to='/doctor-dashboard/update-medical-records'>Update Medical Records</Button> */}
-            <Button
-              as={Link}
-              to={{
-              pathname: '/doctor-dashboard/update-medical-records',
-              state: { nhsNumber: nhsNumberInput },
-              }}
-              >
+            <Button onClick={handleClick} >
               Update Medical Records
             </Button>
 

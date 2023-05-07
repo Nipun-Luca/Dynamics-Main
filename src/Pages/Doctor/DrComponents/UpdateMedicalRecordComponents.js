@@ -38,6 +38,7 @@ const UpdateMedicalRecordComponent = () => {
       setNhsNumber(location.state.nhsNumber);
     }
   }, [location]);
+  const nhsNumberInput = location.state?.nhsNumberInput;
 
   const formValues = {
     DoseNumber: doseNumber,
@@ -71,23 +72,22 @@ const UpdateMedicalRecordComponent = () => {
     }
   
     const  dateEntered  = formatDate();
-    
 
     $.ajax({
       url: 'http://localhost:8000/UpdatePatientMedicalRecord.php',
       method: 'POST',
-      data: {  "DoseNumber": formValues.DoseNumber,
-          "VaccineManufacturer": formValues.VaccineManufacturer,
-          "VaccineType": formValues.VaccineType,
-          "Product": formValues.Product,
-          "VaccineBatchNumber": formValues.VaccineBatchNumber,
-          "TotalSeriesOfDoses": formValues.TotalSeriesOfDosesOptions,
-          "DisplayName": formValues.DisplayName,
+      data: {  DoseNumber: formValues.DoseNumber,
+          VaccineManufacturer: formValues.VaccineManufacturer,
+          VaccineType: formValues.VaccineType,
+          Product: formValues.Product,
+          VaccineBatchNumber: formValues.VaccineBatchNumber,
+          TotalSeriesOfDoses: formValues.TotalSeriesOfDoses,
+          DisplayName: formValues.DisplayName,
           SnomedCode: formValues.SnomedCode,
           Booster: formValues.Booster, 
-          "NHSNumber":nhsNumber,
-          "DoctorId":DoctorId, 
-          "DateEntered":dateEntered },
+          NHSNumber:nhsNumberInput,
+          DoctorId:DoctorId, 
+          DateEntered:dateEntered },
       dataType: 'json',
       success: (response) => {
         if (response.success) {
