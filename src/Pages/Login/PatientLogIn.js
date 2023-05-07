@@ -64,16 +64,11 @@ const PatientLogIn = () => {
     })
   };
 
-
-   
-
-  let history = useNavigate();
-
   return (
     <div>
       <Header />
       <Main>
-        <BackLink onClick={() => history(-1)}> Back </BackLink>
+        <BackLink onClick={() => navigate(-1)}> Back </BackLink>
         <FormGroup>
           <div className="login-heading">
             <H2>PATIENT</H2>
