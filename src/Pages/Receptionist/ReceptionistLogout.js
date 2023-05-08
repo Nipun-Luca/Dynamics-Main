@@ -1,3 +1,7 @@
+//----------------------
+////Author: w1822557
+//----------------------
+
 import React from 'react';
 
 function Logout(props) {
