@@ -15,6 +15,8 @@ import {
 } from "govuk-react";
 import $ from "jquery";
 import { useNavigate, useLocation } from "react-router-dom";
+
+////Author: w1857209
 import PatientContext from '.././Patient/PatientComponents/PatientContext'; //Import PatientContext
 
 import Header from '../../Components/DefaultHeader';
@@ -33,7 +35,9 @@ const LoginPage = () => {
   });
   const [errorMessage, setErrorMessage] = useState("");
   const [loginAttempts, setLoginAttempts] = useState(0);
-  const { setNHSNumber } = useContext(PatientContext); //needs match with nhsNumber
+
+  //needs match with nhsNumber
+  const { setNHSNumber } = useContext(PatientContext);  ////Author: w1857209
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,7 +58,8 @@ const LoginPage = () => {
 
       success: function (response) {
         if (response.success) {
-          setNHSNumber(response.NHSNumber); //Set the nhsNumber in the PatientContext
+          //Set the nhsNumber in the PatientContext
+          setNHSNumber(response.NHSNumber); ////Author: w1857209
           localStorage.setItem("isAuthenticated", "true");
           navigate("/patientdashboard", { state: { NHSNumber: response.NHSNumber } });
         } else {

@@ -15,14 +15,16 @@ import {
 } from "govuk-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-import PatientContext from '.././Patient/PatientComponents/PatientContext'; //Import PatientContext
+//Import PatientContext
+import PatientContext from '.././Patient/PatientComponents/PatientContext'; ////Author: w1857209
+
 import Header from "../../Components/DefaultHeader";
 import Footer from "../../Components/Footer";
 import $ from "jquery";
 
 const RegistrationPage = () => {
   const navigate = useNavigate();
-  // Receive NHS number and email from previous page
+  //Receive NHS number and email from previous page
   const location = useLocation();
   const nhsNumber = location.state?.nhsNumber;
   const emailAddress = location.state?.emailAddress;
@@ -67,8 +69,8 @@ const RegistrationPage = () => {
       dataType: "json",
       success: function (response) {
         if (response.success) {
-          setNHSNumber(response.NHSNumber); //Set the nhsNumber in the PatientContext
-          // Set isAuthenticated flag in localStorage
+          //Set the nhsNumber in the PatientContext
+          setNHSNumber(response.NHSNumber);  ////Author: w1857209
           localStorage.setItem("isAuthenticated", "true");
           navigate("/registerConfirmation");
         }

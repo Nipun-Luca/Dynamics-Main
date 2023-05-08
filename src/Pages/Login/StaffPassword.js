@@ -15,11 +15,14 @@ import {
 } from "govuk-react";
 import $ from "jquery";
 import { useNavigate, useLocation } from "react-router-dom";
+
+////Author: w1785478
 import DoctorContext from '.././Doctor/DrComponents/DoctorContext';
+
 import Header from '../../Components/DefaultHeader';
 import Footer from '../../Components/Footer';
 
-const StaffLoginPage = ({ userType }) => {
+const StaffLoginPage = () => {
   const navigate = useNavigate();
   // Receive NHS number and email from previous page
   const location = useLocation();
@@ -33,7 +36,8 @@ const StaffLoginPage = ({ userType }) => {
 
   const [loginAttempts, setLoginAttempts] = useState(0);
   const [errorMessage, setErrorMessage] = useState("")
-  const { setDoctorId } = useContext(DoctorContext);
+
+  const { setDoctorId } = useContext(DoctorContext); ////Author: w1785478
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,7 +60,7 @@ const StaffLoginPage = ({ userType }) => {
       success: function(response) {
         if (response.success) {
           //Set isAuthenticated flag in localStorage
-          localStorage.setItem("isAuthenticated", "true");
+          localStorage.setItem("isAuthenticated", "true"); ////Author: w1785478
 
           if (role === "doctor") {
             setDoctorId(response.id);
