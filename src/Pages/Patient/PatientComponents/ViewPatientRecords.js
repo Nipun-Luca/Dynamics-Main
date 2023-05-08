@@ -1,7 +1,7 @@
 import React, { useState, useContext,useEffect } from 'react';
 import { Table, ErrorText, H3, H2, H1 } from 'govuk-react';
 import $ from 'jquery';
-import PatientContext from '.././PatientComponents/PatientContext'; // Import PatientContext
+import PatientContext from '.././PatientComponents/PatientContext'; 
 
 const ViewPatientRecords = () => {
   const [patients, setPatients] = useState([]);
@@ -12,9 +12,9 @@ const ViewPatientRecords = () => {
   }, []);
 
   const fetchPatients = () => {
-    // const NHSNumber = '92233359811'; // Replace this with  the actual patient NHS Number
+    // const NHSNumber = '92233359811'; // NHS Number for testing
   
-
+//Ajax to display patient records
     $.ajax({
       url: 'http://localhost:8000/view_patient_records.php',
       method: 'GET',
@@ -41,9 +41,9 @@ const ViewPatientRecords = () => {
   const getGender = (genderCode) => {
     return genderCode === '1' ? 'Male' : genderCode === '2' ? 'Female' : '-';
   };
-
+//table with the Patient records
   return (
-    <>
+    <> 
       {error ? (
         <ErrorText>{error}</ErrorText>
       ) : patients.length ? (
@@ -69,7 +69,7 @@ const ViewPatientRecords = () => {
             </Table.Row>
           ))}
         </Table>
-      ) : (
+      ) : ( //error message
         <H3>No patients found</H3>
       )}
       <H1></H1>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import PatientHeaderDeregistration from './PatientHeaderDeregistration';
 import Footer from '../../../Components/Footer';
 import Deregistration from './Deregistration';
-
+//De-regitration page
 function PatientDeregister() {
   return (
     <div>

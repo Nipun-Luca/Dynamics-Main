@@ -16,7 +16,7 @@ const CancelAppointment = () => {
   useEffect(() => {
     fetchAppointments(NHSNumber);
   }, [NHSNumber]);
-
+//Ajax query to dosplay appointment to cancel
   const fetchAppointments = (NHSNumber) => {
     $.ajax({
       url: 'http://localhost:8000/get_appointments_cancel.php',
@@ -45,6 +45,7 @@ const CancelAppointment = () => {
       setError('Please select an appointment to cancel.');
       return;
     }
+    //Ajax query to cancel appointment
     $.ajax({
       url: 'http://localhost:8000/cancel_appointment.php',
       method: 'POST',
@@ -63,7 +64,7 @@ const CancelAppointment = () => {
       },
     });
   };
-
+//Ternary condition to display appointments
   return (
     <div>
       {!confirmationMessage && (
@@ -89,7 +90,7 @@ const CancelAppointment = () => {
                 {error && <ErrorText>{error}</ErrorText>}
                 <Button type="submit">Cancel appointment</Button>
               </form>
-            </>
+            </>//Ternary condition to display confirmation messages
           ) : (
             <H3>No appointments to cancel</H3>
           )}

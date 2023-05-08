@@ -7,17 +7,16 @@ class PatientHeader extends Component {
   static contextType = PatientContext;
 
   handlePatientLogout = () => {
-    // Clear isAuthenticated flag in localStorage
+    //  isAuthenticated flag 
     localStorage.removeItem("isAuthenticated");
 
-    // Call the original logout function if you need to do anything else
+//Patient logout method
     const { patientLogout } = this.context;
     if (typeof patientLogout === "function") {
       patientLogout();
     }
   };
-
-
+//Navigation bar design from: https://govuk-react.github.io/govuk-react/?path=/docs/checkbox--default
   render() {
     return (
   

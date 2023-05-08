@@ -8,10 +8,10 @@ const PatientLogoutButton = () => {
 
 
   const handlePatientLogout = () => {
-          // Clear isAuthenticated flag in localStorage
+          // Clear isAuthenticated condition
           localStorage.removeItem("isAuthenticated");
       
-          // Call the original logout function if you need to do anything else
+          // Call  logout method
           if (typeof patientLogout === "function") {
             patientLogout();
           }

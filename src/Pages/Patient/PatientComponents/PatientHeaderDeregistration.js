@@ -3,7 +3,7 @@ import { TopNav } from 'govuk-react';
 import { Link } from 'react-router-dom';
 import PatientContext from './PatientContext';
 class PatientHeaderDeregistration extends Component {
-
+//Empty nav bar to avoid security issues
   static contextType = PatientContext;
 
   handlePatientLogout = () => {

@@ -6,7 +6,7 @@ import Footer from '../../../Components/Footer';
 import AppointmentBooking from './AppointmentBooking';
 import React, { useState } from 'react';
 
-
+//Book appointment page
 
 function PatientBookAppointment() {
   return (

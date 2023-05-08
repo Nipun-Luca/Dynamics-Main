@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import PatientHeader from './PatientHeader';
 import Footer from '../../../Components/Footer';
 import AppointmentsList from './AppointmentsList';
-
+//patient view appointment page
 function PatientViewAppointments() {
   return (
    

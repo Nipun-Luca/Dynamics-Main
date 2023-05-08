@@ -11,7 +11,7 @@ const Deregistration = () => {
 
   const { NHSNumber, setNHSNumber } = useContext(PatientContext);
   const navigate = useNavigate();
-
+//Ajax to delete the whoe patient details row using cascade delete 
   const deregisterPatient = () => {
     $.ajax({
       url: 'http://localhost:8000/deregister_patient.php',
@@ -39,7 +39,7 @@ const Deregistration = () => {
     setIsAuthenticated(false);
     navigate('/homepage');
   };
-
+//Confirmation message and logout with isAutenticated condition
   return (
     <div>
       {!deregistrationMessage && (
