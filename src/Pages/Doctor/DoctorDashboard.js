@@ -1,3 +1,4 @@
+//****Author w1785478***
 import React, { useEffect } from 'react';
 import { Button, Main,H1} from 'govuk-react';
 //import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
@@ -52,13 +53,7 @@ function DoctorDashboard() {
             </div>
           </div>
           <Outlet />
-          {/* <Routes>
-            <Route path='/'  element={<Home/>} />
-            <Route path='/appointments' element={<Appointments/>} />
-            <Route path='/medical-records' element={<MedicalRecords/>} />
-            <Route path='/update-medical-records' element={<UpdateMedicalRecords/>} />
-            <Route path='/logout' element={<Logout/>} />
-          </Routes> */}
+          
         </div>
         </Main>
       <Footer/>
