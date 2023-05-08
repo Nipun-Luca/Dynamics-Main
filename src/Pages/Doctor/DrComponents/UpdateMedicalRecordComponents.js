@@ -1,16 +1,19 @@
+
+/****Author- w1785478 *****/
 import React, { useState, useContext, useEffect } from 'react';
-import { FormGroup, Select, Button, H2,H3, ErrorText } from 'govuk-react';
+import { FormGroup, Select, Button,H1, ErrorText,Panel } from 'govuk-react';
 import $ from 'jquery';
 import { useLocation } from 'react-router-dom';
 import DoctorContext from './DoctorContext';
+import { Link } from 'react-router-dom';
 
+//The UpdateMedicalRecordComponent is a React functional component that allows doctors to update a patient's medical record, particularly with vaccination details. It manages several pieces of state to hold form values and also uses some hard-coded arrays to populate select dropdown menus. It uses jQuery AJAX to make an API request to update the patient's medical record in the backend.
 const UpdateMedicalRecordComponent = () => {
-          const [year, setYear] = useState('');
-          const [month, setMonth] = useState('');
-          const [day, setDay] = useState('');
-          const [dateConfirmed, setDateConfirmed] = useState(false);
 
-
+//Initializes state variables for various form inputs and some control variables such as 'success' and 'errorMessage'.       
+  const [year, setYear] = useState('');
+  const [month, setMonth] = useState('');
+  const [day, setDay] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   // Add state variables for each field
@@ -22,24 +25,26 @@ const UpdateMedicalRecordComponent = () => {
   const [totalSeriesOfDosesOptions , setTotalSeriesOfDoses] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [snomedCode, setSnomedCode] = useState('');
-  const [dateEnteredDay, setDateEnteredDay] = useState('');
-  const [dateEnteredMonth, setDateEnteredMonth] = useState('');
-  const [dateEnteredYear, setDateEnteredYear] = useState('');
+ 
   const [booster, setBooster] = useState('');
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(null);
-
+ 
+  //Gets the DoctorId from the DoctorContext and initializes the nhsNumber from the location state passed from the previous component
   const { DoctorId } = useContext(DoctorContext);
   const [nhsNumber, setNhsNumber] = useState('');
   const location = useLocation();
 
+  
+  //sets the nhsNumber from the location state.
   useEffect(() => {
     if (location.state && location.state.nhsNumber) {
       setNhsNumber(location.state.nhsNumber);
     }
   }, [location]);
+
   const nhsNumberInput = location.state?.nhsNumberInput;
 
+  //formValues is an object containing all form values, which will be sent in the API request.
   const formValues = {
     DoseNumber: doseNumber,
     VaccineManufacturer: vaccineManufacturer,
@@ -52,26 +57,24 @@ const UpdateMedicalRecordComponent = () => {
     Booster: booster,
   };
 
-  const isValidDate = () => {
-          return year && month && day;
-        };
-      
-        const formatDate = () => {
-          return `${day.padStart(2, '0')}-${month.padStart(2, '0')}-${year}`;
-        };
-      
 
-
-  const updatePatientRecords = () => {
+    //date formatter
+    const dateFormated = () => {
+      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+  };
+      
+   
+  // Function to handles form submission by validating inputs,   formatting date, and making an AJAX request to update the patient's medical record.
+  const updatePatientMedicalRecords = () => {
     // Check if all fields are filled
     for (const key in formValues) {
-      if (formValues[key] === '') {
+      if (formValues[key] === '' && dateFormated()==='' ) {
           setErrorMessage('Please fill all fields');
         return;
       }
     }
   
-    const  dateEntered  = formatDate();
+    const  dateEntered  = dateFormated();
 
     $.ajax({
       url: 'http://localhost:8000/UpdatePatientMedicalRecord.php',
@@ -98,12 +101,12 @@ const UpdateMedicalRecordComponent = () => {
         }
       },
       error: (error) => {
-          setErrorMessage('Updating patient medical record failed: ' + error.statusText);
+          setErrorMessage('Updating patient medical record failed.Please try again later.' );
       },
     });
   };
 
-        
+        //Hard-coded arrays of vaccineManufacturers, vaccineTypes, products, vaccineBatchNumbers, totalSeriesOfDoses, displayNames, snomedCodes, and boosters are defined for populating select dropdown menus.
         const vaccineManufacturers = [
           {
             label: '(AstraZeneca AB, ORG-100001699)',
@@ -177,7 +180,7 @@ const boosters = [
 { label: '1', value: 1 },
 ];
 
-
+//helper functions for rendering select dropdown menu options.
 const renderDays = () => {
           let days = [];
           const daysInMonth = new Date(year, month, 0).getDate();
@@ -194,9 +197,10 @@ const renderDays = () => {
           return days;
         };
 
-
+ //helper functions for rendering select dropdown menu options.
   const doseNumbers = Array.from({ length: 10 }, (_, i) => ({ label: i + 1, value: i + 1 }));
 
+  //helper functions for rendering select dropdown menu options.
   const renderSelectOptions = (options) => {
           if (Array.isArray(options)) {
             return options.map((option, index) => (
@@ -215,10 +219,23 @@ const renderDays = () => {
         
 return (
   <div>
-    <H2>Update Patient Medical Record</H2>
+ {success ? (
+      <>
+        
+        <Panel title="Medical Record Update Confirmed">
+          <p> Patient [NHS no:{nhsNumberInput}] Medical Record Has Been Updated Successfully.</p>
+        </Panel>
+        <H1></H1>
+        <Button as={Link} to="/doctor-dashboard/appointments">View Appointment</Button>
+      </>
+    ) : (
+       <>
+   
+
+   
     {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
-    {success && <p>Successfully updated patient medical record</p>}
-    <FormGroup>
+    
+     <FormGroup>
       <label htmlFor="doseNumber">Dose Number</label>
       <Select
         id="doseNumber"
@@ -229,8 +246,8 @@ return (
         <option value="">Select dose number</option>
         {renderSelectOptions(doseNumbers)}
       </Select>
-    </FormGroup>
-    <FormGroup>
+      </FormGroup>
+      <FormGroup>
           <Select
             label="Vaccine Manufacturer"
             value={vaccineManufacturer}
@@ -324,49 +341,50 @@ return (
           >
           <option value="">Select Booster</option>
           {renderSelectOptions(boosters)}
-          {/* <option value="yes">Yes</option>
-          <option value="no">No</option> */}
+         
           </Select>
           </FormGroup>
-
-
-          <Select
-                hint="Please select the year you want to enter the data"
+          
+            <Select
+                hint="Please select the year you want to enter the data for"
                 input={{ name: 'year', onChange: (e) => setYear(e.target.value) }}
-                label="EYear"
+                label="Date Entered - Year"
               >
-                <option value="">Select year</option>
+                <option value="">Choose Year</option>
                 <option value="2023">2023</option>
                 <option value="2024">2024</option>
                 <option value="2025">2025</option>
               </Select>
-              <h3></h3>
+
+          
               <Select
-                hint="Please select the month you want to enter the data"
+                hint="Please select the month you want to enter the data for"
                 input={{ name: 'month', onChange: (e) => setMonth(e.target.value) }}
-                label="Month"
+                label="Date Entered - Month"
               >
-                <option value="">Select month</option>
+                <option value="">Choose Month</option>
                 {[...Array(12).keys()].map((i) => (
                   <option key={i + 1} value={i + 1}>
                     {i + 1 < 10 ? `0${i + 1}` : i + 1}
                   </option>
                 ))}
               </Select>
-              <H3></H3>
+             
+              
               <Select
-                hint="Please select the day you want to enter the data"
+                hint="Please select the day you want to enter the medical data for"
                 input={{ name: 'day', onChange: (e) => setDay(e.target.value) }}
-                label="Day"
+                label="Date Entered - Day"
               >
-                <option value="">Select day</option>
+                <option value="">Choose Day</option>
                 {renderDays()}
               </Select>
     
           
-    <Button onClick={updatePatientRecords}>Update Patient Medical Record</Button>
-  </div>
-);
-};
-
+    <Button onClick={updatePatientMedicalRecords}>Update Patient Medical Record</Button>
+    </>
+    )}
+    </div>
+  );
+  }
 export default UpdateMedicalRecordComponent;

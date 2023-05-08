@@ -1,26 +1,33 @@
 
+
+//****Author- w1785478 *****/
 import { Table, ErrorText, H3 } from 'govuk-react';
 import $ from 'jquery';
 import React, { useState, useEffect,useContext } from 'react';
 import DoctorContext from './DoctorContext';
 
+//The DrAppointmentTable component is a React functional component that displays a table of upcoming appointments for a doctor. It imports required dependencies and utilizes the DoctorContext to access the doctor's ID.
+
+//The component uses useState to manage appointments and error state. The useEffect hook is utilized to fetch appointments whenever the DoctorId changes. The fetchAppointments function makes an AJAX request to the viewDrAppointment.php script, which returns appointment data for the doctor. Based on the response, the component updates the appointments list or sets an error message.
+
+//The component renders the table with appointment data. If there is an error, an ErrorText component is
 
 const DrAppointmentTable = () => {
   const [appointments, setAppointments] = useState([]);
   const [error, setError] = useState(null);
   
   const { DoctorId } = useContext(DoctorContext);
-  //const DoctorId = '2'; // Replace this with the actual doctor ID
+ 
 
   useEffect(() => {
-    fetchAppointments(DoctorId);
+    fetchDoctorAppointments(DoctorId);
   }, [DoctorId]);
 
-  const fetchAppointments = (DoctorId) => {
+  const fetchDoctorAppointments = (DoctorId) => {
     $.ajax({
       url: 'http://localhost:8000/viewDrAppointment.php',
       method: 'POST',
-      dataType: 'json', // Add this line
+      dataType: 'json', 
       data: {
           'DoctorId': DoctorId,
       },
@@ -33,11 +40,11 @@ const DrAppointmentTable = () => {
             setError(response.message || 'Empty response from the server');
           }
         } catch (error) {
-          setError('No booked appointments ');
+          setError('There is no booked appointments ');
         }
       },
       error: (error) => {
-        setError('Fetching appointments failed: ' + error.statusText);
+        setError('Fetching doctor appointments failed: ' + error.statusText);
       },
     });
   };
@@ -65,7 +72,7 @@ const DrAppointmentTable = () => {
           ))}
         </Table>
       ) : (
-        <H3>No appointments booked</H3>
+        <H3>No doctor appointments has been booked</H3>
       )}
     </>
   );

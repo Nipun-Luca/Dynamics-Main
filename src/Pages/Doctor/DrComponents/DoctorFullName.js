@@ -1,10 +1,11 @@
 
+//****Author- w1785478 *****/
 import { H3, ErrorText } from 'govuk-react';
 import $ from 'jquery';
 import React, { useState, useEffect,useContext } from 'react';
 import DoctorContext from './DoctorContext';
 
-
+//The DoctorFullName component is a React functional component that fetches and displays the full name of a doctor using their DoctorId
 const DoctorFullName = () => {
 
   // Add a new state variable for the doctor's full name
@@ -12,10 +13,10 @@ const DoctorFullName = () => {
   
   const [error, setError] = useState(null);
   
-  // const DoctorId = '1'; // Replace this with the actual doctor ID
+  
   const { DoctorId } = useContext(DoctorContext);
+  
   // Add a new useEffect hook to fetch the doctor's full name when the component is mounted or when the DoctorId changes
-
   useEffect(() => {
     if (DoctorId) {
       fetchDoctorName(DoctorId);

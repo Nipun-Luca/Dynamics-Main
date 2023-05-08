@@ -1,20 +1,26 @@
-import React, { useState, useContext } from 'react';
-import { Table, ErrorText, H3, FormGroup, InputField, Fieldset, Button } from 'govuk-react';
-import { Link, useNavigate } from 'react-router-dom';
-import $ from 'jquery';
 
+/****Author- w1785478 *****/
+import React, { useState, useContext } from 'react';
+import { Table, ErrorText, FormGroup, InputField, Fieldset, Button } from 'govuk-react';
+import { useNavigate } from 'react-router-dom';
+import $ from 'jquery';
 import DoctorContext from './DoctorContext';
 
+
+//This is a React functional component called ViewMedicalRecords. The purpose of this component is to allow doctors to search for a patient's medical records using their NHS number and then view the records in a table format. Additionally, the component provides an option to update the medical records.
 const ViewMedicalRecords = () => {
+  
+  //React hooks to manage state
   const [patients, setPatientRecords] = useState([]);
-  const [error, setError] = useState(null);
   const [errorMessage, setErrorMessage] = useState("")
   const [nhsNumberInput, setNhsNumberInput] = useState('');
   const [searched, setSearched] = useState(false);
   const { DoctorId } = useContext(DoctorContext);
 
-  const fetchPatientRecords = (NHSNumber) => {
-    console.log(nhsNumberInput)
+  
+  //The fetchPatientMedicalRecords function is called when the user submits the form to search for a patient's medical records. It makes an AJAX request to the server to fetch the patient's medical records using their NHS number. If the request is successful, it updates the patients and errorMessage state variables. If there is an error, it updates the errorMessage state variable.
+  const fetchPatientMedicalRecords = (NHSNumber) => {
+   
     $.ajax({
       url: 'http://localhost:8000/fetchPatientMedicalRecord.php',
       method: 'POST',
@@ -25,24 +31,26 @@ const ViewMedicalRecords = () => {
           setPatientRecords(response.patients);
           setErrorMessage(response.message);
         } else {
-          //setErrorMessage("Wrong password");
+        
           setErrorMessage(response.message || 'Empty response from the server');
-          //setError(response.message || 'Empty response from the server');
+        ;
         }
       },
       error: (error) => {
-        //setError('Fetching patient records failed: ' + error.statusText);
-        setErrorMessage('Fetching patient records failed: ' + error.statusText);
+        
+        setErrorMessage('Fetching patient medical records failed: ' + error.statusText);
       },
     });
   };
 
+  //The handleSearch function is called when the user submits the form to search for a patient's medical records. It calls the fetchPatientMedicalRecords function and sets the searched state variable to true.
   const handleSearch = (e) => {
     e.preventDefault();
-    fetchPatientRecords(nhsNumberInput);
+    fetchPatientMedicalRecords(nhsNumberInput);
     setSearched(true);
   };
 
+  //The handleClick function is called when the user clicks the "Update Medical Records" button. It navigates to the update-medical-records page and passes the nhsNumberInput state variable as a state parameter.
   const navigate = useNavigate();
   const handleClick = async (e) => {
     e.preventDefault();
@@ -57,16 +65,8 @@ const ViewMedicalRecords = () => {
       {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
       {errorMessage === "New patient, please update the patient medical record." && (
             <div className="govuk-grid-column-one-third">
-              {/* <Button as={Link} to="/doctor-dashboard/update-medical-records">
-                Update Medical Records
-              </Button> */}
-              <Button
-              as={Link}
-              to={{
-              pathname: '/doctor-dashboard/update-medical-records',
-              state: { nhsNumber: nhsNumberInput },
-              }}
-              >
+              
+            <Button onClick={handleClick} >
               Update Medical Records
             </Button>
             </div>
@@ -113,16 +113,13 @@ const ViewMedicalRecords = () => {
           ))}
         </Table>
         <div className="govuk-grid-column-one-third">
-            {/* <Button as={Link} to='/doctor-dashboard/update-medical-records'>Update Medical Records</Button> */}
+          
             <Button onClick={handleClick} >
               Update Medical Records
             </Button>
 
           </div>
         </>
-        // : searched ? ( 
-        //   <H3>No patient medical records found</H3>
-        // )
 
       ): null}
     </>
