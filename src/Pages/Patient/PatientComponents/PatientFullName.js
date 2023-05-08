@@ -2,15 +2,15 @@ import { H3, ErrorText } from 'govuk-react';
 import $ from 'jquery';
 import React, { useState, useEffect, useContext } from 'react';
 import PatientContext from './PatientContext';
-
+// This code is implemented toghether with Khandakar
 const PatientFullName = () => {
-  // Add a new state variable for the patient's full name
+  // state variable for patient's name
   const [patientFullName, setPatientFullName] = useState('');
 
   const [error, setError] = useState(null);
 
   const { NHSNumber } = useContext(PatientContext);
-  // Add a new useEffect hook to fetch the patient forename when the component is mounted or when the nhsnumber changes
+
 
   useEffect(() => {
     if (NHSNumber) {
@@ -18,7 +18,7 @@ const PatientFullName = () => {
     }
   }, [NHSNumber]);
 
-  // Create a new function to fetch the patient forename
+  // Ajax query to obtain patient name
   const fetchPatientFullName = (NHSNumber) => {
     $.ajax({
       url: 'http://localhost:8000/PatientName.php',

@@ -5,7 +5,7 @@ import PatientHeader from './PatientHeader';
 import Footer from '../../../Components/Footer';
 import PatientUpdatePatientRecrods from './PatientUpdatePatientRecrods';
 import ViewPatientRecords from './ViewPatientRecords';
-
+//Patient view patient records page
 function PatientViewPatientRecord() {
   return (
     <div>  <PatientHeader/>

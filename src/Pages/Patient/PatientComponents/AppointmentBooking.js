@@ -18,8 +18,8 @@ const AppointmentBooking = () => {
 useEffect(() => {
   checkForExistingAppointments(NHSNumber);
 }, [NHSNumber]);
-// Function to fetch appointments
-// Function to check for existing appointments
+
+// ajax query to check for existing appointments
 const checkForExistingAppointments = (NHSNumber) => {
   $.ajax({
     url: 'http://localhost:8000/get_appointments.php',
@@ -40,7 +40,7 @@ const checkForExistingAppointments = (NHSNumber) => {
     },
   });
 };
-
+// validation and format of date and time
 
   const isValidDate = () => {
     return year && month && day;
@@ -68,10 +68,10 @@ const checkForExistingAppointments = (NHSNumber) => {
     }
     const appointmentDate = formatDate();
     const appointmentTime = formatTime();
-    // const NHSNumber = '92233359811'; // Replace this with the actual patient NHS Number
+    // const NHSNumber = '92233359811'; //  NHS Number for testing
     const DoctorId = parseInt(time.split(':')[0]) < 12 ? (Math.floor(Math.random() * 3) + 1).toString() : (Math.floor(Math.random() * 3) + 4).toString();
 
-    // Send data to the PHP server using AJAX
+    // Ajax query to book appoinment
     $.ajax({
       url: 'http://localhost:8000/book_appointment.php',
       method: 'POST',
@@ -109,7 +109,7 @@ const checkForExistingAppointments = (NHSNumber) => {
     return days;
   };
   
-
+//Format time slots
   const renderTimeSlots = () => {
     const timeSlots = [];
     const startHour = 9;
@@ -220,7 +220,7 @@ const checkForExistingAppointments = (NHSNumber) => {
               <p>Your appointment has been booked successfully.</p>
             </Panel>
             <H1></H1>
-            <Button as={Link} to='/patientdashboard/patient-view-appointment'>View Appointments</Button> {/* Move the button outside the Panel */}
+            <Button as={Link} to='/patientdashboard/patient-view-appointment'>View Appointments</Button> 
         </>
           )}
           <H1></H1>

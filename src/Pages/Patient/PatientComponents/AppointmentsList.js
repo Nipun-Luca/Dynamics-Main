@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Table, ErrorText, H3, H2,H1 } from 'govuk-react';
 import PatientContext from './PatientContext';
-import $ from 'jquery'; // Add this line to import jQuery 
+import $ from 'jquery'; 
 
 const AppointmentList = () => {
   const [appointments, setAppointments] = useState([]);
@@ -11,7 +11,7 @@ const AppointmentList = () => {
   useEffect(() => {
     fetchAppointments(NHSNumber);
   }, [NHSNumber]);
-
+//ajax query to display appointments
   const fetchAppointments = (NHSNumber) => {
     $.ajax({
       url: 'http://localhost:8000/get_appointments.php',
@@ -36,7 +36,7 @@ const AppointmentList = () => {
     });
   };
   
-
+//table of coming appointments
   return (
     <>
       {error ? (

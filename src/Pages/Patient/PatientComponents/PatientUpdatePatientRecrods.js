@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import PatientHeader from './PatientHeader';
 import Footer from '../../../Components/Footer';
 import UpdatePatientRecords from './UpdatePatientRecords';
-
+//patient Update Records page
 function PatientUpdatePatientRecrods() {
   return (
     <div><div>  <PatientHeader/>

@@ -5,6 +5,7 @@ import PatientHeader from './PatientHeader';
 import Footer from '../../../Components/Footer';
 import CancelAppointment from './CancelAppointment';
 
+//Cancell appointment page
 function PatientCancelAppointment() {
   return (
     <div>

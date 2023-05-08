@@ -9,7 +9,7 @@ const UpdatePatientRecords = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
-
+//nhs number from login
   const { NHSNumber } = useContext(PatientContext);
 
   const updatePatientRecords = () => {
@@ -26,7 +26,7 @@ const UpdatePatientRecords = () => {
         return;
       }
     }
-
+//Check for passswrod maching and length
     if (updateField === 'Password') {
       if (updateValue.length < 8) {
         setError('Password must have at least 8 characters');
@@ -37,7 +37,7 @@ const UpdatePatientRecords = () => {
         return;
       }
     }
-
+//Ajax query to update patient records
     $.ajax({
       url: 'http://localhost:8000/update_patient_records.php',
       method: 'POST',
@@ -56,7 +56,7 @@ const UpdatePatientRecords = () => {
       },
     });
   };
-
+//Selection menu
   const renderUpdateField = () => {
     switch (updateField) {
       case 'Postcode':

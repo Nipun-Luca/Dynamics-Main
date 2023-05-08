@@ -6,8 +6,8 @@ const PatientContextProvider = ({ children }) => {
 
   const patientLogout = () => {
     setNHSNumber(null);
-    // Clear any other stored data related to the authenticated Patient
-    // For example, remove items from localStorage or cookies
+    // Clear any stored data 
+   
   };
 
   return (
@@ -16,6 +16,6 @@ const PatientContextProvider = ({ children }) => {
     </PatientContext.Provider>
   );
   
-}; // Add the missing closing brace here
+}; 
 
 export default PatientContextProvider;

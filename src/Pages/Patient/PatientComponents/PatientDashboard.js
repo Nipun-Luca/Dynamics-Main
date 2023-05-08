@@ -8,18 +8,18 @@ import Footer from '../../../Components/Footer';
 import PatientFullName from './PatientFullName'; // Add this import statement
 
 
-
+//Main patient dashboard
 function PatientDashboard() {
 
-  ////Author: w1820984 <
+
   useEffect(() => {
     window.history.pushState(null, "", window.location.href);
     window.onpopstate = function () {
       window.history.pushState(null, "", window.location.href);
     };
   }, []);
-  ////Author: w1820984 >
 
+        //Links to different pages
 
   return (
  
@@ -32,7 +32,7 @@ function PatientDashboard() {
               <H2></H2>
         <div className="govuk-width-container">
           
-        
+
           <div  className="govuk-grid-row">
           <div className="govuk-grid-column-one-third">
               <Button as={Link} to='patient-view-appointment'>View Appointment </Button>
@@ -54,13 +54,6 @@ function PatientDashboard() {
             </div>
           </div>
           
-          {/* <Routes>
-            <Route path='/'  element={<Home/>} />
-            <Route path='/appointments' element={<Appointments/>} />
-            <Route path='/medical-records' element={<MedicalRecords/>} />
-            <Route path='/update-medical-records' element={<UpdateMedicalRecords/>} />
-            <Route path='/logout' element={<Logout/>} />
-          </Routes> */}
         </div>
         </Main>
       <Footer/>
