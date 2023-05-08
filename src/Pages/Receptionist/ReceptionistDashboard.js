@@ -11,12 +11,15 @@ import Footer from "../../Components/Footer";
 
 
 function Dashboard() {
-    useEffect(() => {
-        window.history.pushState(null, "", window.location.href);
-        window.onpopstate = function () {
-          window.history.pushState(null, "", window.location.href);
-        };
-      }, []);
+    
+  ////Author: w1820984 <
+  useEffect(() => {
+    window.history.pushState(null, "", window.location.href);
+    window.onpopstate = function () {
+      window.history.pushState(null, "", window.location.href);
+    };
+  }, []);
+  ////Author: w1820984 >
 
     return (
         <div>

@@ -10,15 +10,15 @@ import PatientFullName from './PatientFullName'; // Add this import statement
 
 
 function PatientDashboard() {
-  //PATIENT NHS NUMBER
-  //pass: hellohello
-  //email: adriaRos@gmail.com
+
+  ////Author: w1820984 <
   useEffect(() => {
     window.history.pushState(null, "", window.location.href);
     window.onpopstate = function () {
       window.history.pushState(null, "", window.location.href);
     };
   }, []);
+  ////Author: w1820984 >
 
 
   return (

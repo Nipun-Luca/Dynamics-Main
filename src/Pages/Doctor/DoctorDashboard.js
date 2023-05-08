@@ -17,12 +17,15 @@ import Footer from '../../Components/Footer';
 // import UpdateMedicalRecords from "./DrComponents/UpdateMedicalRecords";
 
 function DoctorDashboard() {
+
+  ////Author: w1820984 <
   useEffect(() => {
     window.history.pushState(null, "", window.location.href);
     window.onpopstate = function () {
       window.history.pushState(null, "", window.location.href);
     };
   }, []);
+  ////Author: w1820984 >
 
   return (
       <div>

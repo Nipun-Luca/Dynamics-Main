@@ -54,7 +54,6 @@ const StaffLoginPage = ({ userType }) => {
       dataType: "json",
       
       success: function(response) {
-        console.log(response);
         if (response.success) {
           //Set isAuthenticated flag in localStorage
           localStorage.setItem("isAuthenticated", "true");

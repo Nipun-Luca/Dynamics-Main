@@ -37,28 +37,30 @@
     }
 }
 
-
-.footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
-  }
-  
+/* ////Author: w1785478 < */
+.login-heading {
+    text-align: center;
+} 
 
 .footerLinks {
     display: inline;
     justify-content: space-between;
     margin-right: 30px;
 }
+/* ////Author: w1785478 > */
 
-.login-heading {
-    text-align: center;
-}
+
+/* ////Author: w1820984 < */
+.footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+  }
 
 .container {
     display: flex;
     justify-content: space-between;
-  }
+}
   
 .box {
     flex-basis: calc(33.33% - 10px);
@@ -74,3 +76,4 @@
     display: flex;
     flex-direction: column;
   }
+/* ////Author: w1820984 >*/

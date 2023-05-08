@@ -18,6 +18,8 @@ import StartUp from './Pages/StartUp/StartUp';
 import TermsOfUse from './Pages/StartUp/TermsOfUse';
 import ContactUs from './Pages/StartUp/ContactUs';
 
+
+////Author: w1820984 <
 //Homepage
 import Homepage from './Pages/Homepage';
 
@@ -34,6 +36,9 @@ import StaffLogIn from './Pages/Login/StaffLogIn';
 import PatientPassword from './Pages/Login/PatientPassword';
 import StaffPassword from './Pages/Login/StaffPassword';
 import LoginDenied from './Pages/Login/LoginDenied';
+////Author: w1820984 >
+
+
 
 //Patient
 import PatientDashboard from './Pages/Patient/PatientComponents/PatientDashboard';
@@ -72,7 +77,6 @@ function App() {
 <div className='main'>
     <PatientContext.Provider value={{ NHSNumber, setNHSNumber }}>
     <Routes>
-      {/* Your routes */}
       <Route path="/" element={<StartUp />} />
       <Route path="/termsOFUse" element={<TermsOfUse />} />
       <Route path="/contactUs" element={<ContactUs />} />
@@ -87,6 +91,7 @@ function App() {
       </Route>
 
 
+      {/* ////Author: w1820984 < */}
       <Route path="/homepage" element={<Homepage />} />
       <Route path="/registerNHSnumber" element={<RegisterNHSNumber />} />
       <Route path="/registerPersonalDetails" element={<RegisterPersonalDetails />} />
@@ -99,6 +104,8 @@ function App() {
       <Route path="/patientPassword" element={<PatientPassword />} />
       <Route path="/staffPassword" element={<StaffPassword />} />
       <Route path="/loginDenied" element={<LoginDenied />} />
+      {/* ////Author: w1820984 < */}
+
 
 
       <Route path="/patientdashboard" element={<PrivateRoute Component={PatientDashboard} />}>
